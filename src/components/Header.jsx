@@ -27,7 +27,7 @@ function Header() {
   }, []);
   return (
     <div
-      className={` z-10 ${fixed ? "sticky top-0 bg-white" : "relative h-0"}`}
+      className={` z-40 ${fixed ? "sticky top-0 bg-white" : "relative h-0"}`}
     >
       <div className="container mx-auto max-w-[1280px]">
         <div className="flex justify-between items-center py-3">
