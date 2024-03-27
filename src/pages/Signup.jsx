@@ -32,7 +32,7 @@ function Signup() {
           icon: "info",
           title: "Enter the OTP",
         });
-        navigate("/", {
+        navigate("/userotp", {
           state: { userId: userData?._id, otpId: otpId },
         });
       } else {
