@@ -17,7 +17,7 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 
-import { useNavigate,useLocation} from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from "axios";
 
@@ -28,9 +28,9 @@ const FormSchema = z.object({
 });
 
 export default function UserOtp() {
-  const location = useLocation()
-  const navigate = useNavigate()
-  const {userId,otpId} = location.state
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { userId, otpId } = location.state;
 
   const form = useForm({
     resolver: zodResolver(FormSchema),
@@ -39,11 +39,46 @@ export default function UserOtp() {
     },
   });
 
-  const onSubmit = async  (data) =>  {
-    const enteredValues = data.pin
+  const onSubmit = async (data) => {
+    const enteredValues = data.pin;
     try {
-      const response = await axios.post('http://localhost:3000/otpVerify',{enteredValues,userId,otpId})
-      if(response?.data?.status){
+      const response = await axios.post("http://localhost:3000/otpVerify", {
+        enteredValues,
+        userId,
+        otpId,
+      });
+      if (response?.data?.status) {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top",
+          showConfirmButton: false,
+          timer: 5000,
+        });
+        Toast.fire({
+          icon: "info",
+          title: "Login now",
+        });
+        navigate("/login", { state: "Email verified" });
+      } else {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top",
+          showConfirmButton: false,
+          timer: 5000,
+        });
+        Toast.fire({
+          icon: "error",
+          title: "error",
+        });
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  const resendOtp = async ()=>{
+    try {
+      const response = await axios.post('http://localhost:3000/resendOtp',{userId})
+      if(response?.status===200){
         const Toast = Swal.mixin({
           toast:true,
           position:'top',
@@ -51,31 +86,19 @@ export default function UserOtp() {
           timer:5000,
         })
         Toast.fire({
-          icon:'info',
-          title:'Login now'
-        })
-        navigate('/login',{state:'Email verified'})
-      }else{
-        const Toast = Swal.mixin({
-          toast:true,
-          position:'top',
-          showConfirmButton:false,
-          timer:5000
-        })
-        Toast.fire({
-          icon:'error',
-          title:'error',
-        })
+          icon: 'info',
+          title: 'OTP resended',
+        });
       }
     } catch (error) {
       console.log(error.message);
     }
-    
   }
   return (
     <div className="flex justify-center items-center w-screen h-screen bg-slate-200">
       <Form {...form}>
-        <form className="border-none p-11 sm:p-24 bg-transparent shadow-2xl rounded-3xl bg-slate-300"
+        <form
+          className="border-none p-11 sm:p-24 bg-transparent shadow-2xl rounded-3xl bg-slate-300"
           onSubmit={form.handleSubmit(onSubmit)}
         >
           <FormField
@@ -83,18 +106,32 @@ export default function UserOtp() {
             name="pin"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className='text-lg ml-14' >One-Time Password</FormLabel>
+                <FormLabel className="text-lg ml-14">
+                  One-Time Password
+                </FormLabel>
                 <FormControl>
                   <InputOTP maxLength={4} {...field}>
                     <InputOTPGroup className="text-9xl font-semibold mx-auto">
-                      <InputOTPSlot className="w-16 text-2xl h-16 border-gray-400"  index={0} />
-                      <InputOTPSlot className="w-16 text-2xl h-16 border-gray-400" index={1} />
-                      <InputOTPSlot className="w-16 text-2xl h-16 border-gray-400" index={2} />
-                      <InputOTPSlot className="w-16 text-2xl h-16 border-gray-400" index={3} />
+                      <InputOTPSlot
+                        className="w-16 text-2xl h-16 border-gray-400"
+                        index={0}
+                      />
+                      <InputOTPSlot
+                        className="w-16 text-2xl h-16 border-gray-400"
+                        index={1}
+                      />
+                      <InputOTPSlot
+                        className="w-16 text-2xl h-16 border-gray-400"
+                        index={2}
+                      />
+                      <InputOTPSlot
+                        className="w-16 text-2xl h-16 border-gray-400"
+                        index={3}
+                      />
                     </InputOTPGroup>
                   </InputOTP>
                 </FormControl>
-                <FormDescription className='text-md'>
+                <FormDescription className="text-md">
                   Please enter the otp sent to your email.
                 </FormDescription>
                 <FormMessage />
@@ -102,7 +139,15 @@ export default function UserOtp() {
             )}
           />
 
-          <Button className='ml-24 bg-[#458b97]' type="submit">Verify</Button>
+          <Button className="ml-24 bg-[#458b97]" type="submit">
+            Verify
+          </Button>
+          <div className="flex flex-row items-center justify-center text-center  space-x-1 text-gray-500 mt-6">
+            <p>Didn&apos;t receive code?</p>{" "}
+            <a onClick={resendOtp} className="flex flex-row items-center text-blue-600 cursor-pointer">
+              Resend
+            </a>
+          </div>
         </form>
       </Form>
     </div>
