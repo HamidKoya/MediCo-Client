@@ -27,10 +27,19 @@ const FormSchema = z.object({
   }),
 });
 
-export default function UserOtp() {
+export default function Sample() {
   const location = useLocation()
   const navigate = useNavigate()
-  const {userId,otpId} = location.state
+  // Check if location.state exists and has the required properties
+if (location.state && location.state.userId && location.state.otpId) {
+    const { userId, otpId } = location.state;
+    // Now you can safely use userId and otpId
+    console.log(userId, otpId);
+  } else {
+    // Handle the case where location.state is null or does not have the required properties
+    console.error("Location state is null or missing required properties");
+  }
+  
 
   const form = useForm({
     resolver: zodResolver(FormSchema),
