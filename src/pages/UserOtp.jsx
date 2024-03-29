@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState,useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
@@ -94,6 +95,21 @@ export default function UserOtp() {
       console.log(error.message);
     }
   }
+  const [counter, setCounter] = useState(300); // 5 minutes in seconds
+  const [timerCompleted, setTimerCompleted] = useState(false);
+
+  const minutes = Math.floor(counter / 60);
+  const seconds = counter % 60;
+
+  useEffect(() => {
+    const timer =
+      counter > 0 && setInterval(() => setCounter(counter - 1), 1000);
+    if (counter === 0) {
+      clearInterval(timer);
+      setTimerCompleted(true);
+    }
+    return () => clearInterval(timer);
+  }, [counter]);
   return (
     <div className="flex justify-center items-center w-screen h-screen bg-slate-200">
       <Form {...form}>
@@ -142,11 +158,20 @@ export default function UserOtp() {
           <Button className="ml-24 bg-[#458b97]" type="submit">
             Verify
           </Button>
-          <div className="flex flex-row items-center justify-center text-center  space-x-1 text-gray-500 mt-6">
-            <p>Didn&apos;t receive code?</p>{" "}
-            <a onClick={resendOtp} className="flex flex-row items-center text-blue-600 cursor-pointer">
-              Resend
-            </a>
+          <div>
+            {timerCompleted ? (
+              <div className="flex flex-row items-center justify-center text-center  space-x-1 text-gray-500 mt-6">
+                <h1>Didn't receive the OTP? <span onClick={resendOtp} className="text-red-700 cursor-pointer">Resend</span></h1>
+              </div>
+            ) : (
+              <div className="flex justify-center mt-4">
+                <h1>
+                  Timer: {minutes < 10 ? "0" : ""}
+                  {minutes}:{seconds < 10 ? "0" : ""}
+                  {seconds}
+                </h1>
+              </div>
+            )}
           </div>
         </form>
       </Form>
