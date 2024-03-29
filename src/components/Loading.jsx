@@ -1,12 +1,8 @@
-import React from "react";
-
+import { HashLoader } from "react-spinners";
 function Loading() {
   return (
-    <div class="flex items-center justify-center h-screen">
-      <div class="relative">
-        <div class="h-24 w-24 rounded-full border-t-8 border-b-8 border-gray-200"></div>
-        <div class="absolute top-0 left-0 h-24 w-24 rounded-full border-t-8 border-b-8 border-blue-500 animate-spin"></div>
-      </div>
+    <div className="flex justify-center items-center h-screen">
+      <HashLoader color="#36D7B7" size={50} />
     </div>
   );
 }

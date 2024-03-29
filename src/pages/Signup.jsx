@@ -82,7 +82,7 @@ function Signup() {
     <>
       <Header2 />
       {loading ? (
-        <Loading />
+        <Loading/>
       ) : (
         <div className="flex min-h-full h-full flex-col justify-center px-6 py-12 lg:px-8 bg-[url('/user-signup-background.jpg')] bg-cover">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -256,7 +256,7 @@ function Signup() {
             </form>
             <div className="mt-5">
               <span className="text-gray-400">Already have an account?</span>{" "}
-              <Link>
+              <Link to={'/login'}>
                 <span>Login</span>
               </Link>
             </div>
