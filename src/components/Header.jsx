@@ -2,12 +2,15 @@ import { Link } from "react-router-dom";
 import HeaderItem from "./HeaderItem";
 import { useEffect, useState } from "react";
 import { MdMenu } from "react-icons/md";
+import { useSelector } from "react-redux";
+import ProfileIcon from "@/components/ProfileIcon";
 
 const navItems = [
   { to: "/doctors", icon: "Doctors" },
   { to: "/appointments", icon: "Appointments" },
 ];
 function Header() {
+  const {currentUser} = useSelector((state)=>state.user)
   const [isLoggedIn] = useState(true);
   const [openMenu, setOpenMenu] = useState(false);
   const [fixed, setFixed] = useState(false);
@@ -51,11 +54,11 @@ function Header() {
           <div className="parts hidden md:flex gap-5">
             {renderMenuItems(isLoggedIn)}
           </div>
-          <div className="profile">
-            {isLoggedIn ? (
-              <h1>Profile</h1>
+          <div className="mr-24 sm:mr-0">
+            {currentUser ? (
+              <ProfileIcon/>
             ) : (
-              <HeaderItem to={"/"} icon={"login"} />
+              <HeaderItem to={"/login"} icon={"Login"} />
             )}
           </div>
         </div>

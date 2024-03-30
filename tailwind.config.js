@@ -6,6 +6,7 @@ module.exports = {
     './components/**/*.{js,jsx}',
     './app/**/*.{js,jsx}',
     './src/**/*.{js,jsx}',
+    "./node_modules/flowbite/**/*.js"
   ],
   prefix: "",
   theme: {
@@ -78,5 +79,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"),require('tailwind-scrollbar-hide')],
+  plugins: [require("tailwindcss-animate"),require('tailwind-scrollbar-hide'),require('flowbite/plugin')],
 }
