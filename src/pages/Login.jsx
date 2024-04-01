@@ -16,6 +16,7 @@ function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch()
   const onSubmit = async () => {
+    console.log('hello world');
     try {
       setLoading(true);
       const response = await axios.post('http://localhost:3000/userLogin',{...values})
@@ -116,12 +117,15 @@ function Login() {
                   )}
                 </div>
                 <div className="text-sm mt-4">
+                  <Link to={'/forgotpassword'}>
                   <a
-                    href="#"
+                    
                     className="font-semibold text-indigo-600 hover:text-indigo-500"
                   >
                     Forgot password?
                   </a>
+                  </Link>
+                  
                 </div>
               </div>
 

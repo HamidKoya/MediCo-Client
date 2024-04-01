@@ -4,6 +4,7 @@ import Home from './pages/Home'
 import Signup from './pages/Signup'
 import UserOtp from './pages/UserOtp'
 import Login from './pages/Login'
+import ForgotPassword from './pages/ForgotPassword'
 
 function App() {
   return (
@@ -12,6 +13,8 @@ function App() {
       <Route path='/signup' element={<Signup/>}/>
       <Route path='/userotp' element={<UserOtp/>}/>
       <Route path='/login' element={<Login/>}/>
+      <Route path='/forgotpassword' element={<ForgotPassword/>}/>
+
     </Routes>
   )
 }
