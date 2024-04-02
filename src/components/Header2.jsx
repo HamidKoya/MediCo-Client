@@ -18,7 +18,7 @@ function Header2() {
     <div className="sticky top-0">
       <div className="bg-white">
         <div className="container mx-auto max-w-[1280px]">
-          <div className="flex justify-between items-center py-3">
+          <div className="flex justify-between items-center py-1">
             <div className="md:hidden relative ml-3">
               <button onClick={() => setOpenMenu((prev) => !prev)} className="">
                 <MdMenu className="size-7" />

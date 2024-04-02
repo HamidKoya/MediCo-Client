@@ -33,7 +33,7 @@ function Header() {
       className={` z-40 ${fixed ? "sticky top-0 bg-white" : "relative h-0"}`}
     >
       <div className="container mx-auto max-w-[1280px]">
-        <div className="flex justify-between items-center py-3">
+        <div className="flex justify-between items-center py-1">
           <div className="md:hidden relative ml-3">
             <button onClick={() => setOpenMenu((prev) => !prev)} className="">
               <MdMenu className="size-7"/>

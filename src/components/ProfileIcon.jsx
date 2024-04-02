@@ -5,8 +5,9 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger,
+  DropdownMenuSeparator
 } from "@/components/ui/dropdown-menu"
-
+import {LogOut,User} from 'lucide-react'
 
 function ProfileIcon() {
   const { currentUser } = useSelector((state) => state.user);
@@ -22,14 +23,18 @@ function ProfileIcon() {
       />
         </DropdownMenuTrigger>
         < DropdownMenuContent>
+        <p>{currentUser.userData.name}</p>
+              <DropdownMenuSeparator/>
           <DropdownMenuItem>
             <DropdownMenuLabel>
-                Dashboardghvdfuvgbyusdehgiuyhsr iguhhuis
+              
+              <p className='flex'><User className="mr-2 h-4 w-4"/>Profile</p>
+                
             </DropdownMenuLabel>
           </DropdownMenuItem>
           <DropdownMenuItem>
             <DropdownMenuLabel>
-                Dashboard
+            <p className='flex'><LogOut className="mr-2 h-4 w-4"/>Log out</p>
             </DropdownMenuLabel>
           </DropdownMenuItem>
         </DropdownMenuContent>
