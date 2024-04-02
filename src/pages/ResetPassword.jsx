@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate,useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import Swal from "sweetalert2";
 import Loading from "../components/Loading";
@@ -8,6 +8,7 @@ import "animate.css";
 import * as yup from "yup";
 
 function ResetPassword() {
+    const {id,token} = useParams()
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const formSchema = yup.object().shape({
@@ -15,10 +16,10 @@ function ResetPassword() {
     cpassword: yup.string().oneOf([yup.ref("password"),null],"password must match").required("Required")
   });
   const onSubmit = async () => {
-
+    console.log('hello world');
     try {
       setLoading(true);
-      const res = await axios.get(`http://localhost:3000/forgotPassword?email=${values.email}`);
+      const res = await axios.patch(`http://localhost:3000/resetPassword?id=${id}&token=${token}&password=${values.password}`);
       setLoading(false);
       if (res.status === 200) {
         console.log('test 3');
@@ -40,6 +41,24 @@ function ResetPassword() {
           },
         });
         navigate("/login")
+      }else{
+        Swal.fire({
+            title: res?.data?.message,
+            showClass: {
+              popup: `
+                      animate__animated
+                      animate__fadeInUp
+                      animate__faster
+                    `,
+            },
+            hideClass: {
+              popup: `
+                animate__animated
+                animate__fadeOutDown
+                animate__faster
+              `,
+            },
+          });
       }
     } catch (error) {
       console.log(error.message);
