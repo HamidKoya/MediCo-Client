@@ -17,13 +17,15 @@ function ForgotPassword() {
       .required("Required"),
   });
   const onSubmit = async () => {
+
     try {
-        
-      const res = await axios.get(
-        `http://localhost:3000/forgotPassword?email=${values?.email}`
-      );
-      
+
+     console.log('test 1');
+      const res = await axios.get(`http://localhost:3000/forgotPassword?email=${values.email}`);
+
+      console.log('test 2');
       if (res.status === 200) {
+        console.log('test 3');
         Swal.fire({
           title: res?.data?.message,
           showClass: {

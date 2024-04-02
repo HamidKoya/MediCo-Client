@@ -39,7 +39,7 @@ function Header2() {
             <div className="parts hidden md:flex gap-5">
               {renderMenuItems(isLoggedIn)}
             </div>
-            <div className="mr-24 sm:mr-0">
+            <div>
               {currentUser ? (
                 <ProfileIcon/>
               ) : (
