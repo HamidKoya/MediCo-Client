@@ -16,13 +16,11 @@ function ResetPassword() {
     cpassword: yup.string().oneOf([yup.ref("password"),null],"password must match").required("Required")
   });
   const onSubmit = async () => {
-    console.log('hello world');
     try {
       setLoading(true);
       const res = await axios.patch(`http://localhost:3000/resetPassword?id=${id}&token=${token}&password=${values.password}`);
       setLoading(false);
       if (res.status === 200) {
-        console.log('test 3');
         Swal.fire({
           title: res?.data?.message,
           showClass: {

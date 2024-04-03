@@ -23,7 +23,6 @@ function ForgotPassword() {
       const res = await axios.get(`http://localhost:3000/forgotPassword?email=${values.email}`);
       setLoading(false);
       if (res.status === 200) {
-        console.log('test 3');
         Swal.fire({
           title: res?.data?.message,
           showClass: {

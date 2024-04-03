@@ -8,10 +8,38 @@ import {
   DropdownMenuSeparator
 } from "@/components/ui/dropdown-menu"
 import {LogOut,User} from 'lucide-react'
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { signOut } from '@/redux/user/userSlice';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 function ProfileIcon() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate()
   const { currentUser } = useSelector((state) => state.user);
+  const handleLogout = async () =>{
+    try {
+      const res = await axios.get('http://localhost:3000/logout');
+      if(res.status===200){
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top',
+          showConfirmButton: false,
+          timer: 3000,
+        });
+        Toast.fire({
+          icon: 'info',
+          title: 'Logged out successfully'
+        });
+        dispatch(signOut())
+        navigate("/")
+      }
 
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
   return (
     <div className="relative">
       <DropdownMenu>
@@ -34,7 +62,7 @@ function ProfileIcon() {
           </DropdownMenuItem>
           <DropdownMenuItem>
             <DropdownMenuLabel>
-            <p className='flex'><LogOut className="mr-2 h-4 w-4"/>Log out</p>
+            <p onClick={handleLogout} className='flex'><LogOut className="mr-2 h-4 w-4"/>Log out</p>
             </DropdownMenuLabel>
           </DropdownMenuItem>
         </DropdownMenuContent>

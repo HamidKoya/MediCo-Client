@@ -16,7 +16,6 @@ function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch()
   const onSubmit = async () => {
-    console.log('hello world');
     try {
       setLoading(true);
       const response = await axios.post('http://localhost:3000/userLogin',{...values})
