@@ -15,7 +15,7 @@ function Header2() {
   const [openMenu, setOpenMenu] = useState(false);
 
   return (
-    <div className="sticky top-0">
+    <div className="sticky top-0 z-50">
       <div className="bg-white">
         <div className="container mx-auto max-w-[1280px]">
           <div className="flex justify-between items-center py-1">

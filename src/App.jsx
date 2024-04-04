@@ -6,6 +6,7 @@ import UserOtp from './pages/UserOtp'
 import Login from './pages/Login'
 import ForgotPassword from './pages/ForgotPassword'
 import ResetPassword from './pages/ResetPassword'
+import Profile from './pages/Profile'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Route path='/login' element={<Login/>}/>
       <Route path='/forgotpassword' element={<ForgotPassword/>}/>
       <Route path='/resetpassword/:id/:token' element={<ResetPassword/>}/>
+      <Route path='/profile' element={<Profile/>}/>
 
     </Routes>
   )

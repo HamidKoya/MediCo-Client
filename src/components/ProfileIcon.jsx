@@ -13,6 +13,7 @@ import { useDispatch } from 'react-redux';
 import { signOut } from '@/redux/user/userSlice';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
 
 function ProfileIcon() {
   const dispatch = useDispatch();
@@ -56,7 +57,8 @@ function ProfileIcon() {
           <DropdownMenuItem>
             <DropdownMenuLabel>
               
-              <p className='flex'><User className="mr-2 h-4 w-4"/>Profile</p>
+             <Link to={"/profile"}><p className='flex'><User className="mr-2 h-4 w-4"/>Profile</p></Link>
+              
                 
             </DropdownMenuLabel>
           </DropdownMenuItem>
