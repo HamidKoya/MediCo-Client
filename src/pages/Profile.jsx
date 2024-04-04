@@ -1,16 +1,59 @@
 import EditProfile from "@/components/EditProfile";
 import Header2 from "@/components/Header2";
 import Footer from "@/components/Footer";
+import { useRef } from "react";
+import axios from "axios";
 import { useSelector } from "react-redux";
+import { Toaster,toast } from "sonner";
+import { signInSuccess } from "@/redux/user/userSlice";
+import { useDispatch } from "react-redux";
+
 function Profile() {
-const {currentUser} = useSelector((state)=>state.user)
+  const dispatch = useDispatch()
+  const {currentUser} = useSelector((state)=>state.user)
+  const userId = currentUser.userData._id
+  const fileRef = useRef(null)
+
+const handlePhotoChange = (e) => {
+  const selectedPhoto = e.target.files[0];
+  setPhotoToBase(selectedPhoto);
+};
+
+const setPhotoToBase = (file) => {
+  const reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onloadend = () => {
+    const imageData = reader.result;
+    sendImageToServer(imageData);
+  };
+};
+
+
+
+const sendImageToServer = async (imageData) => {
+  try {
+    const response = await axios.post('http://localhost:3000/changePhoto', { imageData,userId });
+    if(response.status===200){
+      toast.success('Successfully profile photo changed');
+      console.log(response.data);
+      dispatch(signInSuccess(response.data))
+    }
+  } catch (error) {
+    // Handle error
+    console.error('Error uploading image:', error);
+  }
+};
+
+
+  
   return (
     <div>
       <Header2 />
       <div className="flex justify-center bg-[#EBF5FF]">
         <div className="w-[350px] sm:w-[600px] h-96 sm:h-[400px] bg-slate-300 my-32 rounded-lg shadow-2xl relative">
           <div class="flex justify-center items-center flex-col mt-10">
-            <img src={currentUser.userData.photo} alt="image" class="w-20 h-20 rounded-full" />
+            <img onClick={() => fileRef.current.click()} src={currentUser.userData.photo} alt="image" class="w-20 h-20 rounded-full cursor-pointer ring" />
+            <input onChange={handlePhotoChange} accept="image/*" hidden type="file" ref={fileRef} />
             <h1 className="text-xl font-semibold mt-3">{currentUser.userData.name}</h1>
           </div>
           <div className="flex flex-col gap-3 mt-6 items-center justify-center">
