@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import Header2 from "../components/Header2";
-import Footer from "../components/Footer";
+import Header2 from "../../components/Header2";
+import Footer from "../../components/Footer";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { loginSchema } from "@/validations/user/loginValidation";
 import Swal from "sweetalert2";
-import Loading from "../components/Loading";
+import Loading from "../../components/Loading";
 import { useSelector,useDispatch } from "react-redux";
 import { signInSuccess } from "@/redux/user/userSlice";
 

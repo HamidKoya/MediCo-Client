@@ -1,6 +1,6 @@
-import Footer from "../components/Footer";
-import Header from "../components/Header";
-import Specialties from "../components/Specialties";
+import Footer from "../../components/Footer";
+import Header from "../../components/Header";
+import Specialties from "../../components/Specialties";
 
 function Home() {
   return (

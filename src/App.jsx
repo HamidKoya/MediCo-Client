@@ -1,12 +1,12 @@
 import {Routes,Route} from 'react-router-dom'
 
-import Home from './pages/Home'
-import Signup from './pages/Signup'
-import UserOtp from './pages/UserOtp'
-import Login from './pages/Login'
-import ForgotPassword from './pages/ForgotPassword'
-import ResetPassword from './pages/ResetPassword'
-import Profile from './pages/Profile'
+import Home from './pages/user/Home'
+import Signup from './pages/user/Signup'
+import UserOtp from './pages/user/UserOtp'
+import Login from './pages/user/Login'
+import ForgotPassword from './pages/user/ForgotPassword'
+import ResetPassword from './pages/user/ResetPassword'
+import Profile from './pages/user/Profile'
 
 function App() {
   return (

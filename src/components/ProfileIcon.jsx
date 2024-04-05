@@ -46,7 +46,7 @@ function ProfileIcon() {
       <DropdownMenu>
         <DropdownMenuTrigger>
         <img
-        className="w-12 h-12 rounded-full cursor-pointer border-2"
+        className="w-12 h-12 rounded-full cursor-pointer border-2 ring-2 ring-black"
         src={currentUser.userData.photo}
         alt="User dropdown"
       />
