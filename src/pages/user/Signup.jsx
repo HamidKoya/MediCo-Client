@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import Header2 from "../../components/Header2";
-import Footer from "../../components/Footer";
+import Header2 from "../../components/user/Header2";
+import Footer from "../../components/user/Footer";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { userSchema } from "../../validations/user/signupValidation";
 import Swal from "sweetalert2";
-import Loading from "../../components/Loading";
+import Loading from "../../components/user/Loading";
 
 function Signup() {
   const [loading, setLoading] = useState(false);

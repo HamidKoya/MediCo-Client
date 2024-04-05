@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link, useNavigate,useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import Swal from "sweetalert2";
-import Loading from "../../components/Loading";
+import Loading from "../../components/user/Loading";
 import "animate.css";
 import * as yup from "yup";
 

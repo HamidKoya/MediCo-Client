@@ -3,7 +3,7 @@ import HeaderItem from "./HeaderItem";
 import {useState } from "react";
 import { MdMenu } from "react-icons/md";
 import { useSelector } from "react-redux";
-import ProfileIcon from "@/components/ProfileIcon";
+import ProfileIcon from "@/components/user/ProfileIcon";
 
 const navItems = [
   { to: "/doctors", icon: "Doctors" },

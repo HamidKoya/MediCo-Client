@@ -4,7 +4,7 @@ function Specialties() {
     <div className="bg-[#EBF5FF] p-8 sm:p-20">
       <div className="flex justify-center">
         <h1 className="text-xl sm:text-3xl font-bold underline mb-5">
-          Specialties
+          Specialists
         </h1>
       </div>
       <div className="flex justify-center">

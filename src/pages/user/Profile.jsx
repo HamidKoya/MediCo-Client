@@ -1,6 +1,6 @@
-import EditProfile from "@/components/EditProfile";
-import Header2 from "@/components/Header2";
-import Footer from "@/components/Footer";
+import EditProfile from "@/components/user/EditProfile";
+import Header2 from "@/components/user/Header2";
+import Footer from "@/components/user/Footer";
 import { useRef,useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";

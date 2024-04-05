@@ -8,6 +8,8 @@ import ForgotPassword from './pages/user/ForgotPassword'
 import ResetPassword from './pages/user/ResetPassword'
 import Profile from './pages/user/Profile'
 
+import UsersList from './pages/admin/UsersList'
+
 function App() {
   return (
     <Routes>
@@ -18,6 +20,7 @@ function App() {
       <Route path='/forgotpassword' element={<ForgotPassword/>}/>
       <Route path='/resetpassword/:id/:token' element={<ResetPassword/>}/>
       <Route path='/profile' element={<Profile/>}/>
+      <Route path='/admin' element={<UsersList/>}/>
 
     </Routes>
   )
