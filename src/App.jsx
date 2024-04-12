@@ -20,7 +20,14 @@ function App() {
       <Route path='/forgotpassword' element={<ForgotPassword/>}/>
       <Route path='/resetpassword/:id/:token' element={<ResetPassword/>}/>
       <Route path='/profile' element={<Profile/>}/>
-      <Route path='/admin' element={<UsersList/>}/>
+
+
+      <Route path='/admin/dashboard' />
+      <Route path='/admin/appointments'/>
+      <Route path='/admin/users' element={<UsersList/>}/>
+      <Route path='/admin/doctors'/>
+      <Route path='/admin/verifydoctors'/>
+      <Route path='/admin/specialties' />
 
     </Routes>
   )
