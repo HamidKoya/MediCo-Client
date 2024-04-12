@@ -9,6 +9,11 @@ import ResetPassword from './pages/user/ResetPassword'
 import Profile from './pages/user/Profile'
 
 import UsersList from './pages/admin/UsersList'
+import Dashboard from './pages/admin/Dashboard'
+import Appointments from './pages/admin/Appointments'
+import Doctors from './pages/admin/Doctors'
+import Specialties from './pages/admin/Specialties'
+import VerifyDoctors from './pages/admin/VerifyDoctors'
 
 function App() {
   return (
@@ -22,12 +27,12 @@ function App() {
       <Route path='/profile' element={<Profile/>}/>
 
 
-      <Route path='/admin/dashboard' />
-      <Route path='/admin/appointments'/>
+      <Route path='/admin/dashboard' element={<Dashboard/>}/>
+      <Route path='/admin/appointments' element={<Appointments/>}/>
       <Route path='/admin/users' element={<UsersList/>}/>
-      <Route path='/admin/doctors'/>
-      <Route path='/admin/verifydoctors'/>
-      <Route path='/admin/specialties' />
+      <Route path='/admin/doctors' element={<Doctors/>}/>
+      <Route path='/admin/verifydoctors' element={<VerifyDoctors/>}/>
+      <Route path='/admin/specialties' element={<Specialties/>}/>
 
     </Routes>
   )
