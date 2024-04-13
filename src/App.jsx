@@ -14,6 +14,7 @@ import Appointments from './pages/admin/Appointments'
 import Doctors from './pages/admin/Doctors'
 import Specialties from './pages/admin/Specialties'
 import VerifyDoctors from './pages/admin/VerifyDoctors'
+import AdminLogin from './pages/admin/AdminLogin'
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
       <Route path='/profile' element={<Profile/>}/>
 
 
+      <Route path='/admin/login' element={<AdminLogin/>}/>
       <Route path='/admin/dashboard' element={<Dashboard/>}/>
       <Route path='/admin/appointments' element={<Appointments/>}/>
       <Route path='/admin/users' element={<UsersList/>}/>
