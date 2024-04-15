@@ -4,25 +4,38 @@ import { adminSchema } from "@/validations/admin/adminValidation";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { signInSuccess } from "@/redux/slices/adminSlice";
 
 function AdminLogin() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const onSubmit = async () => {
+  const onSubmit = async (e) => {
+    e.preventDefault()
     try {
-        const response = await axios.post("http://localhost:3000/admin/login",values)
-      const Toast = Swal.mixin({
-        toast: true,
-        position: "top",
-        showConfirmButton: false,
-        timer: 3000,
-      });
+      const response = await axios.post(
+        "http://localhost:3000/admin/login",
+        values
+      );
+      
+      if (response?.status === 200) {
+        
+        dispatch(signInSuccess(response.data));
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top",
+          showConfirmButton: false,
+          timer: 3000,
+        });
 
-      Toast.fire({
-        icon: "success",
-        title: "Logged in successfully",
-      });
+        Toast.fire({
+          icon: "success",
+          title: "Logged in successfully",
+        });
 
-      navigate("/admin/dashboard");
+        navigate("/admin/dashboard");
+        
+      }
     } catch (error) {
       const Toast = Swal.mixin({
         toast: true,
@@ -68,7 +81,9 @@ function AdminLogin() {
                 onBlur={handleBlur}
                 className="bg-transparent border-purple-400 border-2 focus:border-purple-800  focus:shadow-none focus:outline-none focus:ring-0 rounded-sm text-white w-72"
               />
-              {errors.username && touched.username && <p className='text-red-600'>{errors.username}</p>}
+              {errors.username && touched.username && (
+                <p className="text-red-600">{errors.username}</p>
+              )}
             </div>
           </div>
           <div className="flex justify-center mt-5">
@@ -85,7 +100,9 @@ function AdminLogin() {
                 onBlur={handleBlur}
                 className="bg-transparent border-purple-400 border-2 focus:border-purple-800  focus:shadow-none focus:outline-none focus:ring-0 rounded-sm text-white w-72"
               />
-              {errors.password && touched.password && <p className='text-red-600'>{errors.password}</p>}
+              {errors.password && touched.password && (
+                <p className="text-red-600">{errors.password}</p>
+              )}
             </div>
           </div>
           <div className="flex justify-center mt-5">

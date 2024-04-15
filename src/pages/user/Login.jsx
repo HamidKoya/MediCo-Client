@@ -8,7 +8,7 @@ import { loginSchema } from "@/validations/user/loginValidation";
 import Swal from "sweetalert2";
 import Loading from "../../components/user/Loading";
 import { useSelector,useDispatch } from "react-redux";
-import { signInSuccess } from "@/redux/user/userSlice";
+import { signInSuccess } from "@/redux/slices/userSlice";
 
 function Login() {
   const {error} = useSelector((state)=>state.user)

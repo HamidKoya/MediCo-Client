@@ -5,7 +5,7 @@ import { useRef,useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { Toaster,toast } from "sonner";
-import { signInSuccess } from "@/redux/user/userSlice";
+import { signInSuccess } from "@/redux/slices/userSlice";
 import { useDispatch } from "react-redux";
 import { ScaleLoader } from "react-spinners";
 

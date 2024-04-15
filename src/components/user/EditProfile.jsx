@@ -16,7 +16,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { signInSuccess } from "@/redux/user/userSlice";
+import { signInSuccess } from "@/redux/slices/userSlice";
 
 function EditProfile() {
 
