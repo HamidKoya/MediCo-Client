@@ -16,6 +16,8 @@ import Specialties from './pages/admin/Specialties'
 import VerifyDoctors from './pages/admin/VerifyDoctors'
 import AdminLogin from './pages/admin/AdminLogin'
 
+import Doctor from './pages/doctor/Doctor'
+
 function App() {
   return (
     <Routes>
@@ -35,6 +37,11 @@ function App() {
       <Route path='/admin/doctors' element={<Doctors/>}/>
       <Route path='/admin/verifydoctors' element={<VerifyDoctors/>}/>
       <Route path='/admin/specialties' element={<Specialties/>}/>
+
+
+      <Route path='/doctor' element={<Doctor/>}/>
+
+      
 
     </Routes>
   )

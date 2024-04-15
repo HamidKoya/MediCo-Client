@@ -1,6 +1,7 @@
 import Footer from "../../components/user/Footer";
 import Header from "../../components/user/Header";
 import Specialties from "../../components/user/Specialties";
+import { Link } from "react-router-dom";
 
 function Home() {
   return (
@@ -118,9 +119,11 @@ function Home() {
               anywhere.
             </p>
           </div>
+          <Link to={"/doctor"}>
           <div className="flex justify-center mb-2">
-            <button className="bg-slate-200 w-32 p-1 rounded">JOIN</button>
+            <button className="bg-slate-200 w-32 p-1 rounded  hover:translate-x-px hover:bg-green-100">JOIN</button>
           </div>
+          </Link>
         </div>
       </div>
       <Footer/>
