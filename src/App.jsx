@@ -20,6 +20,7 @@ import Doctor from './pages/doctor/Doctor'
 import LoginDoctor from './pages/doctor/LoginDoctor'
 import SignupDoctor from './pages/doctor/SignupDoctor'
 import OtpDoctor from './pages/doctor/OtpDoctor'
+import DashboardDoctor from './pages/doctor/DashboardDoctor'
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
       <Route path='/doctor/login' element={<LoginDoctor/>}/>
       <Route path='/doctor/signup' element={<SignupDoctor/>}/>
       <Route path='/doctor/otp' element={<OtpDoctor/>}/>
+      <Route path='/doctor/dashboard' element={<DashboardDoctor/>}/>
 
       
 

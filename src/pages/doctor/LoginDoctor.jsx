@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
-import { loginSchema } from "@/validations/user/loginValidation";
+import { loginSchema } from "@/validations/doctor/loginValidation";
 import Swal from "sweetalert2";
 import Loading from "../../components/user/Loading";
 import { useSelector,useDispatch } from "react-redux";
@@ -30,7 +30,7 @@ function LoginDoctor() {
           icon:'success',
           title:'logged in successfully'
         })
-        navigate('/doctor/home')
+        navigate('/doctor/dashboard')
       }
     } catch (error) {
       console.log(error.message);
