@@ -101,7 +101,7 @@ function SignupDoctor() {
             </h2>
           </div>
 
-          <div className="mt-4 sm:mx-auto sm:w-full sm:max-w-sm shadow-2xl backdrop-blur-md rounded-2xl px-8 py-4 h-auto">
+          <div className="mt-4 sm:mx-auto sm:w-full sm:max-w-sm shadow-2xl backdrop-blur-lg rounded-2xl px-8 py-4 h-auto">
             <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
                 <label
@@ -316,7 +316,7 @@ function SignupDoctor() {
             </form>
             <div className="mt-5">
               <span className="text-white">Already have an account?</span>{" "}
-              <Link to={"/login"}>
+              <Link to={"/doctor/login"}>
                 <span className="text-blue-700">Login</span>
               </Link>
             </div>
