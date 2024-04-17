@@ -5,46 +5,47 @@ import { useFormik } from "formik";
 import { loginSchema } from "@/validations/doctor/loginValidation";
 import Swal from "sweetalert2";
 import Loading from "../../components/user/Loading";
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { signInSuccess } from "@/redux/slices/userSlice";
 
 function LoginDoctor() {
-  const {error} = useSelector((state)=>state.user)
+  const { error } = useSelector((state) => state.user);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const onSubmit = async (values) => {
     try {
       setLoading(true);
-      const response = await axios.post('http://localhost:3000/doctor/login',{...values})
-      console.log(response);
+      const response = await axios.post("http://localhost:3000/doctor/login", {
+        ...values,
+      });
 
       setLoading(false);
-      if(response?.status===200){
-        dispatch(signInSuccess(response.data))
+      if (response?.status === 200) {
+        dispatch(signInSuccess(response.data));
         const Toast = Swal.mixin({
-          toast:true,
-          position:'top',
-          showConfirmButton:false,
-          timer:3000
-        })
+          toast: true,
+          position: "top",
+          showConfirmButton: false,
+          timer: 3000,
+        });
         Toast.fire({
-          icon:'success',
-          title:'logged in successfully'
-        })
-        navigate('/doctor/dashboard')
+          icon: "success",
+          title: "logged in successfully",
+        });
+        navigate("/doctor/dashboard");
       }
     } catch (error) {
       const Toast = Swal.mixin({
-        toast:true,
-        position:'top',
-        showConfirmButton:false,
-        timer:3000
-      })
+        toast: true,
+        position: "top",
+        showConfirmButton: false,
+        timer: 3000,
+      });
       Toast.fire({
-        icon:'error',
-        title:error.response.data.message
-      })
+        icon: "error",
+        title: error.response.data.message,
+      });
       setLoading(false);
       console.log(error.message);
     }
@@ -64,7 +65,7 @@ function LoginDoctor() {
       {loading ? (
         <Loading />
       ) : (
-        <div className="flex min-h-full h-screen flex-col justify-center px-6 py-12 lg:px-8 bg-[url('/doctor.jpg')] bg-cover">
+        <div className="flex min-h-screen h-full flex-col justify-center px-6 py-12 lg:px-8 bg-[url('/doctor.jpg')] bg-cover">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             <h2 className="mt-1 text-center text-2xl font-bold leading-9 tracking-tight text-white">
               Login Now
@@ -126,15 +127,11 @@ function LoginDoctor() {
                   )}
                 </div>
                 <div className="text-sm mt-4">
-                  <Link to={'/forgotpassword'}>
-                  <a
-                    
-                    className="font-semibold text-indigo-600 hover:text-indigo-500"
-                  >
-                    Forgot password?
-                  </a>
+                  <Link to={"/doctor/forgotpassword"}>
+                    <a className="font-semibold text-indigo-600 hover:text-indigo-500">
+                      Forgot password?
+                    </a>
                   </Link>
-                  
                 </div>
               </div>
 
