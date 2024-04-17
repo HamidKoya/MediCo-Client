@@ -70,7 +70,7 @@ function DoctorForgotPassword() {
       {loading ? (
         <Loading />
       ) : (
-        <div className="flex min-h-full h-screen flex-col justify-center px-6 py-12 lg:px-8 bg-[url('/doctor.jpg')] bg-cover">
+        <div className="flex min-h-full h-screen flex-col justify-center px-6 py-12 lg:px-8 bg-[url('/doctor.jpg')] bg-cover bg-center">
           <div className="mt-10 mb-10 sm:mx-auto sm:w-[450px] shadow-2xl rounded-2xl px-8 py-10 h-auto backdrop-blur-lg">
             <h1 className="flex justify-center mb-3 text-xl font-semibold text-white">
               Forgot Password ?

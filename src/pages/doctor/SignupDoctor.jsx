@@ -94,7 +94,7 @@ function SignupDoctor() {
       {loading ? (
         <Loading />
       ) : (
-        <div className="flex min-h-screen h-full flex-col justify-center px-6 py-12 lg:px-8 bg-[url('/doctor.jpg')] bg-cover">
+        <div className="flex min-h-screen h-full flex-col justify-center px-6 py-12 lg:px-8 bg-[url('/doctor.jpg')] bg-cover bg-center">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             <h2 className="text-center text-2xl font-bold leading-9 tracking-tight text-white">
               Signup Now
