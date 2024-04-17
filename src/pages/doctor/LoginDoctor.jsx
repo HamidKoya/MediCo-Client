@@ -17,6 +17,8 @@ function LoginDoctor() {
     try {
       setLoading(true);
       const response = await axios.post('http://localhost:3000/doctor/login',{...values})
+      console.log(response);
+
       setLoading(false);
       if(response?.status===200){
         dispatch(signInSuccess(response.data))
@@ -33,6 +35,17 @@ function LoginDoctor() {
         navigate('/doctor/dashboard')
       }
     } catch (error) {
+      const Toast = Swal.mixin({
+        toast:true,
+        position:'top',
+        showConfirmButton:false,
+        timer:3000
+      })
+      Toast.fire({
+        icon:'error',
+        title:error.response.data.message
+      })
+      setLoading(false);
       console.log(error.message);
     }
   };
