@@ -35,7 +35,7 @@ function SignupDoctor() {
           icon: "info",
           title: "Enter the OTP",
         });
-        navigate("/doctor/doctorotp", {
+        navigate("/doctor/otp", {
           state: { doctorId: doctorData._id, otpId: otpId },
         });
       }
