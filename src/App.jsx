@@ -22,6 +22,7 @@ import SignupDoctor from './pages/doctor/SignupDoctor'
 import OtpDoctor from './pages/doctor/OtpDoctor'
 import DashboardDoctor from './pages/doctor/DashboardDoctor'
 import DoctorForgotPassword from './pages/doctor/DoctorForgotPassword'
+import ResetPasswordDoctor from './pages/doctor/ResetPasswordDoctor'
 
 function App() {
   return (
@@ -50,7 +51,7 @@ function App() {
       <Route path='/doctor/otp' element={<OtpDoctor/>}/>
       <Route path='/doctor/dashboard' element={<DashboardDoctor/>}/>
       <Route path='/doctor/forgotpassword' element={<DoctorForgotPassword/>}/>
-
+      <Route path='/doctor/resetpassword/:id/:token' element={<ResetPasswordDoctor/>}/>
       
 
     </Routes>
