@@ -60,7 +60,7 @@ function UsersList() {
       <Header />
       <div className="flex">
         <Sidebar />
-        <div className="w-full bg-slate-900 text-white p-6">
+        <div className="w-[84vw] sm:w-full  bg-slate-900 text-white p-6">
           {loading ? (
             <Loading />
           ) : (
