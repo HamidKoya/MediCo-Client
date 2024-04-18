@@ -6,7 +6,7 @@ import { loginSchema } from "@/validations/doctor/loginValidation";
 import Swal from "sweetalert2";
 import Loading from "../../components/user/Loading";
 import { useSelector, useDispatch } from "react-redux";
-import { signInSuccess } from "@/redux/slices/userSlice";
+import { signInSuccess } from "@/redux/slices/doctorSlice";
 
 function LoginDoctor() {
   const { error } = useSelector((state) => state.user);

@@ -83,40 +83,58 @@ function UsersList() {
                 ) : (
                   <div className="overflow-x-auto mt-4">
                     <table className="w-full table-auto border-collapse border border-gray-300">
-  <thead>
-    <tr>
-      <th className="w-1/12 px-4 py-2 border border-gray-300 text-left">Index</th>
-      <th className="w-3/12 px-4 py-2 border border-gray-300">Name</th>
-      <th className="w-3/12 px-4 py-2 border border-gray-300">Email</th>
-      <th className="w-2/12 px-4 py-2 border border-gray-300">Mobile</th>
-      <th className="w-3/12 px-4 py-2 border border-gray-300">Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    {users.map((user, index) => (
-      <tr key={index} className="hover">
-        <td className="px-4 py-2 border border-gray-300 text-center">{index + 1}</td>
-        <td className="px-4 py-2 border border-gray-300">{user.name}</td>
-        <td className="px-4 py-2 border border-gray-300">{user.email}</td>
-        <td className="px-4 py-2 border border-gray-300">{user.mobile}</td>
-        <td className="px-4 py-2 border border-gray-300">
-          <button
-            type="button"
-            onClick={() => {
-              document.getElementById("my_modal_3").showModal();
-              handleClick(user._id);
-            }}
-            className="text-white px-2 py-1 rounded bg-blue-500 hover:bg-blue-600"
-          >
-            More Info
-          </button>
-        </td>
-      </tr>
-    ))}
-  </tbody>
-</table>
-
-
+                      <thead>
+                        <tr>
+                          <th className="w-1/12 px-4 py-2 border border-gray-300 text-left">
+                            Index
+                          </th>
+                          <th className="w-3/12 px-4 py-2 border border-gray-300">
+                            Name
+                          </th>
+                          <th className="w-3/12 px-4 py-2 border border-gray-300">
+                            Email
+                          </th>
+                          <th className="w-2/12 px-4 py-2 border border-gray-300">
+                            Mobile
+                          </th>
+                          <th className="w-3/12 px-4 py-2 border border-gray-300">
+                            Actions
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {users.map((user, index) => (
+                          <tr key={index} className="hover">
+                            <td className="px-4 py-2 border border-gray-300 text-center">
+                              {index + 1}
+                            </td>
+                            <td className="px-4 py-2 border border-gray-300">
+                              {user.name}
+                            </td>
+                            <td className="px-4 py-2 border border-gray-300">
+                              {user.email}
+                            </td>
+                            <td className="px-4 py-2 border border-gray-300">
+                              {user.mobile}
+                            </td>
+                            <td className="px-4 py-2 border border-gray-300">
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  document
+                                    .getElementById("my_modal_3")
+                                    .showModal();
+                                  handleClick(user._id);
+                                }}
+                                className="text-white px-2 py-1 rounded bg-blue-500 hover:bg-blue-600"
+                              >
+                                More Info
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
                   </div>
                 )}
               </div>
