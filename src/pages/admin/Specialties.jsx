@@ -22,8 +22,11 @@ function Specialties() {
   const limit = 5;
 
   const handleClick = async () => {
-    setLoading(true);
+    try {
+      console.log('hello world');
+      setLoading(true);
     const response = await axios.post("http://localhost:3000/admin/addSpeciality",{speciality,photo})
+    console.log(response)
     setLoading(false);
 
     if (response) {
@@ -44,6 +47,22 @@ function Specialties() {
         title: response.data.message,
       });
     }
+    } catch (error) {
+      console.log(error.response.data.message);
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top",
+        showConfirmButton: false,
+        timer: 3000,
+      });
+
+      Toast.fire({
+        icon: "warning",
+        title: error.response.data.message,
+      });
+      setLoading(false)
+    }
+    
   };
   const handlePhoto = (e) => {
     const selectedPhoto = e.target.files[0];
@@ -86,6 +105,17 @@ function Specialties() {
       }
     } catch (error) {
       console.log(error.message);
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top",
+        showConfirmButton: false,
+        timer: 3000,
+      });
+      setRerender(!rerender);
+      Toast.fire({
+        icon: "error",
+        title: error.response.data.message,
+      });
     }
   };
 
@@ -156,7 +186,7 @@ function Specialties() {
             <>
               <div className="flex justify-end">
                 <button
-                  className="bg-green-400 text-sm p-3 rounded-md hover:bg-green-200 hover:text-black "
+                  className="bg-green-400 text-sm p-3 rounded-md hover:bg-green-200 hover:text-black active:scale-90"
                   onClick={() =>
                     document.getElementById("my_modal_1").showModal()
                   }
@@ -189,10 +219,10 @@ function Specialties() {
                             alt={specialityItem.speciality}
                           />
                         </td>
-                        <td className="text-center">{specialityItem.list ? "Yes" : "No"}v</td>
+                        <td className="text-center">{specialityItem.list ? "Yes" : "No"}</td>
                         <td className="text-center">
                           <button
-                            className="p-2 w-20 bg-blue-500 rounded-md"
+                            className="p-2 w-20 bg-blue-500 rounded-md hover:bg-blue-400 active:scale-90"
                             onClick={() => handleModal(specialityItem)}
                           >
                             Edit
@@ -202,14 +232,14 @@ function Specialties() {
                         {specialityItem.list ? (
                           <button
                             onClick={() => handleList(specialityItem._id)}
-                            className="p-2 w-20 bg-red-500 rounded-md"
+                            className="p-2 w-20 bg-red-500 rounded-md hover:bg-red-400 active:scale-90"
                           >
                             Unlist
                           </button>
                         ) : (
                           <button
                             onClick={() => handleList(specialityItem._id)}
-                            className="p-2 w-20 bg-green-500 rounded-md"
+                            className="p-2 w-20 bg-green-500 rounded-md hover:bg-green-400 active:scale-90"
                           >
                             List
                           </button>
@@ -236,9 +266,9 @@ function Specialties() {
                   ))}
                 </div>
               )}
-              <dialog id="my_modal_1" className="modal">
+              <dialog id="my_modal_1" className="modal bg-slate-800 rounded-md p-6 w-96">
                 <div className="modal-box">
-                  <h3 className="font-bold text-lg">Add Speciality</h3>
+                  <h3 className="font-bold text-lg text-white">Add Speciality</h3>
                   <br />
 
                   <form method="dialog">
@@ -247,7 +277,7 @@ function Specialties() {
                       value={speciality}
                       type="text"
                       placeholder="Type here"
-                      className="input input-bordered input-primary w-full "
+                      className="input input-bordered input-primary w-full rounded-md"
                     />
 
                     <br />
@@ -257,17 +287,17 @@ function Specialties() {
                       accept="image/*"
                       onChange={handlePhoto}
                       type="file"
-                      className="file-input file-input-bordered file-input-primary w-full "
+                      className="file-input file-input-bordered file-input-primary w-full border-2 border-blue-500 rounded-md"
                     />
 
                     <br />
                     <br />
-                    <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                    <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 text-white">
                       ✕
                     </button>
                     <button
                       onClick={handleClick}
-                      className="btn w-full btn-success"
+                      className="btn w-full btn-success bg-green-400 p-2 rounded-md active:scale-90 hover:bg-green-300"
                     >
                       ADD
                     </button>
@@ -280,11 +310,11 @@ function Specialties() {
               </dialog>
 
               {data && (
-                <dialog id="my_modal" className="modal">
+                <dialog id="my_modal" className="modal bg-slate-800 rounded-md p-6 w-96">
                   <div className="modal-box">
-                    <h1>Edit Speciality</h1>
+                    <h1 className="text-white">Edit Speciality</h1>
                     <form method="dialog">
-                      <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                      <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 text-white">
                         ✕
                       </button>
                       <br />
@@ -294,7 +324,7 @@ function Specialties() {
                         value={edit}
                         type="text"
                         placeholder="Type here"
-                        className="input input-bordered input-primary w-full"
+                        className="input input-bordered input-primary w-full border-2 border-blue-500 rounded-md"
                       />
 
                       <br />
@@ -304,7 +334,7 @@ function Specialties() {
                         accept="image/*"
                         onChange={handlePhoto}
                         type="file"
-                        className="file-input file-input-bordered file-input-primary w-full "
+                        className="file-input file-input-bordered file-input-primary w-full border-2 border-blue-500 rounded-md"
                       />
 
                       <br />
@@ -312,7 +342,7 @@ function Specialties() {
 
                       <button
                         onClick={() => handleEdit(data._id)}
-                        className="btn btn-warning w-full"
+                        className="btn btn-warning w-full  bg-green-400 p-2 rounded-md active:scale-90 hover:bg-green-300"
                       >
                         Done
                       </button>
