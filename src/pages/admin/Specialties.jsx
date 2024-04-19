@@ -23,30 +23,33 @@ function Specialties() {
 
   const handleClick = async () => {
     try {
-      console.log('hello world');
+      console.log("hello world");
       setLoading(true);
-    const response = await axios.post("http://localhost:3000/admin/addSpeciality",{speciality,photo})
-    console.log(response)
-    setLoading(false);
+      const response = await axios.post(
+        "http://localhost:3000/admin/addSpeciality",
+        { speciality, photo }
+      );
+      console.log(response);
+      setLoading(false);
 
-    if (response) {
-      if (rerender) {
-        setRerender(false);
-      } else {
-        setRerender(true);
+      if (response) {
+        if (rerender) {
+          setRerender(false);
+        } else {
+          setRerender(true);
+        }
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top",
+          showConfirmButton: false,
+          timer: 3000,
+        });
+
+        Toast.fire({
+          icon: "success",
+          title: response.data.message,
+        });
       }
-      const Toast = Swal.mixin({
-        toast: true,
-        position: "top",
-        showConfirmButton: false,
-        timer: 3000,
-      });
-
-      Toast.fire({
-        icon: "success",
-        title: response.data.message,
-      });
-    }
     } catch (error) {
       console.log(error.response.data.message);
       const Toast = Swal.mixin({
@@ -60,9 +63,8 @@ function Specialties() {
         icon: "warning",
         title: error.response.data.message,
       });
-      setLoading(false)
+      setLoading(false);
     }
-    
   };
   const handlePhoto = (e) => {
     const selectedPhoto = e.target.files[0];
@@ -89,7 +91,10 @@ function Specialties() {
 
   const handleEdit = async (id) => {
     try {
-      const response = await axios.patch("http://localhost:3000/admin/editSpeciality",{ id, edit, photo })
+      const response = await axios.patch(
+        "http://localhost:3000/admin/editSpeciality",
+        { id, edit, photo }
+      );
       if (response) {
         const Toast = Swal.mixin({
           toast: true,
@@ -121,7 +126,9 @@ function Specialties() {
 
   const handleList = async (id) => {
     try {
-      const response = await axios.patch(`http://localhost:3000/admin/listUnlist?id=${id}`)
+      const response = await axios.patch(
+        `http://localhost:3000/admin/listUnlist?id=${id}`
+      );
       const Toast = Swal.mixin({
         toast: true,
         position: "top",
@@ -140,7 +147,10 @@ function Specialties() {
 
   useEffect(() => {
     setLoading(true);
-    axios.get(`http://localhost:3000/admin/specialityList?currentPage=${currentPage}&limit=${limit}&search=${search}`)
+    axios
+      .get(
+        `http://localhost:3000/admin/specialityList?currentPage=${currentPage}&limit=${limit}&search=${search}`
+      )
       .then((response) => {
         setSlist(response?.data?.data);
         setPagination(response?.data?.pagination);
@@ -179,7 +189,7 @@ function Specialties() {
       <Header />
       <div className="flex">
         <Sidebar />
-        <div className="w-full bg-slate-900 text-white p-6">
+        <div className="w-[84vw] sm:w-full bg-slate-900 text-white p-6">
           {loading ? (
             <Loading />
           ) : (
@@ -194,61 +204,66 @@ function Specialties() {
                   ADD SPECIALITY
                 </button>
               </div>
-
-              <table className="table w-full mt-4">
-                <thead>
-                  <tr>
-                    <th>No</th>
-                    <th>Speciality</th>
-                    <th>Image</th>
-                    <th>Listed/Not</th>
-                    <th>Manage</th>
-                    <th>List/Unlist</th>
-                  </tr>
-                </thead>
-                <tbody className="mt-5">
-                  {filteredSpeciality &&
-                    filteredSpeciality.map((specialityItem, index) => (
-                      <tr key={specialityItem._id}>
-                        <th className="text-center">{index + 1}</th>
-                        <td className="text-center ">{specialityItem.speciality}</td>
-                        <td>
-                          <img
-                            className="max-w-32 max-h-32 m-auto p-3"
-                            src={specialityItem.photo}
-                            alt={specialityItem.speciality}
-                          />
-                        </td>
-                        <td className="text-center">{specialityItem.list ? "Yes" : "No"}</td>
-                        <td className="text-center">
-                          <button
-                            className="p-2 w-20 bg-blue-500 rounded-md hover:bg-blue-400 active:scale-90"
-                            onClick={() => handleModal(specialityItem)}
-                          >
-                            Edit
-                          </button>
-                        </td>
-                        <td className="text-center">
-                        {specialityItem.list ? (
-                          <button
-                            onClick={() => handleList(specialityItem._id)}
-                            className="p-2 w-20 bg-red-500 rounded-md hover:bg-red-400 active:scale-90"
-                          >
-                            Unlist
-                          </button>
-                        ) : (
-                          <button
-                            onClick={() => handleList(specialityItem._id)}
-                            className="p-2 w-20 bg-green-500 rounded-md hover:bg-green-400 active:scale-90"
-                          >
-                            List
-                          </button>
-                        )}
-                        </td>
-                      </tr>
-                    ))}
-                </tbody>
-              </table>
+              <div className="overflow-x-auto">
+                <table className="w-full table-auto mt-4 ">
+                  <thead>
+                    <tr>
+                      <th>No</th>
+                      <th>Speciality</th>
+                      <th>Image</th>
+                      <th>Listed/Not</th>
+                      <th>Manage</th>
+                      <th>List/Unlist</th>
+                    </tr>
+                  </thead>
+                  <tbody className="mt-5">
+                    {filteredSpeciality &&
+                      filteredSpeciality.map((specialityItem, index) => (
+                        <tr key={specialityItem._id}>
+                          <th className="text-center">{index + 1}</th>
+                          <td className="text-center ">
+                            {specialityItem.speciality}
+                          </td>
+                          <td>
+                            <img
+                              className="max-w-32 max-h-32 m-auto p-3"
+                              src={specialityItem.photo}
+                              alt={specialityItem.speciality}
+                            />
+                          </td>
+                          <td className="text-center">
+                            {specialityItem.list ? "Yes" : "No"}
+                          </td>
+                          <td className="text-center">
+                            <button
+                              className="p-2 w-20 bg-blue-500 rounded-md hover:bg-blue-400 active:scale-90"
+                              onClick={() => handleModal(specialityItem)}
+                            >
+                              Edit
+                            </button>
+                          </td>
+                          <td className="text-center">
+                            {specialityItem.list ? (
+                              <button
+                                onClick={() => handleList(specialityItem._id)}
+                                className="p-2 w-20 bg-red-500 rounded-md hover:bg-red-400 active:scale-90"
+                              >
+                                Unlist
+                              </button>
+                            ) : (
+                              <button
+                                onClick={() => handleList(specialityItem._id)}
+                                className="p-2 w-20 bg-green-500 rounded-md hover:bg-green-400 active:scale-90"
+                              >
+                                List
+                              </button>
+                            )}
+                          </td>
+                        </tr>
+                      ))}
+                  </tbody>
+                </table>
+              </div>
               {pagination && pagination.totalPages && (
                 <div className="flex justify-center mt-4 bg-base-100">
                   {Array.from({ length: pagination.totalPages }, (_, index) => (
@@ -266,9 +281,14 @@ function Specialties() {
                   ))}
                 </div>
               )}
-              <dialog id="my_modal_1" className="modal bg-slate-800 rounded-md p-6 w-96">
+              <dialog
+                id="my_modal_1"
+                className="modal bg-slate-800 rounded-md p-6 w-96"
+              >
                 <div className="modal-box">
-                  <h3 className="font-bold text-lg text-white">Add Speciality</h3>
+                  <h3 className="font-bold text-lg text-white">
+                    Add Speciality
+                  </h3>
                   <br />
 
                   <form method="dialog">
@@ -310,7 +330,10 @@ function Specialties() {
               </dialog>
 
               {data && (
-                <dialog id="my_modal" className="modal bg-slate-800 rounded-md p-6 w-96">
+                <dialog
+                  id="my_modal"
+                  className="modal bg-slate-800 rounded-md p-6 w-96"
+                >
                   <div className="modal-box">
                     <h1 className="text-white">Edit Speciality</h1>
                     <form method="dialog">
