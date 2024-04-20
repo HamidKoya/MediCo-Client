@@ -90,7 +90,7 @@ function VerifyDetails() {
               <h3 className="font-bold text-lg">CERTIFICATES </h3>
               <div className="modal-action">
                 <form method="dialog">
-                  <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 text-white font-extrabold active:scale-90">
+                  <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 bg-white text-black w-10 p-1 rounded-md font-extrabold active:scale-90">
                     ✕
                   </button>
                   <br />
