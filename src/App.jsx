@@ -15,6 +15,7 @@ import Doctors from './pages/admin/Doctors'
 import Specialties from './pages/admin/Specialties'
 import VerifyDoctors from './pages/admin/VerifyDoctors'
 import AdminLogin from './pages/admin/AdminLogin'
+import VerifyDetails from './pages/admin/VerifyDetails'
 
 import Doctor from './pages/doctor/Doctor'
 import LoginDoctor from './pages/doctor/LoginDoctor'
@@ -43,6 +44,8 @@ function App() {
       <Route path='/admin/doctors' element={<Doctors/>}/>
       <Route path='/admin/verifydoctors' element={<VerifyDoctors/>}/>
       <Route path='/admin/specialties' element={<Specialties/>}/>
+      <Route path='/admin/verifiedDetails/:id' element={<VerifyDetails/>}/>
+      
 
 
       <Route path='/doctor' element={<Doctor/>}/>
