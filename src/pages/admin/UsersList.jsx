@@ -4,6 +4,7 @@ import Sidebar from "@/components/admin/Sidebar";
 import Footer from "@/components/admin/Footer";
 import Loading from "@/components/user/Loading";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 function UsersList() {
   const [loading, setLoading] = useState(false);
@@ -68,7 +69,7 @@ function UsersList() {
               <div className="text-sm breadcrumbs">
                 <ul className="flex">
                   <li>
-                    <a href="/">DASHBOARD &gt;</a>
+                    <Link to={"/admin/dashboard"}><a >DASHBOARD &gt;</a></Link>
                   </li>
                   <li className="ml-1">
                     <a> USER LIST</a>
@@ -85,7 +86,7 @@ function UsersList() {
                     <table className="w-full table-auto border-collapse border border-gray-300">
                       <thead>
                         <tr>
-                          <th className="w-1/12 px-4 py-2 border border-gray-300 text-left">
+                          <th className="w-1/12 px-4 py-2 border border-gray-300">
                             Index
                           </th>
                           <th className="w-3/12 px-4 py-2 border border-gray-300">
@@ -108,16 +109,16 @@ function UsersList() {
                             <td className="px-4 py-2 border border-gray-300 text-center">
                               {index + 1}
                             </td>
-                            <td className="px-4 py-2 border border-gray-300">
+                            <td className="px-4 py-2 border border-gray-300 text-center">
                               {user.name}
                             </td>
-                            <td className="px-4 py-2 border border-gray-300">
+                            <td className="px-4 py-2 border border-gray-300 text-center">
                               {user.email}
                             </td>
-                            <td className="px-4 py-2 border border-gray-300">
+                            <td className="px-4 py-2 border border-gray-300 text-center">
                               {user.mobile}
                             </td>
-                            <td className="px-4 py-2 border border-gray-300">
+                            <td className="px-4 py-2 border border-gray-300 text-center">
                               <button
                                 type="button"
                                 onClick={() => {
