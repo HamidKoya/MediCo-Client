@@ -8,7 +8,6 @@ import axios from "axios";
 
 function DoctorDetails() {
   const [doctorData, setDoctorData] = useState(null);
-  console.log(doctorData._id);
   const { id } = useParams();
 
   useEffect(() => {
