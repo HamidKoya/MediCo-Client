@@ -78,7 +78,9 @@ function SignupDoctor() {
   useEffect(() => {
     axios.get("http://localhost:3000/doctor/specialtyName").then((response) => {
       setSpeciality(response.data);
-    });
+    }).catch((error)=>{
+      console.log(error.message);
+    })
   }, []);
 
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
