@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {  useState } from "react";
 import Header2 from "../../components/user/Header2";
 import Footer from "../../components/user/Footer";
 import axios from "axios";
@@ -64,7 +64,6 @@ function Signup() {
       setPhoto(reader.result);
     };
   };
-
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
     useFormik({
       initialValues: {

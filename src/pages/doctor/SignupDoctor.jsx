@@ -75,6 +75,12 @@ function SignupDoctor() {
     }
   };
 
+  useEffect(() => {
+    axios.get("http://localhost:3000/doctor/specialtyName").then((response) => {
+      setSpeciality(response.data);
+    });
+  }, []);
+
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
     useFormik({
       initialValues: {
@@ -87,7 +93,6 @@ function SignupDoctor() {
       validationSchema: doctorSchema,
       onSubmit,
     });
-
 
   return (
     <>
@@ -189,21 +194,19 @@ function SignupDoctor() {
                     name="speciality"
                     className="block w-full rounded-md border-1 py-1.5 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-0 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-transparent"
                   >
-                    <option className="text-black" value="" disabled>
+                    <option className="text-black" value="" disabled selected>
                       Select a speciality
                     </option>
-                    <option className="text-black" value="">
-                      bfg
-                    </option>
-                    <option className="text-black" value="">
-                      gfh
-                    </option>
-                    <option className="text-black" value="">
-                      wse
-                    </option>
-                    <option className="text-black" value="">
-                      cds
-                    </option>
+                    {speciality &&
+                      speciality.map((speciality) => (
+                        <option
+                          key={speciality.id}
+                          className="text-black"
+                          value={speciality.speciality}
+                        >
+                          {speciality.speciality}
+                        </option>
+                      ))}
                   </select>
                 </div>
                 <div>
