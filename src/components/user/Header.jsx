@@ -4,10 +4,14 @@ import { useEffect, useState } from "react";
 import { MdMenu } from "react-icons/md";
 import { useSelector } from "react-redux";
 import ProfileIcon from "@/components/user/ProfileIcon";
+import { FaUserDoctor } from "react-icons/fa6";
+import { FaCheckToSlot } from "react-icons/fa6";
+import { AiOutlineHome } from "react-icons/ai";
+
 
 const navItems = [
-  { to: "/doctors", icon: "Doctors" },
-  { to: "/appointments", icon: "Appointments" },
+  { to: "/doctors", icon: "Doctors", image:<FaUserDoctor/> },
+  { to: "/appointments", icon: "Appointments", image:<FaCheckToSlot/> },
 ];
 function Header() {
   const {currentUser} = useSelector((state)=>state.user)
@@ -70,10 +74,10 @@ function Header() {
 function renderMenuItems(isLoggedIn) {
   return (
     <>
-      <HeaderItem to={"/"} icon={"Home"} />
+      <HeaderItem to={"/"} icon={"Home"} image={<AiOutlineHome/>} />
       {isLoggedIn &&
         navItems.map((item) => (
-          <HeaderItem to={item.to} icon={item.icon} key={item.to} />
+          <HeaderItem to={item.to} icon={item.icon} key={item.to} image={item.image}/>
         ))}
     </>
   );
