@@ -74,8 +74,8 @@ function DoctorsList() {
                 id=""
               >
                 <option value="">Select a Speciality</option>
-                {speciality.map((speciality) => (
-                  <option value={speciality.id} key={speciality.id}>
+                {speciality.map((speciality, index) => (
+                  <option value={speciality.id} key={index}>
                     {speciality.speciality}
                   </option>
                 ))}
