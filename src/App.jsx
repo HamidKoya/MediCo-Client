@@ -8,6 +8,7 @@ import ForgotPassword from './pages/user/ForgotPassword'
 import ResetPassword from './pages/user/ResetPassword'
 import Profile from './pages/user/Profile'
 import DoctorsList from './pages/user/DoctorsList'
+import DoctorDetailsPage from './pages/user/DoctorDetailsPage'
 
 import UsersList from './pages/admin/UsersList'
 import Dashboard from './pages/admin/Dashboard'
@@ -38,6 +39,7 @@ function App() {
       <Route path='/resetpassword/:id/:token' element={<ResetPassword/>}/>
       <Route path='/profile' element={<Profile/>}/>
       <Route path='/doctors' element={<DoctorsList/>}/>
+      <Route path='/doctordetails/:id' element={<DoctorDetailsPage/>}/>
 
 
       <Route path='/admin/login' element={<AdminLogin/>}/>
