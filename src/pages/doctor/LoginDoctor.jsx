@@ -19,7 +19,6 @@ function LoginDoctor() {
       const response = await axios.post("http://localhost:3000/doctor/login", {
         ...values,
       });
-
       setLoading(false);
       if (response?.status === 200) {
         dispatch(signInSuccess(response.data));

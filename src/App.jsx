@@ -25,9 +25,13 @@ import Doctor from './pages/doctor/Doctor'
 import LoginDoctor from './pages/doctor/LoginDoctor'
 import SignupDoctor from './pages/doctor/SignupDoctor'
 import OtpDoctor from './pages/doctor/OtpDoctor'
-import DashboardDoctor from './pages/doctor/DashboardDoctor'
 import DoctorForgotPassword from './pages/doctor/DoctorForgotPassword'
 import ResetPasswordDoctor from './pages/doctor/ResetPasswordDoctor'
+import DashboardDoctor from './pages/doctor/DashboardDoctor'
+import ProfileDoctor from './pages/doctor/ProfileDoctor'
+import SlotsDoctor from './pages/doctor/SlotsDoctor'
+import AppointmentsDoctor from './pages/doctor/AppointmentsDoctor'
+import ReviewsDoctor from './pages/doctor/ReviewsDoctor'
 
 function App() {
   return (
@@ -63,6 +67,12 @@ function App() {
       <Route path='/doctor/dashboard' element={<DashboardDoctor/>}/>
       <Route path='/doctor/forgotpassword' element={<DoctorForgotPassword/>}/>
       <Route path='/doctor/resetpassword/:id/:token' element={<ResetPasswordDoctor/>}/>
+      <Route path='/doctor/profile' element={<ProfileDoctor/>}/>
+      <Route path='/doctor/slots' element={<SlotsDoctor/>}/>
+      <Route path='/doctor/appointments' element={<AppointmentsDoctor/>}/>
+      <Route path='/doctor/reviews' element={<ReviewsDoctor/>}/>
+
+
       
 
     </Routes>
