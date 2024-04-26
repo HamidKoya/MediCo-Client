@@ -76,11 +76,14 @@ function SignupDoctor() {
   };
 
   useEffect(() => {
-    axios.get("http://localhost:3000/doctor/specialtyName").then((response) => {
-      setSpeciality(response.data);
-    }).catch((error)=>{
-      console.log(error.message);
-    })
+    axios
+      .get("http://localhost:3000/doctor/specialtyName")
+      .then((response) => {
+        setSpeciality(response.data);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
   }, []);
 
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
@@ -88,6 +91,7 @@ function SignupDoctor() {
       initialValues: {
         name: "",
         email: "",
+        speciality: "",
         mobile: "",
         password: "",
         confirmPassword: "",
@@ -194,6 +198,9 @@ function SignupDoctor() {
                 <div className="mt-2">
                   <select
                     name="speciality"
+                    value={values.speciality}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
                     className="block w-full rounded-md border-1 py-1.5 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-0 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-transparent"
                   >
                     <option className="text-black" value="" disabled selected>
@@ -210,6 +217,9 @@ function SignupDoctor() {
                         </option>
                       ))}
                   </select>
+                  {errors.speciality && touched.speciality && (
+                    <p className="text-red-600">{errors.speciality}</p>
+                  )}
                 </div>
                 <div>
                   {errors.email && touched.email && (
