@@ -17,7 +17,7 @@ import { Label } from "@/components/ui/label";
 import { FaEdit } from "react-icons/fa";
 function EditProfile() {
   return (
-    <div>
+    <div >
       <Dialog>
         <DialogTrigger asChild>
           <button className="p-2 bg-blue-500 text-sm rounded-md font-semibold text-white flex justify-center items-center active:scale-90">
