@@ -14,9 +14,9 @@ import axios from "axios";
 
 function ProfileDoctor() {
   const [loading, setLoading] = useState(false);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const { currentDoctor } = useSelector((state) => state.doctor);
-  const doctorId = currentDoctor.doctorData._id
+  const doctorId = currentDoctor.doctorData._id;
   const fileRef = useRef(null);
   const handlePhotoChange = (e) => {
     const selectedPhoto = e.target.files[0];
@@ -33,10 +33,13 @@ function ProfileDoctor() {
   const sendImageToServer = async (imageData) => {
     try {
       setLoading(true);
-      const response = await axios.post("http://localhost:3000/doctor/changePhoto", {
-        imageData,
-        doctorId,
-      });
+      const response = await axios.post(
+        "http://localhost:3000/doctor/changePhoto",
+        {
+          imageData,
+          doctorId,
+        }
+      );
       setLoading(false);
       if (response.status === 200) {
         toast.success("Successfully profile photo changed");
@@ -49,8 +52,9 @@ function ProfileDoctor() {
   };
   return (
     <div>
-      <Toaster richColors position="top-center"/>
+      <Toaster richColors position="top-center" />
       <Header />
+
       <div className="bg-blue-50 p-10 flex flex-col justify-center items-center">
         <h1 className="text-xl font-semibold mb-5">Doctor Profile</h1>
         <div className="bg-white w-[370px] sm:w-[400px] h-[500px] rounded-xl shadow-2xl shadow-slate-400 relative">
@@ -67,7 +71,7 @@ function ProfileDoctor() {
                 onClick={() => fileRef.current.click()}
                 src={currentDoctor.doctorData.photo}
                 alt="image"
-                class="w-36 h-36 rounded-2xl cursor-pointer"
+                class="w-36 h-36 rounded-2xl cursor-pointer object-cover"
               />
             )}
             <input
@@ -130,6 +134,7 @@ function ProfileDoctor() {
           </div>
         </div>
       </div>
+
       <Footer />
     </div>
   );
