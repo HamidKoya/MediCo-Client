@@ -11,6 +11,7 @@ import { signInSuccess } from "@/redux/slices/doctorSlice";
 import { useDispatch } from "react-redux";
 import { ScaleLoader } from "react-spinners";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 function ProfileDoctor() {
   const [loading, setLoading] = useState(false);
@@ -119,12 +120,15 @@ function ProfileDoctor() {
               </span>
             </button> */}
             <EditProfile />
-            <button className="p-2 bg-green-400 text-sm rounded-md font-semibold text-white flex justify-center items-center active:scale-90">
-              APPOINTMENTS{" "}
-              <span className="ml-2">
-                <FaCalendarCheck />
-              </span>
-            </button>
+            <Link to={'/doctor/appointments'}>
+              <button className="p-2 bg-green-400 text-sm rounded-md font-semibold text-white flex justify-center items-center active:scale-90">
+                APPOINTMENTS{" "}
+                <span className="ml-2">
+                  <FaCalendarCheck />
+                </span>
+              </button>
+            </Link>
+
             <button className="p-2 bg-yellow-300 text-sm rounded-md font-semibold text-white flex justify-center items-center active:scale-90">
               CREATE SLOTS{" "}
               <span className="ml-2">
