@@ -12,9 +12,20 @@ import { useDispatch } from "react-redux";
 import { ScaleLoader } from "react-spinners";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { Button, Modal } from "flowbite-react";
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
+import Swal from "sweetalert2";
 
 function ProfileDoctor() {
+  const [openModal, setOpenModal] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    startTime: "",
+    endTime: "",
+    slotDuration: "5",
+    date: "",
+  });
   const dispatch = useDispatch();
   const { currentDoctor } = useSelector((state) => state.doctor);
   const doctorId = currentDoctor.doctorData._id;
@@ -51,6 +62,51 @@ function ProfileDoctor() {
       console.error("Error uploading image:", error);
     }
   };
+
+  const handleChange2 = (e) => {
+    try {
+      const { name, value } = e.target;
+      setFormData((prevData) => ({ ...prevData, [name]: value }));
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const handleSubmit2 = async (event) => {
+    try {
+      event.preventDefault(); // Prevent default form submission
+      const response = await axios.post("http://localhost:3000/doctor/slotCreation",{doctorId,formData})
+      if (response?.data?.success === true) {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top",
+          showConfirmButton: false,
+          timer: 3000,
+        });
+
+        Toast.fire({
+          icon: "success",
+          title: response?.data?.message,
+        });
+        setOpenModal(false);
+      } else {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top",
+          showConfirmButton: false,
+          timer: 3000,
+        });
+
+        Toast.fire({
+          icon: "info",
+          title: response?.data?.message,
+        });
+      }
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
+  };
+
   return (
     <div>
       <Toaster richColors position="top-center" />
@@ -120,7 +176,7 @@ function ProfileDoctor() {
               </span>
             </button> */}
             <EditProfile />
-            <Link to={'/doctor/appointments'}>
+            <Link to={"/doctor/appointments"}>
               <button className="p-2 bg-green-400 text-sm rounded-md font-semibold text-white flex justify-center items-center active:scale-90">
                 APPOINTMENTS{" "}
                 <span className="ml-2">
@@ -129,7 +185,10 @@ function ProfileDoctor() {
               </button>
             </Link>
 
-            <button className="p-2 bg-yellow-300 text-sm rounded-md font-semibold text-white flex justify-center items-center active:scale-90">
+            <button
+              onClick={() => setOpenModal(true)}
+              className="p-2 bg-yellow-300 text-sm rounded-md font-semibold text-white flex justify-center items-center active:scale-90"
+            >
               CREATE SLOTS{" "}
               <span className="ml-2">
                 <FaRegCalendarPlus />
@@ -138,6 +197,74 @@ function ProfileDoctor() {
           </div>
         </div>
       </div>
+
+      <Modal
+        show={openModal}
+        onClose={() => setOpenModal(false)}
+        className="max-h-[620px] max-w-[600px] mx-auto mt-14"
+      >
+        <Modal.Header>Create Slots</Modal.Header>
+        <Modal.Body>
+          <form onSubmit={handleSubmit2}>
+            <div className="space-y-6 flex justify-center flex-col">
+              <label htmlFor="eventDate">Date:</label>
+              <div className="flex justify-center ">
+                <Calendar
+                  onChange={(date) =>
+                    handleChange2({ target: { name: "date", value: date } })
+                  }
+                  value={formData.date}
+                />
+              </div>
+
+              <label htmlFor="startTime">Start Time:</label>
+              <input
+                type="time"
+                id="startTime"
+                name="startTime"
+                value={formData.startTime}
+                onChange={handleChange2}
+                className="bg-slate-500 text-white"
+                required
+              />
+
+              <label htmlFor="endTime">Ending Time:</label>
+              <input
+                type="time"
+                id="endTime"
+                name="endTime"
+                value={formData.endTime}
+                onChange={handleChange2}
+                className="bg-slate-500 text-white"
+                required
+              />
+
+              <label htmlFor="eventDuration">Duration (in minutes):</label>
+              <select
+                id="slotDuration"
+                name="slotDuration"
+                value={formData.slotDuration}
+                onChange={handleChange2}
+                className="bg-slate-500 text-white"
+                required
+              >
+                <option value="5">5 minutes</option>
+                <option value="10">10 minutes</option>
+                <option value="15">15 minutes</option>
+                {/* Add more options as needed */}
+              </select>
+            </div>
+            <Modal.Footer>
+              <Button type="submit" color="gray">
+                create
+              </Button>
+              <Button color="gray" onClick={() => setOpenModal(false)}>
+                Decline
+              </Button>
+            </Modal.Footer>
+          </form>
+        </Modal.Body>
+      </Modal>
 
       <Footer />
     </div>
