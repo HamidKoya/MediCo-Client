@@ -201,7 +201,7 @@ function ProfileDoctor() {
       <Modal
         show={openModal}
         onClose={() => setOpenModal(false)}
-        className="max-h-[620px] max-w-[600px] mx-auto mt-14"
+        className="max-h-[620px] max-w-[600px] mx-auto mt-14 bg-transparent"
       >
         <Modal.Header>Create Slots</Modal.Header>
         <Modal.Body>
