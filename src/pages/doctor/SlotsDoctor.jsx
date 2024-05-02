@@ -143,7 +143,7 @@ function SlotsDoctor() {
           </div>
         )}
 
-        <Modal className="max-w-xl max-h-[500px] bg-transparent mx-auto mt-16" show={openModal} onClose={() => setOpenModal(false)}>
+        <Modal className="max-w-xl max-h-[500px] bg-[#71A0A8] mx-auto mt-14" show={openModal} onClose={() => setOpenModal(false)}>
           <Modal.Header className="bg-white ">Time Slots</Modal.Header>
           <Modal.Body>
             {selectedSlot && (
