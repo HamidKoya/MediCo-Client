@@ -12,14 +12,16 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-
 import { useSelector } from "react-redux";
+import { Button, Modal } from "flowbite-react";
 function SlotsDoctor() {
   const { currentDoctor } = useSelector((state) => state.doctor);
   const doctorId = currentDoctor.doctorData._id;
   const [slots, setSlots] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(5);
+  const [selectedSlot, setSelectedSlot] = useState(null);
+  const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
     axios
@@ -31,6 +33,20 @@ function SlotsDoctor() {
         console.log(error);
       });
   }, [doctorId, currentPage, pageSize]);
+
+  const handleClick = (id) => {
+    try {
+      const selectedSlot = slots.find((slot) => slot._id === id);
+      setSelectedSlot(selectedSlot);
+      setOpenModal(true);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  };
 
   const paginatedSlots = slots.slice(
     (currentPage - 1) * pageSize,
@@ -87,7 +103,7 @@ function SlotsDoctor() {
                   </TableCell>
                   <TableCell className="text-center">
                     {" "}
-                    <button className="bg-green-400 p-1 rounded-md h-7">
+                    <button onClick={()=>handleClick(slot._id)} className="bg-green-400 p-1 rounded-md h-7">
                       Details
                     </button>
                   </TableCell>
@@ -106,6 +122,64 @@ function SlotsDoctor() {
             </TableFooter>
           </Table>
         </div>
+        {slots && pageSize && (
+          <div className="flex justify-center mt-4 bg-blue-50">
+            {Array.from(
+              { length: Math.ceil(slots.length / pageSize) },
+              (_, index) => (
+                <button
+                  key={index + 1}
+                  onClick={() => handlePageChange(index + 1)}
+                  className={`pagination-btn border w-10 ${
+                    index + 1 === currentPage
+                      ? "border-black"
+                      : "border-gray-300"
+                  }`}
+                >
+                  {index + 1}
+                </button>
+              )
+            )}
+          </div>
+        )}
+
+        <Modal className="max-w-xl max-h-[500px] bg-transparent mx-auto mt-16" show={openModal} onClose={() => setOpenModal(false)}>
+          <Modal.Header className="bg-white ">Time Slots</Modal.Header>
+          <Modal.Body>
+            {selectedSlot && (
+              <div>
+                <p className="text-lg font-bold mb-4 sticky">
+                  Slot {slots.indexOf(selectedSlot) + 1}
+                </p>
+                <div className="grid gap-4">
+                  {selectedSlot.timeSlots.map((time, timeIndex) => (
+                    <div
+                      key={timeIndex}
+                      className="bg-white p-4 border rounded-md"
+                    >
+                      <p className="text-xl font-semibold mb-2">
+                        Time: {time.start} - {time.end}
+                      </p>
+                      <p
+                        className={`text-${time.booked ? "green" : "red"}-600`}
+                      >
+                        Booked: {time.booked ? "Yes" : "No"}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </Modal.Body>
+          <Modal.Footer className="bg-white p-4">
+            <Button
+              className="bg-blue-500 text-white"
+              onClick={() => setOpenModal(false)}
+            >
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
       <Footer />
     </div>
