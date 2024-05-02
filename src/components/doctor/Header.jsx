@@ -38,7 +38,7 @@ function Header() {
               )}
             </div>
             <Link
-              to="/"
+              to="/doctor/dashboard"
               className="logo flex items-center gap-1 hover:bg-black/5 -m-2 p-2 rounded-lg active:scale-95 text-2xl"
             >
               <img className="block w-10 h-10" src="/logo.png" alt="" />
