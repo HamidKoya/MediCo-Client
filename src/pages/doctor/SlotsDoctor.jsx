@@ -3,6 +3,7 @@ import Header from "@/components/doctor/Header";
 import Footer from "@/components/doctor/Footer";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Loading from "@/components/user/Loading";
 import {
   Table,
   TableBody,
@@ -14,23 +15,28 @@ import {
 } from "@/components/ui/table";
 import { useSelector } from "react-redux";
 import { Button, Modal } from "flowbite-react";
+
 function SlotsDoctor() {
   const { currentDoctor } = useSelector((state) => state.doctor);
   const doctorId = currentDoctor.doctorData._id;
   const [slots, setSlots] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(5);
   const [selectedSlot, setSelectedSlot] = useState(null);
   const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     axios
       .post("http://localhost:3000/doctor/slotDetails", { doctorId })
       .then((response) => {
         setSlots(response?.data?.data);
+        setLoading(false);
       })
       .catch((error) => {
         console.log(error);
+        setLoading(false);
       });
   }, [doctorId, currentPage, pageSize]);
 
@@ -56,8 +62,14 @@ function SlotsDoctor() {
   return (
     <div>
       <Header />
-      <div className={`bg-blue-50 w-full p-4 ${paginatedSlots.length === 0?'h-[600px]':'h-full'}`}>
-        {paginatedSlots.length === 0 ? (
+      <div
+        className={`bg-blue-50 w-full p-4 ${
+          paginatedSlots.length === 0 ? "h-[600px]" : "h-full"
+        }`}
+      >
+        {loading ? (
+          <Loading />
+        ) : paginatedSlots.length === 0 ? (
           <div className="text-center py-6">
             <p className="text-gray-500 text-lg">No slots added</p>
           </div>
@@ -68,7 +80,6 @@ function SlotsDoctor() {
             </h1>
             <div className="mx-auto sm:p-8 mb-10 bg-[#71A0A8]">
               <Table>
-                {/* <TableCaption>A list of your recent invoices.</TableCaption> */}
                 <TableHeader>
                   <TableRow>
                     <TableHead className="text-center w-[100px] text-blue-700">
@@ -110,7 +121,6 @@ function SlotsDoctor() {
                         {slot.slotDuration}
                       </TableCell>
                       <TableCell className="text-center">
-                        {" "}
                         <button
                           onClick={() => handleClick(slot._id)}
                           className="bg-green-400 p-1 rounded-md h-7"
@@ -135,7 +145,6 @@ function SlotsDoctor() {
             </div>
           </>
         )}
-
         {slots && pageSize && (
           <div className="flex justify-center mt-4 bg-blue-50">
             {Array.from(
@@ -156,7 +165,6 @@ function SlotsDoctor() {
             )}
           </div>
         )}
-
         <Modal
           className="max-w-xl max-h-[500px] bg-[#71A0A8] mx-auto mt-14"
           show={openModal}
