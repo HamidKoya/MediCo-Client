@@ -4,14 +4,16 @@ import Footer from "@/components/user/Footer";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Button, Modal } from 'flowbite-react';
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
-import Swal from 'sweetalert2';
+import { Button, Modal } from "flowbite-react";
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
+import Swal from "sweetalert2";
 function DoctorDetailsPage() {
   const [doctor, setDoctor] = useState();
   const [openModal, setOpenModal] = useState(false);
   const [slots, setSlots] = useState([]);
+  const [date, setDate] = useState();
+  const [select, setSelect] = useState();
   const { id } = useParams();
   useEffect(() => {
     axios
@@ -27,44 +29,72 @@ function DoctorDetailsPage() {
 
   const handleChange = async (date) => {
     try {
-      
-        const currentDate = new Date();
-        currentDate.setHours(0, 0, 0, 0);
+      const currentDate = new Date();
+      currentDate.setHours(0, 0, 0, 0);
 
-        if (date < currentDate) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Invalid Date',
-                text: 'Please select a date in the future.',
-            });
-            setSelect(null);
-            setSlots([]);
-            return;
-        }
-        setDate(date);
-        console.log('from frontend');
-        const response = await axios.get(`http://localhost:3000/slotList?id=${id}&date=${date}`)
+      if (date < currentDate) {
+        Swal.fire({
+          icon: "error",
+          title: "Invalid Date",
+          text: "Please select a date in the future.",
+        });
+        setSelect(null);
+        setSlots([]);
+        return;
+      }
+      setDate(date);
 
-        const availableSlots = response?.data?.availableSlots;
+      const response = await axios.get(
+        `http://localhost:3000/slotList?id=${id}&date=${date}`
+      );
 
-        if (availableSlots && availableSlots.length > 0) {
-            let allAvailableSlots = [];
-            availableSlots.forEach(slot => {
-                slot?.timeSlots?.forEach(timeSlot => {
-                    if (timeSlot.booked === false) {
-                        allAvailableSlots.push(timeSlot);
-                    }
-                });
-            });
-            setSlots(allAvailableSlots);
-        } else {
-            setSlots([]);
-        }
+      const availableSlots = response?.data?.availableSlots;
 
+      if (availableSlots && availableSlots.length > 0) {
+        let allAvailableSlots = [];
+        availableSlots.forEach((slot) => {
+          slot?.timeSlots?.forEach((timeSlot) => {
+            if (timeSlot.booked === false) {
+              allAvailableSlots.push(timeSlot);
+            }
+          });
+        });
+        setSlots(allAvailableSlots);
+      } else {
+        setSlots([]);
+      }
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
-};
+  };
+
+  const handleSelect = async (slotId) => {
+    try {
+      if (select === slotId) {
+        setSelect(null);
+      } else {
+        setSelect(slotId);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const handlePayment = async () => {
+    try {
+      console.log("hello payment");
+    } catch (error) {
+      console.log(error.mesage);
+    }
+  };
+
+  const walletPay = async () => {
+    try {
+      console.log("hello from wallet");
+    } catch (error) {
+      console.log(error.mesage);
+    }
+  };
 
   return (
     <div>
@@ -116,7 +146,11 @@ function DoctorDetailsPage() {
         </div>
       </div>
 
-      <Modal show={openModal} onClose={() => setOpenModal(false)} className="max-w-[650px] mx-auto mt-14">
+      <Modal
+        show={openModal}
+        onClose={() => setOpenModal(false)}
+        className="max-w-[650px] max-h-[600px] mx-auto mt-14"
+      >
         <Modal.Header>Select Date and Time</Modal.Header>
         <Modal.Body>
           <div className="space-y-6">
@@ -176,13 +210,14 @@ function DoctorDetailsPage() {
           {slots.length > 0 && select && (
             <div className="">
               <button
-                className="btn btn-outline btn-primary"
+                class="bg-white p-2 rounded-md font-semibold text-purple-700 border border-purple-700 hover:bg-purple-700 hover:text-white active:scale-90"
                 onClick={handlePayment}
               >
                 ONLINE PAYMENT
               </button>
+
               <button
-                className="btn btn-outline btn-warning mx-5"
+                className="ml-3 bg-white p-2 rounded-md font-semibold text-yellow-400 border border-yellow-400 hover:bg-yellow-400 hover:text-white active:scale-90"
                 onClick={walletPay}
               >
                 WALLET PAY
