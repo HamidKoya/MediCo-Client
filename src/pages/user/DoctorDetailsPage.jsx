@@ -8,13 +8,20 @@ import { Button, Modal } from "flowbite-react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import Swal from "sweetalert2";
+import { useSelector } from "react-redux";
 function DoctorDetailsPage() {
+  const {currentUser} = useSelector((state)=>state.user)
+  const userId = currentUser.userData._id
+  const { id } = useParams();
   const [doctor, setDoctor] = useState();
   const [openModal, setOpenModal] = useState(false);
   const [slots, setSlots] = useState([]);
   const [date, setDate] = useState();
   const [select, setSelect] = useState();
-  const { id } = useParams();
+  const price = {
+    id: 'price_1PD1J2SCJjN9vy1RN8YGfKud',
+    amount: 299,
+};
   useEffect(() => {
     axios
       .post("http://localhost:3000/admin/doctorDetails", { id })
@@ -82,9 +89,15 @@ function DoctorDetailsPage() {
 
   const handlePayment = async () => {
     try {
-      console.log("hello payment");
+      if (select) {
+      const response = await axios.post("http://localhost:3000/makePayment",{ price, id, select, date, userId })
+      console.log(response);
+        if (response.status === 200) {
+          window.location.href = response?.data?.session.url;
+        }
+      }
     } catch (error) {
-      console.log(error.mesage);
+      console.log(error.message);
     }
   };
 
