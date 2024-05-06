@@ -180,7 +180,7 @@ function DoctorDetailsPage() {
                   let isSlotDisabled = false;
 
                   if (date < currentDate) {
-                    if (slotStartTime < currentTime) {
+                    if (slotStartTime < currentDate) {
                       isSlotDisabled = true;
                     }
                   }
