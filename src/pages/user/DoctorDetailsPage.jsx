@@ -120,7 +120,7 @@ function DoctorDetailsPage() {
                 <img
                   src={doctor.photo}
                   alt=""
-                  className="w-36 h-36 rounded-full"
+                  className="w-36 h-36 rounded-full object-cover"
                 />
               )}
               {doctor && (

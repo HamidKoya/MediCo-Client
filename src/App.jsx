@@ -10,6 +10,7 @@ import Profile from './pages/user/Profile'
 import DoctorsList from './pages/user/DoctorsList'
 import DoctorDetailsPage from './pages/user/DoctorDetailsPage'
 import AppointmentsUser from './pages/user/AppointmentsUser'
+import PaymentSuccess from './pages/user/PaymentSuccess'
 
 import UsersList from './pages/admin/UsersList'
 import Dashboard from './pages/admin/Dashboard'
@@ -46,6 +47,7 @@ function App() {
       <Route path='/doctors' element={<DoctorsList/>}/>
       <Route path='/doctordetails/:id' element={<DoctorDetailsPage/>}/>
       <Route path='/appointments' element={<AppointmentsUser/>}/>
+      <Route path='/success' element={<PaymentSuccess/>}/>
 
 
       <Route path='/admin/login' element={<AdminLogin/>}/>
