@@ -78,7 +78,7 @@ function SlotsDoctor() {
             <h1 className="text-xl font-semibold flex justify-center py-4">
               Slots List
             </h1>
-            <div className="mx-auto sm:p-8 mb-10 bg-[#71A0A8]">
+            <div className="mx-auto sm:p-8 mb-10 bg-[#71A0A8] h-[400px]">
               <Table>
                 <TableHeader>
                   <TableRow>
