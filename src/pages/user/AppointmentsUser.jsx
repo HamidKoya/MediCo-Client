@@ -134,6 +134,23 @@ function AppointmentsUser() {
                   </table>
                 </div>
               </div>
+              {pagination && pagination.totalPages && (
+                <div className="flex justify-center mt-4 bg-blue-50">
+                  {Array.from({ length: pagination.totalPages }, (_, index) => (
+                    <button
+                      key={index + 1}
+                      onClick={() => setCurrentPage(index + 1)}
+                      className={`pagination-btn border w-10 ${
+                        index + 1 === currentPage
+                          ? "border-black"
+                          : "border-gray-300"
+                      }`}
+                    >
+                      {index + 1}
+                    </button>
+                  ))}
+                </div>
+              )}
             </>
           )}
         </div>
