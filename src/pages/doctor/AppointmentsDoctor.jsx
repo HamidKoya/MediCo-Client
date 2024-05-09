@@ -46,12 +46,13 @@ function AppointmentsDoctor() {
         <div className="bg-blue-50 min-h-[600px]">
           {loading ? (
             <Loading />
-          ): appo.length === 0 ? (
+          ) : appo.length === 0 ? (
             <div className="text-center py-6">
-              <p className="text-gray-600 text-lg">No appointments available.</p>
+              <p className="text-gray-600 text-lg">
+                No appointments available.
+              </p>
             </div>
-          )
-           : (
+          ) : (
             <>
               <p className="pt-8 text-xl font-semibold underline underline-offset-8 flex justify-center">
                 Appointment List
@@ -138,6 +139,23 @@ function AppointmentsDoctor() {
                   </table>
                 </div>
               </div>
+              {pagination && pagination.totalPages && (
+                <div className="flex justify-center mt-4 bg-blue-50">
+                  {Array.from({ length: pagination.totalPages }, (_, index) => (
+                    <button
+                      key={index + 1}
+                      onClick={() => setCurrentPage(index + 1)}
+                      className={`pagination-btn border w-10 ${
+                        index + 1 === currentPage
+                          ? "border-black"
+                          : "border-gray-300"
+                      }`}
+                    >
+                      {index + 1}
+                    </button>
+                  ))}
+                </div>
+              )}
             </>
           )}
         </div>
