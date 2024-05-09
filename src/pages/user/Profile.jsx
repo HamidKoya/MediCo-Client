@@ -1,4 +1,5 @@
 import EditProfile from "@/components/user/EditProfile";
+import Wallet from "@/components/user/Wallet";
 import Header2 from "@/components/user/Header2";
 import Footer from "@/components/user/Footer";
 import { useRef,useState } from "react";
@@ -69,6 +70,9 @@ const sendImageToServer = async (imageData) => {
           </div>
           <div className="absolute bottom-2 left-2">
             <EditProfile />
+          </div>
+          <div className="absolute bottom-2 right-2">
+            <Wallet />
           </div>
         </div>
       </div>
