@@ -55,7 +55,7 @@ const sendImageToServer = async (imageData) => {
     <div>
       <Header2 />
       <div className="flex justify-center bg-[#EBF5FF]">
-        <div className="w-[350px] sm:w-[400px] h-96 sm:h-[450px] bg-slate-300 my-32 rounded-lg shadow-2xl shadow-slate-400 relative">
+        <div className="w-[350px] h-[450px] bg-slate-300 my-32 rounded-lg shadow-2xl shadow-slate-400 relative">
           <div class="flex justify-center items-center flex-col mt-10">
             {loading?(<ScaleLoader color="#36d7b7" height={20} width={5}/>):(<img onClick={() => fileRef.current.click()} src={currentUser.userData.photo} alt="image" class="w-20 h-20 rounded-full cursor-pointer ring object-cover" />)}
             
