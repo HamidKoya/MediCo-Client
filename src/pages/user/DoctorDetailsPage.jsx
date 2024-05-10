@@ -10,8 +10,8 @@ import "react-calendar/dist/Calendar.css";
 import Swal from "sweetalert2";
 import { useSelector } from "react-redux";
 function DoctorDetailsPage() {
-  const {currentUser} = useSelector((state)=>state.user)
-  const userId = currentUser.userData._id
+  const { currentUser } = useSelector((state) => state.user);
+  const userId = currentUser.userData._id;
   const { id } = useParams();
   const [doctor, setDoctor] = useState();
   const [openModal, setOpenModal] = useState(false);
@@ -19,9 +19,22 @@ function DoctorDetailsPage() {
   const [date, setDate] = useState();
   const [select, setSelect] = useState();
   const price = {
-    id: 'price_1PD1J2SCJjN9vy1RN8YGfKud',
+    id: "price_1PD1J2SCJjN9vy1RN8YGfKud",
     amount: 299,
-};
+  };
+
+  function getCurrentTime24() {
+    const now = new Date();
+    let hours = now.getHours();
+    let minutes = now.getMinutes();
+    // Add leading zeros to minutes if needed
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    // Form the time string in 24-hour format
+    const currentTime24 = `${hours}:${minutes}`;
+    return currentTime24;
+  }
+
+  const currentTime = getCurrentTime24();
   useEffect(() => {
     axios
       .post("http://localhost:3000/admin/doctorDetails", { id })
@@ -90,8 +103,14 @@ function DoctorDetailsPage() {
   const handlePayment = async () => {
     try {
       if (select) {
-      const response = await axios.post("http://localhost:3000/makePayment",{ price, id, select, date, userId })
-      console.log(response);
+        const response = await axios.post("http://localhost:3000/makePayment", {
+          price,
+          id,
+          select,
+          date,
+          userId,
+        });
+        console.log(response);
         if (response.status === 200) {
           window.location.href = response?.data?.session.url;
         }
@@ -180,7 +199,7 @@ function DoctorDetailsPage() {
                   let isSlotDisabled = false;
 
                   if (date < currentDate) {
-                    if (slotStartTime < currentDate) {
+                    if (slotStartTime < currentTime) {
                       isSlotDisabled = true;
                     }
                   }
