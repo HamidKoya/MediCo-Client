@@ -9,7 +9,9 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import Swal from "sweetalert2";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 function DoctorDetailsPage() {
+  const navigate = useNavigate()
   const { currentUser } = useSelector((state) => state.user);
   const userId = currentUser.userData._id;
   const { id } = useParams();
@@ -122,9 +124,52 @@ function DoctorDetailsPage() {
 
   const walletPay = async () => {
     try {
-      console.log("hello from wallet");
+      const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: "bg-green-500 text-white p-2 rounded",
+          cancelButton: "bg-yellow-500 text-white mx-5 p-2 rounded",
+        },
+        buttonsStyling: false,
+      });
+
+      const result = await swalWithBootstrapButtons.fire({
+        title: "Are you sure?",
+        text: "You want to do payment from your wallet!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, Do Payment!",
+        cancelButtonText: "No, cancel!",
+        reverseButtons: true,
+      });
+
+      if (result.isConfirmed) {
+        const res = await axios.post("http://localhost:3000/walletPayment",{userId,id,select,date})
+
+        if (res.status === 200) {
+          Swal.fire({
+            title: "Insufficient Balance",
+            text: "No required amount in the wallet",
+            icon: "question",
+          });
+        } else {
+          swalWithBootstrapButtons.fire({
+            title: "Payment Done!",
+            text: "Your money is transferred",
+            icon: "success",
+          });
+
+          setOpenModal(false);
+          navigate("/appointments");
+        }
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        swalWithBootstrapButtons.fire({
+          title: "Cancelled",
+          text: "Your wallet payment is cancelled",
+          icon: "error",
+        });
+      }
     } catch (error) {
-      console.log(error.mesage);
+      console.log(error.message);
     }
   };
 
