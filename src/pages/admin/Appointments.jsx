@@ -30,6 +30,18 @@ function Appointments() {
       });
   }, [currentPage, itemsPerPage]);
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const formattedDate = `${padZero(date.getDate())}/${padZero(
+      date.getMonth() + 1
+    )}/${date.getFullYear()}`;
+    return formattedDate;
+  };
+
+  const padZero = (value) => {
+    return value < 10 ? `0${value}` : value;
+  };
+
   return (
     <div>
       <Header />
@@ -98,10 +110,10 @@ function Appointments() {
                               {index + 1}
                             </td>
                             <td className="px-4 py-2 border border-gray-300 text-center">
-                              {app.consultationDate}
+                              {formatDate(app.consultationDate)}
                             </td>
                             <td className="px-4 py-2 border border-gray-300 text-center">
-                              {app.createdAt}
+                              {formatDate(app.createdAt)}
                             </td>
                             <td className="px-4 py-2 border border-gray-300 text-center">
                               {app.start}
@@ -110,7 +122,7 @@ function Appointments() {
                               {app.end}
                             </td>
                             <td
-                              className={`$ ${ 
+                              className={`$ ${
                                 app.status === "Pending"
                                   ? "text-yellow-200 px-4 py-2 border border-gray-300 text-center"
                                   : app.status === "Done"
@@ -160,7 +172,6 @@ function Appointments() {
         </div>
       </div>
 
-      
       <Footer />
     </div>
   );
