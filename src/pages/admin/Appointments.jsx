@@ -5,6 +5,7 @@ import Footer from "@/components/admin/Footer";
 import Loading from "@/components/user/Loading";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { Button, Modal } from "flowbite-react";
 
 function Appointments() {
   const [loading, setLoading] = useState(false);
@@ -12,6 +13,8 @@ function Appointments() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(5);
   const [pagination, setPagination] = useState({});
+  const [data, setData] = useState({});
+  const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -40,6 +43,18 @@ function Appointments() {
 
   const padZero = (value) => {
     return value < 10 ? `0${value}` : value;
+  };
+
+  const handleClick = async (appoId) => {
+    try {
+      setOpenModal(true)
+      const res = await axios.post("http://localhost:3000/admin/appData", {
+        appoId,
+      });
+      setData(res?.data?.data[0]);
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   return (
@@ -99,7 +114,7 @@ function Appointments() {
                             Payment id
                           </th>
                           <th className="w-3/12 px-4 py-2 border border-gray-300">
-                            Payment id
+                            More
                           </th>
                         </tr>
                       </thead>
@@ -141,7 +156,12 @@ function Appointments() {
                               {app.paymentId}
                             </td>
                             <td className="px-4 py-2 border border-gray-300 text-center">
-                              more
+                              <button
+                                onClick={() => handleClick(app._id)}
+                                className="bg-green-400 p-1 rounded-md"
+                              >
+                                More
+                              </button>
                             </td>
                           </tr>
                         ))}
@@ -170,6 +190,22 @@ function Appointments() {
             </div>
           )}
         </div>
+
+        <Modal
+          show={openModal}
+          onClose={() => setOpenModal(false)}
+          className="max-w-[500px] max-h-[500px] mx-auto my-auto rounded-md"
+        >
+          <Modal.Header className="p-4 bg-slate-500">Doctor and Patient</Modal.Header>
+          <Modal.Body className="p-7 bg-slate-400 text-white">
+            <div className="flex justify-center flex-col gap-5">
+              <label htmlFor="">Doctor</label>
+              <input className="rounded-lg text-black" type="text" readOnly value={data.doctorName} />
+              <label htmlFor="">Patient</label>
+              <input className="rounded-lg text-black" type="text" readOnly value={data.userName} />  
+            </div>
+          </Modal.Body>
+        </Modal>
       </div>
 
       <Footer />
