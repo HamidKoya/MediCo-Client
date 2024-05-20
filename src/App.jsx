@@ -11,6 +11,7 @@ import DoctorsList from './pages/user/DoctorsList'
 import DoctorDetailsPage from './pages/user/DoctorDetailsPage'
 import AppointmentsUser from './pages/user/AppointmentsUser'
 import PaymentSuccess from './pages/user/PaymentSuccess'
+import ChatPage from './pages/user/ChatPage'
 
 import UsersList from './pages/admin/UsersList'
 import Dashboard from './pages/admin/Dashboard'
@@ -48,6 +49,7 @@ function App() {
       <Route path='/doctordetails/:id' element={<DoctorDetailsPage/>}/>
       <Route path='/appointments' element={<AppointmentsUser/>}/>
       <Route path='/success' element={<PaymentSuccess/>}/>
+      <Route path='/chatuser' element={<ChatPage/>}/>
 
 
       <Route path='/admin/login' element={<AdminLogin/>}/>
