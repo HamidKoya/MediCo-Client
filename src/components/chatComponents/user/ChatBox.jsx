@@ -95,7 +95,7 @@ function ChatBox({ chat, currentUser, setMessages, messages, socket }) {
                   <img
                     src={doctorData?.photo}
                     alt="doctor"
-                    className="w-10 sm:w-16 h-10 sm:h-16 rounded-full"
+                    className="w-10 sm:w-16 h-10 sm:h-16 rounded-full object-cover"
                   />
                 </div>
                 <div className="flex flex-col leading-tight">

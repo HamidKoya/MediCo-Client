@@ -1,26 +1,28 @@
-import Header2 from "@/components/user/Header2";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import ChatList from "@/components/chatComponents/user/ChatList";
-import ChatBox from "@/components/chatComponents/user/ChatBox";
+import React from "react";
+import Header from "@/components/doctor/Header";
+import ChatList from "@/components/chatComponents/doctor/ChatList";
+import ChatBox from "@/components/chatComponents/doctor/ChatBox";
 import { io } from "socket.io-client";
+import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 const END_POINT = "http://localhost:3000/";
 
 let socket;
 
-function ChatPage() {
-  const { currentUser } = useSelector((state) => state.user);
+function ChatPageDoctor() {
+  const { currentDoctor } = useSelector((state) => state.doctor);
   const [conversations, setConversations] = useState([]);
   const [onlineUsers, setOnlineUsers] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
   const [messages, setMessages] = useState([]);
-  const userId = currentUser.userData._id;
+
+  const _id = currentDoctor.doctorData._id;
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/chat/chat/${userId}`)
+      .get(`http://localhost:3000/chat/chat/${_id}`)
       .then((res) => {
         setConversations(res.data);
       })
@@ -34,7 +36,7 @@ function ChatPage() {
   }, []);
 
   useEffect(() => {
-    socket?.emit("setup", userId);
+    socket?.emit("setup", _id);
     socket?.on("get-users", (users) => {
       setOnlineUsers(users);
     });
@@ -42,10 +44,10 @@ function ChatPage() {
     return () => {
       socket.disconnect();
     };
-  }, [userId]);
+  }, [_id]);
 
   useEffect(() => {
-    socket.on("recieve_message", (data) => {
+    socket?.on("recieve_message", (data) => {
       if (data?.chatId === currentChat?._id) {
         const message = [...messages, data];
         setMessages(message);
@@ -69,15 +71,15 @@ function ChatPage() {
   }, [messages, currentChat, conversations]);
 
   const checkOnlineStatus = (chat) => {
-    const chatMember = chat.members.find((member) => member !== userId);
+    const chatMember = chat.members.find((member) => member !== doctorId);
     const online = onlineUsers.find((user) => user.userId === chatMember);
     return online ? true : false;
   };
 
   return (
     <div>
-      <Header2 />
-      <div className="bg-blue-50 w-full fixed">
+      <Header />
+      <div className="bg-blue-50 fixed w-full">
         <div className="min-h-screen bg-blue-50 flex justify-center">
           <div className="min-h-screen bg-blue-50">
             <div className="w-full md:w-96 h-screen bg-white mx-auto md:me-10">
@@ -95,11 +97,7 @@ function ChatPage() {
                         socket?.emit("join room", chat._id);
                       }}
                     >
-                      <ChatList
-                        data={chat}
-                        currentUserId={userId}
-                        online={checkOnlineStatus(chat)}
-                      />
+                      <ChatList data={chat} currentDoctorId={_id} />
                     </div>
                   ))
                 )}
@@ -108,7 +106,7 @@ function ChatPage() {
           </div>
           <ChatBox
             chat={currentChat}
-            currentUser={userId}
+            currentDoctor={_id}
             setMessages={setMessages}
             messages={messages}
             socket={socket}
@@ -119,4 +117,4 @@ function ChatPage() {
   );
 }
 
-export default ChatPage;
+export default ChatPageDoctor;

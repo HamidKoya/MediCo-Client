@@ -1,10 +1,10 @@
 import React from "react";
 import { format } from "timeago.js";
 
-function Conversation({ currentDoctor, message }) {
+function Conversation({ currentUser, message }) {
   return (
     <div id="messages" className="">
-      {currentDoctor === message?.senderId ? (
+      {currentUser === message?.senderId ? (
         <div className="chat-message">
           <div className="flex items-end justify-end">
             <div className="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-1 items-end">

@@ -5,8 +5,21 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Loading from "@/components/user/Loading";
+import { Button, Modal } from "flowbite-react";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faComment,
+  faVideo,
+  faCheck,
+  faPrescriptionBottleMedical,
+  faNotesMedical,
+} from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 function AppointmentsDoctor() {
+  const navigate = useNavigate();
   const { currentDoctor } = useSelector((state) => state.doctor);
   const doctorId = currentDoctor.doctorData._id;
   const [loading, setLoading] = useState(false);
@@ -16,7 +29,25 @@ function AppointmentsDoctor() {
   const [pagination, setPagination] = useState({});
   const [currentDate, setCurrentDate] = useState();
   const [currentTime, setCurrentTime] = useState();
+  const [openModal, setOpenModal] = useState(false);
+  const [userId, setUserId] = useState();
+  const [appoDate, setAppoDate] = useState();
+  const [appoStart, setAppoStart] = useState();
+  const [appoEnd, setAppoEnd] = useState();
+  const [appoName, setAppoName] = useState();
+  const [appoId, setAppoId] = useState();
+  const [appoStatus, setAppoStauts] = useState();
+  const [paymentId, setPaymentId] = useState();
+  const [openModalx, setOpenModalx] = useState(false);
+  const [openModalR, setOpenModalR] = useState(false);
+  const [btn, setBtn] = useState(false);
+
   const limit = 5;
+
+  const appoDateAsDate = new Date(appoDate);
+  const appDate = appoDateAsDate.toLocaleDateString();
+  const currDateAsDate = new Date(currentDate);
+  const currDate = currDateAsDate.toLocaleDateString();
 
   useEffect(() => {
     setLoading(true);
@@ -39,6 +70,130 @@ function AppointmentsDoctor() {
         console.log(err.message);
       });
   }, [doctorId, currentPage, limit, render]);
+
+  const handleId = (id) => {
+    setUserId(id);
+  };
+
+  const handleClick = (date, start, end, name, id, status, payment) => {
+    setAppoDate(date);
+    setAppoStart(start);
+    setAppoEnd(end);
+    setAppoName(name);
+    setAppoId(id);
+    setAppoStauts(status);
+    setPaymentId(payment);
+  };
+
+  const handleLinkClick = (event) => {};
+
+  const handlePris = () => {
+    // navigate(`/doctor/priscription`, {
+    //   state: {
+    //     userName: appoName,
+    //     date: appDate,
+    //     start: appoStart,
+    //     end: appoEnd,
+    //     userId: userId,
+    //     appoId: appoId,
+    //   },
+    // });
+  };
+
+  const handleReport = () => {
+    // navigate(`/doctor/medicalreport`, {
+    //   state: {
+    //     userName: appoName, date: appDate, appoId: appoId, userId: userId
+    //   }
+    // })
+  };
+
+  const markAsDone = async () => {
+    // try {
+    //   const result = await Swal.fire({
+    //     title: "Are you sure?",
+    //     text: "You won't be able to undo this!",
+    //     icon: "warning",
+    //     showCancelButton: true,
+    //     confirmButtonColor: "#3085d6",
+    //     cancelButtonColor: "#d33",
+    //     confirmButtonText: "Yes!",
+    //   });
+    //   if (result.isConfirmed) {
+    //     const res = await markasDone(appoId, userId);
+    //     if (res.status === 200) {
+    //       if (render === true) {
+    //         setRender(false);
+    //         setOpenModal(false);
+    //       } else {
+    //         setRender(true);
+    //         setOpenModal(false);
+    //       }
+    //       Swal.fire({
+    //         title: "Appointment marked as DONE!",
+    //         icon: "success",
+    //       });
+    //     } else {
+    //       Swal.fire({
+    //         title: "Error",
+    //         icon: "error",
+    //       });
+    //     }
+    //   }
+    // } catch (error) {
+    //   console.log(error.message);
+    // }
+  };
+
+  const handleNavigate = () => {
+    try {
+      navigate("/doctor/chatpagedoctor");
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const handleCancel = async () => {
+    // try {
+    //   Swal.fire({
+    //     title: "Are you sure?",
+    //     text: "You won't be able to revert this!",
+    //     icon: "warning",
+    //     showCancelButton: true,
+    //     confirmButtonColor: "#3085d6",
+    //     cancelButtonColor: "#d33",
+    //     confirmButtonText: "Yes, cancel it!",
+    //   }).then(async (result) => {
+    //     if (result.isConfirmed) {
+    //       setOpenModal(false);
+    //       await cancelAppointment({ appoId, paymentId, userId });
+    //       Swal.fire({
+    //         title: "Cancelled!",
+    //         text: "Your appointment has been cancelled.",
+    //         icon: "success",
+    //       });
+    //       if (render === true) {
+    //         setRender(false);
+    //       } else {
+    //         setRender(true);
+    //       }
+    //     }
+    //   });
+    // } catch (error) {
+    //   console.log(error.message);
+    // }
+  };
+
+  const handleAccept = async () => {
+    try {
+      const response = await axios.post("http://localhost:3000/doctor/createChat",{ userid: userId, doctorid: doctorId })
+      setBtn(true);
+      setOpenModal(true)
+      Swal.fire(response?.data?.message);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
   return (
     <div>
       <Header />
@@ -130,7 +285,23 @@ function AppointmentsDoctor() {
                           >
                             {appointment.status}
                           </td>
-                          <td class="px-6 py-4 text-blue-500 font-semibold cursor-pointer">
+                          <td
+                            class="px-6 py-4 text-blue-500 font-semibold cursor-pointer"
+                            onClick={() => {
+                              setOpenModal(true);
+                              handleId(appointment.userDetails._id);
+                              handleClick(
+                                appointment.consultationDate,
+                                appointment.start,
+                                appointment.end,
+                                appointment.userDetails.name,
+                                appointment._id,
+                                appointment.status,
+                                appointment.paymentId,
+                                appointment.user
+                              );
+                            }}
+                          >
                             More
                           </td>
                         </tr>
@@ -156,6 +327,185 @@ function AppointmentsDoctor() {
                   ))}
                 </div>
               )}
+
+              <Modal
+                className="w-[400px] sm:w-[700px] mx-auto mt-36"
+                show={openModal}
+                onClose={() => setOpenModal(false)}
+              >
+                <Modal.Header>More info</Modal.Header>
+                <Modal.Body>
+                  {appoStatus === "CancelledByDoctor" ? (
+                    <div className="text-red-500 p-5">
+                      APPOINTMENT CANCELLED BY DOCTOR
+                    </div>
+                  ) : (
+                    <div className="space-y-6">
+                      {currDate === appDate &&
+                      currentTime >= appoStart &&
+                      currentTime <= appoEnd &&
+                      appoStatus === "Pending" ? (
+                        <React.Fragment>
+                          <p className="text-xl text-green-500 ">
+                            Now you can start the video call
+                          </p>
+                          <Link
+                            to={"/doctor/video"}
+                            className="btn btn-secondary w-full"
+                            onClick={handleLinkClick}
+                          >
+                            Start Video Call
+                            <FontAwesomeIcon icon={faVideo} />
+                          </Link>
+                        </React.Fragment>
+                      ) : appoStatus === "Done" ? (
+                        <React.Fragment>
+                          <div className="text-green-500">
+                            ADD MEDICAL REPORT AND PRESCRIPTION
+                          </div>
+                        </React.Fragment>
+                      ) : appoStatus === "Cancelled" ? (
+                        <div className="text-red-500 pt-5">
+                          APPOINTMENT CANCELLED BY USER
+                        </div>
+                      ) : (
+                        <div className="text-orange-500">
+                          VIDEO CALL ROOM AVAILABLE IN THE DATE AND TIME
+                        </div>
+                      )}
+                      <br />
+                      {appoStatus === "Done" && (
+                        <React.Fragment>
+                          <button
+                            onClick={() => {
+                              setOpenModal(false);
+                              handlePris();
+                            }}
+                            className="btn btn-primary w-full"
+                          >
+                            Add Prescription
+                            <FontAwesomeIcon
+                              icon={faPrescriptionBottleMedical}
+                            />
+                          </button>
+                          <br />
+                          <button
+                            onClick={() => {
+                              setOpenModal(false);
+                              handleReport();
+                            }}
+                            className="btn btn-success w-full"
+                          >
+                            Add Medical Report
+                            <FontAwesomeIcon icon={faNotesMedical} />
+                          </button>
+                          <br />
+                        </React.Fragment>
+                      )}
+                      {currDate === appDate &&
+                      currentTime >= appoStart &&
+                      appoStatus === "Pending" ? (
+                        <button
+                          className="btn btn-warning w-full"
+                          onClick={markAsDone}
+                        >
+                          Mark As Done
+                          <FontAwesomeIcon icon={faCheck} />
+                        </button>
+                      ) : null}
+                    </div>
+                  )}
+                </Modal.Body>
+
+                <Modal.Footer>
+                  {appoStatus === "Cancelled" ||
+                  appoStatus === "CancelledByDoctor" ? null : btn ? (
+                    <div className="flex justify-center">
+                      <Button
+                        color="green"
+                        className="w-49"
+                        onClick={() => handleNavigate()}
+                      >
+                        Chat with patient
+                      </Button>
+                    </div>
+                  ) : (
+                    <div className="flex justify-center">
+                      <Button
+                        className="w-35"
+                        color="green"
+                        onClick={() => {setOpenModalx(true);setOpenModal(false)}}
+                      >
+                        Connect patient
+                      </Button>
+                    </div>
+                  )}
+                  {appoStatus === "Cancelled" ||
+                  appoStatus === "Done" ||
+                  appoStatus === "CancelledByDoctor" ? null : (
+                    <>
+                      <Button
+                        className="w-25"
+                        color="yellow"
+                        onClick={() => setOpenModalR(true)}
+                      >
+                        Reschedule
+                      </Button>
+                      <Button
+                        onClick={handleCancel}
+                        color="red"
+                        className="w-35"
+                      >
+                        Cancel appointment
+                      </Button>
+                    </>
+                  )}
+                </Modal.Footer>
+              </Modal>
+
+              <Modal className="w-[500px] mx-auto mt-28" show={openModalx} onClose={() => setOpenModalx(false)}>
+                <Modal.Header>Connect Patient</Modal.Header>
+                <Modal.Body>
+                  <div className="space-y-6">
+                    <div className="flex justify-center">
+                      <div className="relative group cursor-pointer group overflow-hidden  text-gray-50 h-72 w-56  rounded-2xl hover:duration-700 duration-700">
+                        <div className="w-56 h-72 bg-emerald-400 text-gray-800">
+                          <div className="flex flex-row justify-center">
+                            <FontAwesomeIcon
+                              icon={faComment}
+                              className=" m-10 w-20 h-20 "
+                            />
+                          </div>
+                        </div>
+                        <div className="absolute bg-black -bottom-24 w-56 p-3 flex flex-col gap-1 group-hover:-bottom-0 group-hover:duration-600 duration-500">
+                          <span className="text-white font-bold text-xs">
+                            CONNECT
+                          </span>
+                          <span className="text-white font-bold text-3xl">
+                            With patiant.
+                          </span>
+                          <p className="text-white">
+                            Click I accept to connect with patient
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button
+                    className="text-green-500 border-2 border-green-500"
+                    onClick={() => {
+                      setOpenModalx(false)
+                      handleAccept();
+                    }}
+                  >
+                    I accept
+                  </Button>
+
+                  <Button className="text-red-500 border-2 border-red-500" onClick={() => setOpenModalx(false)}>Decline</Button>
+                </Modal.Footer>
+              </Modal>
             </>
           )}
         </div>
