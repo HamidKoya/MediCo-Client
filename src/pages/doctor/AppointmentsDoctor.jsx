@@ -158,34 +158,34 @@ function AppointmentsDoctor() {
   };
 
   const handleCancel = async () => {
-    // try {
-    //   Swal.fire({
-    //     title: "Are you sure?",
-    //     text: "You won't be able to revert this!",
-    //     icon: "warning",
-    //     showCancelButton: true,
-    //     confirmButtonColor: "#3085d6",
-    //     cancelButtonColor: "#d33",
-    //     confirmButtonText: "Yes, cancel it!",
-    //   }).then(async (result) => {
-    //     if (result.isConfirmed) {
-    //       setOpenModal(false);
-    //       await cancelAppointment({ appoId, paymentId, userId });
-    //       Swal.fire({
-    //         title: "Cancelled!",
-    //         text: "Your appointment has been cancelled.",
-    //         icon: "success",
-    //       });
-    //       if (render === true) {
-    //         setRender(false);
-    //       } else {
-    //         setRender(true);
-    //       }
-    //     }
-    //   });
-    // } catch (error) {
-    //   console.log(error.message);
-    // }
+    try {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, cancel it!",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          setOpenModal(false);
+          await axios.patch("http://localhost:3000/doctor/cancelAppointment",{ appoId, paymentId, userId })
+          Swal.fire({
+            title: "Cancelled!",
+            text: "Your appointment has been cancelled.",
+            icon: "success",
+          });
+          if (render === true) {
+            setRender(false);
+          } else {
+            setRender(true);
+          }
+        }
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   const handleAccept = async () => {
