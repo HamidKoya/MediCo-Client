@@ -301,7 +301,7 @@ function AppointmentsUser() {
                           <div className="flex justify-center m-5">
                             <button
                               type="submit"
-                              className="btn btn-outline btn-warning w-60"
+                              className="border border-yellow-500 text-yellow-500 bg-transparent hover:bg-yellow-500 hover:text-white w-60 p-2 rounded-md"
                             >
                               Add Your Review
                             </button>
@@ -310,7 +310,7 @@ function AppointmentsUser() {
                         <div className="flex justify-center ">
                           <button
                             onClick={consultationReport}
-                            className="btn btn-outline btn-success w-60"
+                            className="w-60 border border-green-500 text-green-500 hover:bg-green-500 hover:text-white p-2 rounded-md"
                           >
                             Consultation report
                           </button>
@@ -352,7 +352,7 @@ function AppointmentsUser() {
                               data.start
                             ) ? (
                               <button
-                                className="btn btn-error w-full"
+                                className="w-full bg-red-500 text-white py-2 px-4 rounded"
                                 onClick={() => {
                                   handleCancel(data._id);
                                   setOpenModal(false);
@@ -380,7 +380,7 @@ function AppointmentsUser() {
                           <div className="flex justify-center">
                             <Button
                               color="yellow"
-                              className=" btn-primary w-40"
+                              className="border-yellow-300 hover:bg-yellow-50 w-40"
                               onClick={() => handleNavigate()}
                             >
                               Chat with doctor
@@ -390,7 +390,7 @@ function AppointmentsUser() {
                           <div className="flex justify-center">
                             <Button
                               color="yellow"
-                              className="w-36"
+                              className="w-36 border-yellow-300 hover:bg-yellow-50"
                               onClick={() => {
                                 setOpenModalx(true);
                                 setOpenModal(false);
@@ -403,7 +403,7 @@ function AppointmentsUser() {
                         <div className="flex justify-center">
                           <Button
                             color="green"
-                            className="w-20"
+                            className="w-20 border-green-400 hover:bg-green-100"
                             onClick={() => {
                               handlePrescription();
                             }}
@@ -415,7 +415,7 @@ function AppointmentsUser() {
                         <div className="flex justify-center">
                           <Button
                             color="red"
-                            className="w-35"
+                            className="w-35 border-red-400 hover:bg-red-100"
                             onClick={() => {
                               handleReport();
                             }}
@@ -432,7 +432,7 @@ function AppointmentsUser() {
                           <div className="flex justify-center">
                             <Button
                               color="yellow"
-                              className=" btn-primary w-40"
+                              className="border-yellow-300 hover:bg-yellow-50"
                               onClick={() => handleNavigate()}
                             >
                               Chat with doctor
@@ -442,7 +442,7 @@ function AppointmentsUser() {
                           <div className="flex justify-center ">
                             <Button
                               color="yellow"
-                              className="w-30 "
+                              className="w-30 border-yellow-300 hover:bg-yellow-50"
                               onClick={() => setOpenModalx(true)}
                             >
                               Connect doctor
@@ -452,7 +452,7 @@ function AppointmentsUser() {
                         <div className="flex justify-center ">
                           <Button
                             color="green"
-                            className="w-20"
+                            className="w-20 border-green-400 hover:bg-green-100"
                             onClick={() => {
                               handlePrescription();
                             }}
@@ -463,7 +463,7 @@ function AppointmentsUser() {
                         <div className="flex justify-center">
                           <Button
                             color="red"
-                            className="w-40"
+                            className="w-40 border-red-400 hover:bg-red-100"
                             onClick={() => {
                               handleReport();
                             }}
