@@ -17,6 +17,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { useFormik } from "formik";
+import { rescheduleSchema } from "@/validations/doctor/rescheduleValidation";
 
 function AppointmentsDoctor() {
   const navigate = useNavigate();
@@ -120,7 +122,9 @@ function AppointmentsDoctor() {
         confirmButtonText: "Yes!",
       });
       if (result.isConfirmed) {
-        const res = await axios.patch(`http://localhost:3000/doctor/markAsDone?id=${appoId}&userId=${userId}`);
+        const res = await axios.patch(
+          `http://localhost:3000/doctor/markAsDone?id=${appoId}&userId=${userId}`
+        );
         if (res.status === 200) {
           if (render === true) {
             setRender(false);
@@ -186,14 +190,78 @@ function AppointmentsDoctor() {
 
   const handleAccept = async () => {
     try {
-      const response = await axios.post("http://localhost:3000/doctor/createChat",{ userid: userId, doctorid: doctorId })
+      const response = await axios.post(
+        "http://localhost:3000/doctor/createChat",
+        { userid: userId, doctorid: doctorId }
+      );
       setBtn(true);
-      setOpenModal(true)
+      setOpenModal(true);
       Swal.fire(response?.data?.message);
     } catch (error) {
       console.log(error.message);
     }
   };
+
+  const onSubmit = async (values) => {
+    try {
+      const { date, startTime, endTime } = values;
+      console.log(values);
+      const res = await axios.patch("http://localhost:3000/doctor/reSchedule",{
+        date,
+        startTime,
+        endTime,
+        appoId,
+        userId,
+      });
+
+      if (res.status === 200) {
+        if (render === true) {
+          setRender(false);
+          setOpenModalR(false);
+          setOpenModal(false);
+          const Toast = Swal.mixin({
+            toast: true,
+            position: "top",
+            showConfirmButton: false,
+            timer: 3000,
+          });
+
+          Toast.fire({
+            icon: "success",
+            title: res.data.message,
+          });
+        } else {
+          setRender(true);
+          setOpenModalR(false);
+          setOpenModal(false);
+          const Toast = Swal.mixin({
+            toast: true,
+            position: "top",
+            showConfirmButton: false,
+            timer: 3000,
+          });
+
+          Toast.fire({
+            icon: "success",
+            title: res.data.message,
+          });
+        }
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
+    useFormik({
+      initialValues: {
+        date: "",
+        startTime: "",
+        endTime: "",
+      },
+      validationSchema: rescheduleSchema,
+      onSubmit,
+    });
   return (
     <div>
       <Header />
@@ -349,15 +417,17 @@ function AppointmentsDoctor() {
                           <p className="text-xl text-green-500 ">
                             Now you can start the video call
                           </p>
-                          <Link
-                            to={"/doctor/video"}
-                            
-                            
-                            
-                          >
-                            <button onClick={handleLinkClick} className="bg-blue-500 text-white py-2 px-4 rounded w-full hover:bg-blue-400 mt-2">Start Video Call <FontAwesomeIcon className="ml-2" icon={faVideo} /></button>
-                            
-                            
+                          <Link to={"/doctor/video"}>
+                            <button
+                              onClick={handleLinkClick}
+                              className="bg-blue-500 text-white py-2 px-4 rounded w-full hover:bg-blue-400 mt-2"
+                            >
+                              Start Video Call{" "}
+                              <FontAwesomeIcon
+                                className="ml-2"
+                                icon={faVideo}
+                              />
+                            </button>
                           </Link>
                         </React.Fragment>
                       ) : appoStatus === "Done" ? (
@@ -386,10 +456,11 @@ function AppointmentsDoctor() {
                             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full"
                           >
                             Add Prescription
-                            <span className="ml-2"><FontAwesomeIcon
-                              icon={faPrescriptionBottleMedical}
-                            /></span>
-                            
+                            <span className="ml-2">
+                              <FontAwesomeIcon
+                                icon={faPrescriptionBottleMedical}
+                              />
+                            </span>
                           </button>
                           <br />
                           <button
@@ -400,8 +471,9 @@ function AppointmentsDoctor() {
                             className="bg-green-500 text-white font-bold py-2 px-4 rounded w-full"
                           >
                             Add Medical Report
-                            <span className="ml-2"><FontAwesomeIcon icon={faNotesMedical} /></span>
-                            
+                            <span className="ml-2">
+                              <FontAwesomeIcon icon={faNotesMedical} />
+                            </span>
                           </button>
                           <br />
                         </React.Fragment>
@@ -413,9 +485,10 @@ function AppointmentsDoctor() {
                           className="bg-yellow-300 text-white font-bold py-2 px-4 rounded w-full"
                           onClick={markAsDone}
                         >
-                          Mark As Done 
-                          <span className="ml-2"><FontAwesomeIcon icon={faCheck} /></span>
-                          
+                          Mark As Done
+                          <span className="ml-2">
+                            <FontAwesomeIcon icon={faCheck} />
+                          </span>
                         </button>
                       ) : null}
                     </div>
@@ -439,7 +512,10 @@ function AppointmentsDoctor() {
                       <Button
                         className="w-35 border-green-400 hover:bg-green-200"
                         color="green"
-                        onClick={() => {setOpenModalx(true);setOpenModal(false)}}
+                        onClick={() => {
+                          setOpenModalx(true);
+                          setOpenModal(false);
+                        }}
                       >
                         Connect patient
                       </Button>
@@ -468,7 +544,11 @@ function AppointmentsDoctor() {
                 </Modal.Footer>
               </Modal>
 
-              <Modal className="w-[500px] mx-auto mt-28" show={openModalx} onClose={() => setOpenModalx(false)}>
+              <Modal
+                className="w-[500px] mx-auto mt-28"
+                show={openModalx}
+                onClose={() => setOpenModalx(false)}
+              >
                 <Modal.Header>Connect Patient</Modal.Header>
                 <Modal.Body>
                   <div className="space-y-6">
@@ -501,15 +581,81 @@ function AppointmentsDoctor() {
                   <Button
                     className="text-green-500 border-2 border-green-500"
                     onClick={() => {
-                      setOpenModalx(false)
+                      setOpenModalx(false);
                       handleAccept();
                     }}
                   >
                     I accept
                   </Button>
 
-                  <Button className="text-red-500 border-2 border-red-500" onClick={() => setOpenModalx(false)}>Decline</Button>
+                  <Button
+                    className="text-red-500 border-2 border-red-500"
+                    onClick={() => setOpenModalx(false)}
+                  >
+                    Decline
+                  </Button>
                 </Modal.Footer>
+              </Modal>
+
+              <Modal className="w-96 mx-auto mt-32" show={openModalR} onClose={() => setOpenModalR(false)}>
+                <Modal.Header>Reschedule</Modal.Header>
+                <Modal.Body>
+                  <form
+                    method="dialog"
+                    onSubmit={handleSubmit}
+                    className="modal-form"
+                  >
+                    <div className="form-group text-black">
+                      <label htmlFor="date">New Date:</label>
+                      <input
+                        className="w-full bg-gray-300"
+                        type="date"
+                        id="date"
+                        name="date"
+                        value={values.date}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                      />
+                      {errors.date && touched.date && (
+                        <p className="text-red-600">{errors.date}</p>
+                      )}
+                    </div>
+
+                    <div className="form-group text-black">
+                      <label htmlFor="startTime">Start Time:</label>
+                      <input
+                        className="w-full bg-gray-300"
+                        type="time"
+                        id="startTime"
+                        name="startTime"
+                        value={values.startTime}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                      />
+                      {errors.startTime && touched.startTime && (
+                        <p className="text-red-600">{errors.startTime}</p>
+                      )}
+                    </div>
+
+                    <div className="form-group text-black">
+                      <label htmlFor="endTime">End Time:</label>
+                      <input
+                        className="w-full bg-gray-300"
+                        type="time"
+                        id="endTime"
+                        name="endTime"
+                        value={values.endTime}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                      />
+                      {errors.endTime && touched.endTime && (
+                        <p className="text-red-600">{errors.endTime}</p>
+                      )}
+                    </div>
+                    <br />
+                    <Button className="bg-green-400" type="submit">Submit</Button>
+                  </form>
+                </Modal.Body>
               </Modal>
             </>
           )}
