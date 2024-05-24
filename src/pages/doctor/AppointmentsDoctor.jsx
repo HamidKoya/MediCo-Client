@@ -351,11 +351,13 @@ function AppointmentsDoctor() {
                           </p>
                           <Link
                             to={"/doctor/video"}
-                            className="btn btn-secondary w-full"
-                            onClick={handleLinkClick}
+                            
+                            
+                            
                           >
-                            Start Video Call
-                            <FontAwesomeIcon icon={faVideo} />
+                            <button onClick={handleLinkClick} className="bg-blue-500 text-white py-2 px-4 rounded w-full hover:bg-blue-400 mt-2">Start Video Call <FontAwesomeIcon className="ml-2" icon={faVideo} /></button>
+                            
+                            
                           </Link>
                         </React.Fragment>
                       ) : appoStatus === "Done" ? (
@@ -381,12 +383,13 @@ function AppointmentsDoctor() {
                               setOpenModal(false);
                               handlePris();
                             }}
-                            className="btn btn-primary w-full"
+                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full"
                           >
                             Add Prescription
-                            <FontAwesomeIcon
+                            <span className="ml-2"><FontAwesomeIcon
                               icon={faPrescriptionBottleMedical}
-                            />
+                            /></span>
+                            
                           </button>
                           <br />
                           <button
@@ -394,10 +397,11 @@ function AppointmentsDoctor() {
                               setOpenModal(false);
                               handleReport();
                             }}
-                            className="btn btn-success w-full"
+                            className="bg-green-500 text-white font-bold py-2 px-4 rounded w-full"
                           >
                             Add Medical Report
-                            <FontAwesomeIcon icon={faNotesMedical} />
+                            <span className="ml-2"><FontAwesomeIcon icon={faNotesMedical} /></span>
+                            
                           </button>
                           <br />
                         </React.Fragment>
@@ -406,11 +410,12 @@ function AppointmentsDoctor() {
                       currentTime >= appoStart &&
                       appoStatus === "Pending" ? (
                         <button
-                          className="btn btn-warning w-full"
+                          className="bg-yellow-300 text-white font-bold py-2 px-4 rounded w-full"
                           onClick={markAsDone}
                         >
-                          Mark As Done
-                          <FontAwesomeIcon icon={faCheck} />
+                          Mark As Done 
+                          <span className="ml-2"><FontAwesomeIcon icon={faCheck} /></span>
+                          
                         </button>
                       ) : null}
                     </div>
@@ -423,7 +428,7 @@ function AppointmentsDoctor() {
                     <div className="flex justify-center">
                       <Button
                         color="green"
-                        className="w-49"
+                        className="w-49 border-green-400 hover:bg-green-200"
                         onClick={() => handleNavigate()}
                       >
                         Chat with patient
@@ -432,7 +437,7 @@ function AppointmentsDoctor() {
                   ) : (
                     <div className="flex justify-center">
                       <Button
-                        className="w-35"
+                        className="w-35 border-green-400 hover:bg-green-200"
                         color="green"
                         onClick={() => {setOpenModalx(true);setOpenModal(false)}}
                       >
@@ -445,7 +450,7 @@ function AppointmentsDoctor() {
                   appoStatus === "CancelledByDoctor" ? null : (
                     <>
                       <Button
-                        className="w-25"
+                        className="w-25 border-yellow-300 hover:bg-yellow-100"
                         color="yellow"
                         onClick={() => setOpenModalR(true)}
                       >
@@ -454,7 +459,7 @@ function AppointmentsDoctor() {
                       <Button
                         onClick={handleCancel}
                         color="red"
-                        className="w-35"
+                        className="w-35 border-red-500 hover:bg-red-100"
                       >
                         Cancel appointment
                       </Button>
