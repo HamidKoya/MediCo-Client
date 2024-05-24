@@ -109,40 +109,40 @@ function AppointmentsDoctor() {
   };
 
   const markAsDone = async () => {
-    // try {
-    //   const result = await Swal.fire({
-    //     title: "Are you sure?",
-    //     text: "You won't be able to undo this!",
-    //     icon: "warning",
-    //     showCancelButton: true,
-    //     confirmButtonColor: "#3085d6",
-    //     cancelButtonColor: "#d33",
-    //     confirmButtonText: "Yes!",
-    //   });
-    //   if (result.isConfirmed) {
-    //     const res = await markasDone(appoId, userId);
-    //     if (res.status === 200) {
-    //       if (render === true) {
-    //         setRender(false);
-    //         setOpenModal(false);
-    //       } else {
-    //         setRender(true);
-    //         setOpenModal(false);
-    //       }
-    //       Swal.fire({
-    //         title: "Appointment marked as DONE!",
-    //         icon: "success",
-    //       });
-    //     } else {
-    //       Swal.fire({
-    //         title: "Error",
-    //         icon: "error",
-    //       });
-    //     }
-    //   }
-    // } catch (error) {
-    //   console.log(error.message);
-    // }
+    try {
+      const result = await Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to undo this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes!",
+      });
+      if (result.isConfirmed) {
+        const res = await axios.patch(`http://localhost:3000/doctor/markAsDone?id=${appoId}&userId=${userId}`);
+        if (res.status === 200) {
+          if (render === true) {
+            setRender(false);
+            setOpenModal(false);
+          } else {
+            setRender(true);
+            setOpenModal(false);
+          }
+          Swal.fire({
+            title: "Appointment marked as DONE!",
+            icon: "success",
+          });
+        } else {
+          Swal.fire({
+            title: "Error",
+            icon: "error",
+          });
+        }
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   const handleNavigate = () => {
