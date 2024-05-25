@@ -103,11 +103,14 @@ function AppointmentsDoctor() {
   };
 
   const handleReport = () => {
-    // navigate(`/doctor/medicalreport`, {
-    //   state: {
-    //     userName: appoName, date: appDate, appoId: appoId, userId: userId
-    //   }
-    // })
+    navigate(`/doctor/medicalreport`, {
+      state: {
+        userName: appoName,
+        date: appDate,
+        appoId: appoId,
+        userId: userId,
+      },
+    });
   };
 
   const markAsDone = async () => {
@@ -170,7 +173,11 @@ function AppointmentsDoctor() {
       }).then(async (result) => {
         if (result.isConfirmed) {
           setOpenModal(false);
-          await axios.patch("http://localhost:3000/doctor/cancelAppointment",{ appoId, paymentId, userId })
+          await axios.patch("http://localhost:3000/doctor/cancelAppointment", {
+            appoId,
+            paymentId,
+            userId,
+          });
           Swal.fire({
             title: "Cancelled!",
             text: "Your appointment has been cancelled.",
@@ -206,7 +213,7 @@ function AppointmentsDoctor() {
     try {
       const { date, startTime, endTime } = values;
       console.log(values);
-      const res = await axios.patch("http://localhost:3000/doctor/reSchedule",{
+      const res = await axios.patch("http://localhost:3000/doctor/reSchedule", {
         date,
         startTime,
         endTime,
@@ -597,7 +604,11 @@ function AppointmentsDoctor() {
                 </Modal.Footer>
               </Modal>
 
-              <Modal className="w-96 mx-auto mt-32" show={openModalR} onClose={() => setOpenModalR(false)}>
+              <Modal
+                className="w-96 mx-auto mt-32"
+                show={openModalR}
+                onClose={() => setOpenModalR(false)}
+              >
                 <Modal.Header>Reschedule</Modal.Header>
                 <Modal.Body>
                   <form
@@ -653,7 +664,9 @@ function AppointmentsDoctor() {
                       )}
                     </div>
                     <br />
-                    <Button className="bg-green-400" type="submit">Submit</Button>
+                    <Button className="bg-green-400" type="submit">
+                      Submit
+                    </Button>
                   </form>
                 </Modal.Body>
               </Modal>

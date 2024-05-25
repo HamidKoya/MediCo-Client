@@ -36,6 +36,7 @@ import AppointmentsDoctor from './pages/doctor/AppointmentsDoctor'
 import ReviewsDoctor from './pages/doctor/ReviewsDoctor'
 import ChatPageDoctor from './pages/doctor/ChatPageDoctor'
 import Prescription from './pages/doctor/Prescription'
+import MedicalReport from './pages/doctor/MedicalReport'
 
 function App() {
   return (
@@ -79,6 +80,7 @@ function App() {
       <Route path='/doctor/reviews' element={<ReviewsDoctor/>}/>
       <Route path='/doctor/chatpagedoctor' element={<ChatPageDoctor/>}/>
       <Route path='/doctor/prescription' element={<Prescription/>}/>
+      <Route path='/doctor/medicalreport' element={<MedicalReport/>}/>
 
 
       
