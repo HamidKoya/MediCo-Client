@@ -90,16 +90,16 @@ function AppointmentsDoctor() {
   const handleLinkClick = (event) => {};
 
   const handlePris = () => {
-    // navigate(`/doctor/priscription`, {
-    //   state: {
-    //     userName: appoName,
-    //     date: appDate,
-    //     start: appoStart,
-    //     end: appoEnd,
-    //     userId: userId,
-    //     appoId: appoId,
-    //   },
-    // });
+    navigate(`/doctor/prescription`, {
+      state: {
+        userName: appoName,
+        date: appDate,
+        start: appoStart,
+        end: appoEnd,
+        userId: userId,
+        appoId: appoId,
+      },
+    });
   };
 
   const handleReport = () => {

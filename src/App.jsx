@@ -35,6 +35,7 @@ import SlotsDoctor from './pages/doctor/SlotsDoctor'
 import AppointmentsDoctor from './pages/doctor/AppointmentsDoctor'
 import ReviewsDoctor from './pages/doctor/ReviewsDoctor'
 import ChatPageDoctor from './pages/doctor/ChatPageDoctor'
+import Prescription from './pages/doctor/Prescription'
 
 function App() {
   return (
@@ -77,6 +78,7 @@ function App() {
       <Route path='/doctor/appointments' element={<AppointmentsDoctor/>}/>
       <Route path='/doctor/reviews' element={<ReviewsDoctor/>}/>
       <Route path='/doctor/chatpagedoctor' element={<ChatPageDoctor/>}/>
+      <Route path='/doctor/prescription' element={<Prescription/>}/>
 
 
       
