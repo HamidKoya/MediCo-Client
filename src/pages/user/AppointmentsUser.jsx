@@ -228,6 +228,18 @@ function AppointmentsUser() {
     }
   };
 
+  const handlePrescription = () => {
+    try {
+      navigate("/prescription", {
+        state: {
+          data: data,
+        },
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <div>
       <Header />
