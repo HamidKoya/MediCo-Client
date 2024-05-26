@@ -80,19 +80,77 @@ function AppointmentsUser() {
     return false; // Enable the cancel button
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
     try {
-      console.log("hello world");
+      e.preventDefault();
+      setOpenModal(false);
+      if (!rating || !review) {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top",
+          showConfirmButton: false,
+          timer: 3000,
+        });
+        Toast.fire({
+          icon: "error",
+          title: "Rating and/or review cannot be empty",
+        });
+        return;
+      }
+      const res = await axios.post("http://localhost:3000/addReview",{ userId: userId, drId, review, rating });
+
+      if (res.status === 200) {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top",
+          showConfirmButton: false,
+          timer: 3000,
+        });
+        Toast.fire({
+          icon: "success",
+          title: res.data.message,
+        });
+      }
     } catch (error) {
+      if(error){
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top",
+          showConfirmButton: false,
+          timer: 3000,
+        });
+        Toast.fire({
+          icon: "info",
+          title: error.response.data.message,
+        });
+      }
       console.log(error.message);
     }
   };
 
-  const handleChange = async () => {
+  const handleChange = (e) => {
     try {
-      console.log("hello world");
+      e.preventDefault();
+
+      if (e.target.name === "reviewText") {
+        const reviewValue = e.target.value;
+
+        if (reviewValue.trim() !== "") {
+          setReview(reviewValue);
+        } else {
+          console.error("Review text cannot be empty");
+        }
+      } else if (e.target.name === "rating") {
+        const ratingValue = parseInt(e.target.value, 10);
+
+        if (!isNaN(ratingValue) && ratingValue >= 1 && ratingValue <= 5) {
+          setRating(ratingValue);
+        } else {
+          console.error("Rating must be a number between 1 and 5");
+        }
+      }
     } catch (error) {
-      console.log(error.message);
+      console.error(error.message);
     }
   };
 
@@ -138,8 +196,11 @@ function AppointmentsUser() {
         confirmButtonText: "Yes, cancel it!",
       }).then(async (result) => {
         if (result.isConfirmed) {
-
-          await axios.post("http://localhost:3000/cancelAppointment",{id,userId,paymentId:data.paymentId})
+          await axios.post("http://localhost:3000/cancelAppointment", {
+            id,
+            userId,
+            paymentId: data.paymentId,
+          });
 
           Swal.fire({
             title: "Cancelled!",
