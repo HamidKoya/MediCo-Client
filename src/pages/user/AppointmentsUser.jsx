@@ -97,7 +97,12 @@ function AppointmentsUser() {
         });
         return;
       }
-      const res = await axios.post("http://localhost:3000/addReview",{ userId: userId, drId, review, rating });
+      const res = await axios.post("http://localhost:3000/addReview", {
+        userId: userId,
+        drId,
+        review,
+        rating,
+      });
 
       if (res.status === 200) {
         const Toast = Swal.mixin({
@@ -112,7 +117,7 @@ function AppointmentsUser() {
         });
       }
     } catch (error) {
-      if(error){
+      if (error) {
         const Toast = Swal.mixin({
           toast: true,
           position: "top",
@@ -154,9 +159,13 @@ function AppointmentsUser() {
     }
   };
 
-  const consultationReport = async () => {
+  const consultationReport = () => {
     try {
-      console.log("hello world");
+      navigate("/consultationreport", {
+        state: {
+          data: data,
+        },
+      });
     } catch (error) {
       console.log(error.message);
     }

@@ -12,6 +12,7 @@ import DoctorDetailsPage from './pages/user/DoctorDetailsPage'
 import AppointmentsUser from './pages/user/AppointmentsUser'
 import PaymentSuccess from './pages/user/PaymentSuccess'
 import ChatPage from './pages/user/ChatPage'
+import ConsultationReport from './pages/user/ConsultationReport'
 
 import UsersList from './pages/admin/UsersList'
 import Dashboard from './pages/admin/Dashboard'
@@ -53,6 +54,7 @@ function App() {
       <Route path='/appointments' element={<AppointmentsUser/>}/>
       <Route path='/success' element={<PaymentSuccess/>}/>
       <Route path='/chatuser' element={<ChatPage/>}/>
+      <Route path='/consultationreport' element={<ConsultationReport/>}/>
 
 
       <Route path='/admin/login' element={<AdminLogin/>}/>
