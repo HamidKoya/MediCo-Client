@@ -12,7 +12,7 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
 function AppointmentsUser() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);
   const userId = currentUser.userData._id;
   const [loading, setLoading] = useState(false);
@@ -121,6 +121,38 @@ function AppointmentsUser() {
   const handleNavigate = () => {
     try {
       navigate("/chatuser");
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const handleCancel = async (id) => {
+    try {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, cancel it!",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+
+          await axios.post("http://localhost:3000/cancelAppointment",{id,userId,paymentId:data.paymentId})
+
+          Swal.fire({
+            title: "Cancelled!",
+            text: "Your appointment has been cancelled.",
+            icon: "success",
+          });
+          if (render === true) {
+            setRender(false);
+          } else {
+            setRender(true);
+          }
+        }
+      });
     } catch (error) {
       console.log(error.message);
     }
