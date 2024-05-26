@@ -240,6 +240,18 @@ function AppointmentsUser() {
     }
   };
 
+  const handleReport = () => {
+    try {
+      navigate("/medicalreport", {
+        state: {
+          data: data,
+        },
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <div>
       <Header />
