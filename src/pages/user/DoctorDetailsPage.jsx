@@ -11,7 +11,7 @@ import Swal from "sweetalert2";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 function DoctorDetailsPage() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);
   const userId = currentUser.userData._id;
   const { id } = useParams();
@@ -20,6 +20,8 @@ function DoctorDetailsPage() {
   const [slots, setSlots] = useState([]);
   const [date, setDate] = useState();
   const [select, setSelect] = useState();
+  const [review, setReview] = useState([]);
+  console.log(review);
   const price = {
     id: "price_1PD1J2SCJjN9vy1RN8YGfKud",
     amount: 299,
@@ -48,6 +50,17 @@ function DoctorDetailsPage() {
         console.log(error.message);
       });
   }, []);
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3000/getReview?id=${id}`)
+      .then((res) => {
+        setReview(res?.data?.reviews);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }, [doctor]);
 
   const handleChange = async (date) => {
     try {
@@ -143,7 +156,12 @@ function DoctorDetailsPage() {
       });
 
       if (result.isConfirmed) {
-        const res = await axios.post("http://localhost:3000/walletPayment",{userId,id,select,date})
+        const res = await axios.post("http://localhost:3000/walletPayment", {
+          userId,
+          id,
+          select,
+          date,
+        });
 
         if (res.status === 200) {
           Swal.fire({
@@ -215,10 +233,47 @@ function DoctorDetailsPage() {
               </button>
             </div>
           </div>
-          <div class="w-[280px] h-[500px] bg-white shadow-2xl shadow-slate-500 rounded-2xl">
-            <div className="flex justify-center mt-4">
-              <p className="text-blue-600">No reviews yet</p>
-            </div>
+          <div className="w-[280px] h-[500px] bg-white shadow-2xl shadow-slate-500 rounded-2xl">
+            <p className="text-center mt-2 text-green-500">Reviews from Patients</p>
+            {review.length === 0 ? (
+              <div className="flex justify-center mt-4">
+                <p className="text-blue-600">No reviews yet</p>
+              </div>
+            ) : (
+              review.map((rev) => (
+                <div key={rev._id} className="mb-4 border p-5">
+                  
+                  <p className="text-xl font-semibold mb-2">{rev.text}</p>
+                  <div className="flex items-center mb-1 space-x-1 rtl:space-x-reverse">
+                    {Array.from({ length: rev?.star }, (_, index) => (
+                      <svg
+                        key={index}
+                        className="w-3 h-3 text-yellow-300"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="currentColor"
+                        viewBox="0 0 22 20"
+                      >
+                        <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                      </svg>
+                    ))}
+                  </div>
+                  <div className="flex items-center mb-2">
+                    <img
+                      src={rev.postedBy.photo}
+                      alt="User"
+                      className="h-8 w-8 rounded-full mr-2 object-cover"
+                    />
+                    <p className="text-gray-700 mb-2 text-sm">
+                      Posted by: {rev.postedBy.name}
+                    </p>
+                  </div>
+                  <p className="text-gray-500 text-sm">
+                    Posted Date: {new Date(rev.postedDate).toLocaleString()}
+                  </p>
+                </div>
+              ))
+            )}
           </div>
         </div>
       </div>
