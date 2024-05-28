@@ -41,6 +41,8 @@ import ChatPageDoctor from './pages/doctor/ChatPageDoctor'
 import Prescription from './pages/doctor/Prescription'
 import MedicalReport from './pages/doctor/MedicalReport'
 
+import VideoPage from './pages/doctor/VideoPage'
+
 function App() {
   return (
     <Routes>
@@ -87,6 +89,9 @@ function App() {
       <Route path='/doctor/chatpagedoctor' element={<ChatPageDoctor/>}/>
       <Route path='/doctor/prescription' element={<Prescription/>}/>
       <Route path='/doctor/medicalreport' element={<MedicalReport/>}/>
+
+
+      <Route path='/video/video' element={<VideoPage/>}/>
 
 
       

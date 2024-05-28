@@ -87,7 +87,16 @@ function AppointmentsDoctor() {
     setPaymentId(payment);
   };
 
-  const handleLinkClick = (event) => {};
+  const handleLinkClick = (event) => {
+    event.preventDefault()
+    const baseUrl = '/video/video'
+
+    // Append the userId as a query parameter
+    const urlToOpen = `${baseUrl}?userId=${userId}`;
+
+    window.open(urlToOpen, '_blank')
+    
+  };
 
   const handlePris = () => {
     navigate(`/doctor/prescription`, {
