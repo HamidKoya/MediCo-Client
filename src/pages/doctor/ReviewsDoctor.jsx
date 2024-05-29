@@ -35,7 +35,7 @@ function ReviewsDoctor() {
   return (
     <div>
       <Header />
-      <div className="bg-blue-50 min-h-screen">
+      <div className="bg-blue-50 min-h-[600px]">
         <div className="flex justify-center">
           {loading ? (
             <Loading />
