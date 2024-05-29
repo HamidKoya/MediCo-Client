@@ -15,6 +15,7 @@ import ChatPage from './pages/user/ChatPage'
 import ConsultationReport from './pages/user/ConsultationReport'
 import PrescriptionUser from './pages/user/PrescriptionUser'
 import MedicalReportUser from './pages/user/MedicalReportUser'
+import Notifications from './pages/user/Notifications'
 
 import UsersList from './pages/admin/UsersList'
 import Dashboard from './pages/admin/Dashboard'
@@ -43,6 +44,7 @@ import MedicalReport from './pages/doctor/MedicalReport'
 
 import VideoPage from './pages/doctor/VideoPage'
 
+
 function App() {
   return (
     <Routes>
@@ -61,6 +63,7 @@ function App() {
       <Route path='/consultationreport' element={<ConsultationReport/>}/>
       <Route path='/prescription' element={<PrescriptionUser/>}/>
       <Route path='/medicalreport' element={<MedicalReportUser/>}/>
+      <Route path='/notifications' element={<Notifications/>}/>
 
 
       <Route path='/admin/login' element={<AdminLogin/>}/>

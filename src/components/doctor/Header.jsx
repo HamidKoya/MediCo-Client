@@ -64,7 +64,11 @@ function Header() {
 function renderMenuItems(isLoggedIn) {
   return (
     <>
-      <HeaderItem to={"/doctor/dashboard"} icon={"Dashboard"} image={<GrLineChart />} />
+      <HeaderItem
+        to={"/doctor/dashboard"}
+        icon={"Dashboard"}
+        image={<GrLineChart />}
+      />
       {isLoggedIn &&
         navItems.map((item) => (
           <HeaderItem
