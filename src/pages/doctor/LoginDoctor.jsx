@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import Loading from "../../components/user/Loading";
 import { useSelector, useDispatch } from "react-redux";
 import { signInSuccess } from "@/redux/slices/doctorSlice";
+import api from "@/utils/api";
 
 function LoginDoctor() {
   const { error } = useSelector((state) => state.user);
@@ -16,7 +17,7 @@ function LoginDoctor() {
   const onSubmit = async (values) => {
     try {
       setLoading(true);
-      const response = await axios.post("http://localhost:3000/doctor/login", {
+      const response = await api.post("/doctor/login", {
         ...values,
       });
       setLoading(false);

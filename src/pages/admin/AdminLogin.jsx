@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { signInSuccess } from "@/redux/slices/adminSlice";
+import api from "@/utils/api";
 
 function AdminLogin() {
   const dispatch = useDispatch();
@@ -13,8 +14,8 @@ function AdminLogin() {
   const onSubmit = async (e) => {
     e.preventDefault()
     try {
-      const response = await axios.post(
-        "http://localhost:3000/admin/login",
+      const response = await api.post(
+        "/admin/login",
         values
       );
       
