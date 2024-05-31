@@ -7,46 +7,70 @@ import { useFormik } from "formik";
 import { loginSchema } from "@/validations/user/loginValidation";
 import Swal from "sweetalert2";
 import Loading from "../../components/user/Loading";
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { signInSuccess } from "@/redux/slices/userSlice";
 
 function Login() {
-  const {error} = useSelector((state)=>state.user)
+  const { error } = useSelector((state) => state.user);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const dispatch = useDispatch()
-  const onSubmit = async (values) => {
+  const dispatch = useDispatch();
+  const onSubmit = async (values, { resetForm }) => {
     try {
       setLoading(true);
-      const response = await axios.post('http://localhost:3000/userLogin',{...values})
+      const response = await axios.post("http://localhost:3000/userLogin", {
+        ...values,
+      });
       setLoading(false);
-      if(response?.status===200){
-        dispatch(signInSuccess(response.data))
+      if (response?.status === 200) {
+        dispatch(signInSuccess(response.data));
         const Toast = Swal.mixin({
-          toast:true,
-          position:'top',
-          showConfirmButton:false,
-          timer:3000
-        })
+          toast: true,
+          position: "top",
+          showConfirmButton: false,
+          timer: 3000,
+        });
         Toast.fire({
-          icon:'success',
-          title:'logged in successfully'
-        })
-        navigate('/')
+          icon: "success",
+          title: "logged in successfully",
+        });
+        navigate("/");
       }
     } catch (error) {
+      setLoading(false);
+      resetForm(); // Reset the form fields
+      if (error.response && error.response.status === 401) {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top",
+          showConfirmButton: false,
+          timer: 3000,
+        });
+        Toast.fire({
+          icon: "info",
+          title: error.response.data.message,
+        });
+        navigate("/login");
+      }
       console.log(error.message);
     }
   };
-  const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
-    useFormik({
-      initialValues: {
-        email: "",
-        password: "",
-      },
-      validationSchema: loginSchema,
-      onSubmit,
-    });
+  const {
+    values,
+    errors,
+    touched,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    resetForm,
+  } = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: loginSchema,
+    onSubmit,
+  });
 
   return (
     <>
@@ -116,15 +140,11 @@ function Login() {
                   )}
                 </div>
                 <div className="text-sm mt-4">
-                  <Link to={'/forgotpassword'}>
-                  <a
-                    
-                    className="font-semibold text-indigo-600 hover:text-indigo-500"
-                  >
-                    Forgot password?
-                  </a>
+                  <Link to={"/forgotpassword"}>
+                    <a className="font-semibold text-indigo-600 hover:text-indigo-500">
+                      Forgot password?
+                    </a>
                   </Link>
-                  
                 </div>
               </div>
 
