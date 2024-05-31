@@ -46,12 +46,12 @@ function ProfileIcon() {
         <DropdownMenuTrigger>
           <img
             className="w-12 h-12 rounded-full cursor-pointer border-2 ring-2 ring-black object-cover"
-            src={currentUser.userData.photo}
+            src={currentUser?.userData?.photo}
             alt="User dropdown"
           />
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <p>{currentUser.userData.name}</p>
+          <p>{currentUser?.userData?.name}</p>
           <DropdownMenuSeparator />
           <DropdownMenuItem asChild>
             <DropdownMenuLabel asChild>
