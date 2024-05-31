@@ -8,12 +8,12 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { LogOut, User, Bell, MessageSquare } from "lucide-react";
-import axios from "axios";
 import { useDispatch } from "react-redux";
 import { signOut } from "@/redux/slices/userSlice";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import api from "@/utils/api";
 
 function ProfileIcon() {
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ function ProfileIcon() {
   const { currentUser } = useSelector((state) => state.user);
   const handleLogout = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/logout");
+      const res = await api.get("/logout");
       if (res.status === 200) {
         const Toast = Swal.mixin({
           toast: true,

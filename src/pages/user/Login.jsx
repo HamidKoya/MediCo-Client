@@ -1,24 +1,24 @@
 import React, { useState } from "react";
-import Header2 from "../../components/user/Header2";
-import Footer from "../../components/user/Footer";
-import axios from "axios";
+import Header2 from "@/components/user/Header2";
+import Footer from "@/components/user/Footer";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { loginSchema } from "@/validations/user/loginValidation";
 import Swal from "sweetalert2";
-import Loading from "../../components/user/Loading";
+import Loading from "@/components/user/Loading";
 import { useSelector, useDispatch } from "react-redux";
 import { signInSuccess } from "@/redux/slices/userSlice";
+import api from "@/utils/api";
 
 function Login() {
-  const { error } = useSelector((state) => state.user);
+  const { currentUser } = useSelector((state) => state.user);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const onSubmit = async (values, { resetForm }) => {
     try {
       setLoading(true);
-      const response = await axios.post("http://localhost:3000/userLogin", {
+      const response = await api.post("/userLogin", {
         ...values,
       });
       setLoading(false);
