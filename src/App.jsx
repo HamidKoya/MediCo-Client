@@ -44,6 +44,8 @@ import MedicalReport from './pages/doctor/MedicalReport'
 
 import VideoPage from './pages/doctor/VideoPage'
 
+import PageNotFound from './pages/404/PageNotFound'
+
 
 function App() {
   return (
@@ -95,6 +97,8 @@ function App() {
 
 
       <Route path='/video/video' element={<VideoPage/>}/>
+      <Route path='*' element={<PageNotFound/>}/>
+
 
 
       
