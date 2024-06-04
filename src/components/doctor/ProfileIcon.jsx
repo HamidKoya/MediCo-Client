@@ -35,7 +35,7 @@ function ProfileIcon() {
           title: 'Logged out successfully'
         });
         dispatch(signOut())
-        navigate("/doctor")
+        navigate("/doctor/home")
       }
 
     } catch (error) {

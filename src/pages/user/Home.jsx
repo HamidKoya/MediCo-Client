@@ -119,7 +119,7 @@ function Home() {
               anywhere.
             </p>
           </div>
-          <Link to={"/doctor"}>
+          <Link to={"/doctor/home"}>
           <div className="flex justify-center mb-2">
             <button className="bg-slate-200 w-32 p-1 rounded  hover:translate-x-px hover:bg-green-100">JOIN</button>
           </div>
