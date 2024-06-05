@@ -64,7 +64,7 @@ const sendImageToServer = async (imageData) => {
           </div>
           <div className="flex flex-col gap-3 mt-6 items-center justify-center">
             <p className="font-medium">Email:<span className="ml-2 font-medium">{currentUser.userData.email}</span></p>
-            <p className="font-medium">Email:<span className="ml-2 font-medium">{currentUser.userData.mobile}</span></p>
+            <p className="font-medium">Phone:<span className="ml-2 font-medium">{currentUser.userData.mobile}</span></p>
             <p className="font-medium">Age:<span className={currentUser.userData.age ? "ml-2 font-medium" : "ml-2 font-medium text-red-600"}>{currentUser.userData.age ? currentUser.userData.age : "not added"}</span></p>
             <p className="font-medium">Gender:<span className={currentUser.userData.gender ? "ml-2 font-medium" : "ml-2 font-medium text-red-600"}>{currentUser.userData.gender ? currentUser.userData.gender : "not added"}</span></p>
           </div>
