@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Loading from "@/components/user/Loading";
 import { Link } from "react-router-dom";
+import api from "@/utils/api";
+import { Toaster,toast } from "sonner";
 
 function Doctors() {
   const [loading, setLoading] = useState(false);
@@ -18,9 +20,9 @@ function Doctors() {
 
   useEffect(() => {
     setLoading(true);
-    axios
+    api
       .get(
-        `http://localhost:3000/admin/doctorList?page=${currentPage}&limit=${itemsPerPage}`
+        `/admin/doctorList?page=${currentPage}&limit=${itemsPerPage}`
       )
       .then((response) => {
         setDoctors(response?.data?.doctors);
@@ -28,8 +30,9 @@ function Doctors() {
         setLoading(false);
       })
       .catch((error) => {
-        console.log(error.message);
         setLoading(false);
+        toast.info(error.response.data.message)
+        console.log(error.message);
       });
   }, [currentPage, itemsPerPage]);
 
@@ -43,6 +46,7 @@ function Doctors() {
   return (
     <div>
       <Header />
+      <Toaster position="top-center" expand={false} richColors closeButton/>
       <div className="flex">
         <Sidebar />
         <div className="w-[84vw] sm:w-full bg-slate-900 text-white p-6">

@@ -6,6 +6,8 @@ import Loading from "@/components/user/Loading";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { Button, Modal } from "flowbite-react";
+import api from "@/utils/api";
+import { Toaster,toast } from "sonner";
 
 function Appointments() {
   const [loading, setLoading] = useState(false);
@@ -18,9 +20,9 @@ function Appointments() {
 
   useEffect(() => {
     setLoading(true);
-    axios
+    api
       .get(
-        `http://localhost:3000/admin/appointmentList?page=${currentPage}&limit=${itemsPerPage}`
+        `/admin/appointmentList?page=${currentPage}&limit=${itemsPerPage}`
       )
       .then((response) => {
         setAppointments(response?.data?.data);
@@ -29,6 +31,7 @@ function Appointments() {
       })
       .catch((error) => {
         setLoading(false);
+        toast.info(error.response.data.message)
         console.log(error.message);
       });
   }, [currentPage, itemsPerPage]);
@@ -60,6 +63,7 @@ function Appointments() {
   return (
     <div>
       <Header />
+      <Toaster position="top-center" expand={false} richColors closeButton/>
       <div className="flex">
         <Sidebar />
         <div className="w-[84vw] sm:w-full  bg-slate-900 text-white p-6">

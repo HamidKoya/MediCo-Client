@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 import Loading from "@/components/user/Loading";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import api from "@/utils/api";
+import { Toaster,toast } from "sonner";
 
 function VerifyDoctors() {
   const [loading, setLoading] = useState(false);
@@ -18,9 +20,9 @@ function VerifyDoctors() {
 
   useEffect(() => {
     setLoading(true);
-    axios
+    api
       .get(
-        `http://localhost:3000/admin/unVerifiedList?page=${currentPage}&limit=${itemsPerPage}`
+        `/admin/unVerifiedList?page=${currentPage}&limit=${itemsPerPage}`
       )
       .then((response) => {
         setDoctors(response?.data?.doctors);
@@ -30,6 +32,7 @@ function VerifyDoctors() {
       })
       .catch((error) => {
         setLoading(false);
+        toast.info(error.response.data.message)
         console.log(error.message);
       });
   }, [currentPage, itemsPerPage]);
@@ -45,6 +48,7 @@ function VerifyDoctors() {
   return (
     <div>
       <Header />
+      <Toaster position="top-center" expand={false} richColors closeButton/>
       <div className="flex">
         <Sidebar />
         <div className="w-[84vw] sm:w-full bg-slate-900 text-white p-6">

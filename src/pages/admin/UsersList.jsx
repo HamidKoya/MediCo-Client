@@ -5,6 +5,8 @@ import Footer from "@/components/admin/Footer";
 import Loading from "@/components/user/Loading";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import api from "@/utils/api";
+import { Toaster,toast } from "sonner";
 
 function UsersList() {
   const [loading, setLoading] = useState(false);
@@ -16,9 +18,9 @@ function UsersList() {
 
   useEffect(() => {
     setLoading(true);
-    axios
+    api
       .get(
-        `http://localhost:3000/admin/usersList?page=${currentPage}&limit=${itemsPerPage}`
+        `/admin/usersList?page=${currentPage}&limit=${itemsPerPage}`
       )
       .then((response) => {
         setUsers(response?.data?.users);
@@ -27,6 +29,7 @@ function UsersList() {
       })
       .catch((error) => {
         setLoading(false);
+        toast.info(error.response.data.message)
         console.log(error.message);
       });
   }, [currentPage, itemsPerPage]);
@@ -59,6 +62,7 @@ function UsersList() {
   return (
     <div>
       <Header />
+      <Toaster position="top-center" expand={false} richColors closeButton/>
       <div className="flex">
         <Sidebar />
         <div className="w-[84vw] sm:w-full  bg-slate-900 text-white p-6">
