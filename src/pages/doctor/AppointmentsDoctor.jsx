@@ -19,6 +19,8 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useFormik } from "formik";
 import { rescheduleSchema } from "@/validations/doctor/rescheduleValidation";
+import api from "@/utils/api";
+import { Toaster,toast } from "sonner";
 
 function AppointmentsDoctor() {
   const navigate = useNavigate();
@@ -53,8 +55,8 @@ function AppointmentsDoctor() {
 
   useEffect(() => {
     setLoading(true);
-    axios
-      .get(`http://localhost:3000/doctor/appointmentList?id=${doctorId}`, {
+    api
+      .get(`/doctor/appointmentList?id=${doctorId}`, {
         params: {
           currentPage,
           limit,
@@ -69,6 +71,7 @@ function AppointmentsDoctor() {
       })
       .catch((err) => {
         setLoading(false);
+        toast.info(err.response.data.message)
         console.log(err.message);
       });
   }, [doctorId, currentPage, limit, render]);
@@ -280,6 +283,8 @@ function AppointmentsDoctor() {
     });
   return (
     <div>
+      <Toaster position="top-center" expand={false} richColors closeButton/>
+
       <Header />
       <div>
         <div className="bg-blue-50 min-h-[600px]">

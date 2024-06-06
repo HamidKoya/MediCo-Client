@@ -5,6 +5,8 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import Loading from "@/components/user/Loading";
 import axios from "axios";
+import api from "@/utils/api";
+import { Toaster,toast } from "sonner";
 
 function ReviewsDoctor() {
   const { currentDoctor } = useSelector((state) => state.doctor);
@@ -17,9 +19,9 @@ function ReviewsDoctor() {
 
   useEffect(() => {
     setLoading(true);
-    axios
+    api
       .get(
-        `http://localhost:3000/doctor/getReviews?id=${doctorId}&page=${currentPage}&limit=${itemsPerPage}`
+        `/doctor/getReviews?id=${doctorId}&page=${currentPage}&limit=${itemsPerPage}`
       )
       .then((res) => {
         setReviews(res?.data?.data);
@@ -28,6 +30,7 @@ function ReviewsDoctor() {
       })
       .catch((error) => {
         setLoading(false);
+        toast.info(error.response.data.message)
         console.log(error.message);
       });
   }, [doctorId, itemsPerPage, currentPage]);
@@ -35,6 +38,8 @@ function ReviewsDoctor() {
   return (
     <div>
       <Header />
+      <Toaster position="top-center" expand={false} richColors closeButton/>
+
       <div className="bg-blue-50 min-h-[600px]">
         <div className="flex justify-center">
           {loading ? (

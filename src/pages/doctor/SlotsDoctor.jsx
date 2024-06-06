@@ -15,6 +15,14 @@ import {
 } from "@/components/ui/table";
 import { useSelector } from "react-redux";
 import { Button, Modal } from "flowbite-react";
+import api from "@/utils/api";
+import { Toaster,toast } from "sonner";
+
+
+
+
+
+
 
 function SlotsDoctor() {
   const { currentDoctor } = useSelector((state) => state.doctor);
@@ -28,15 +36,16 @@ function SlotsDoctor() {
 
   useEffect(() => {
     setLoading(true);
-    axios
-      .post("http://localhost:3000/doctor/slotDetails", { doctorId })
+    api
+      .post("/doctor/slotDetails", { doctorId })
       .then((response) => {
         setSlots(response?.data?.data);
         setLoading(false);
       })
       .catch((error) => {
-        console.log(error);
         setLoading(false);
+        toast.info(error.response.data.message)
+        console.log(error.message);
       });
   }, [doctorId, currentPage, pageSize]);
 
@@ -61,6 +70,7 @@ function SlotsDoctor() {
 
   return (
     <div>
+      <Toaster position="top-center" expand={false} richColors closeButton/>
       <Header />
       <div
         className={`bg-blue-50 w-full p-4 ${

@@ -5,7 +5,7 @@ import { FaCalendarCheck } from "react-icons/fa";
 import { FaRegCalendarPlus } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import EditProfile from "@/components/doctor/EditProfile";
-import { useRef, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import { Toaster, toast } from "sonner";
 import { signInSuccess } from "@/redux/slices/doctorSlice";
 import { useDispatch } from "react-redux";
@@ -17,15 +17,33 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import Swal from "sweetalert2";
 
+import api from "@/utils/api";
+
 function ProfileDoctor() {
   const [openModal, setOpenModal] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [token, setToken] = useState(false);
   const [formData, setFormData] = useState({
     startTime: "",
     endTime: "",
     slotDuration: "5",
     date: "",
   });
+
+  useEffect(() => {
+    api
+      .get("/doctor/checkToken")
+      .then((res) => {
+        if (res) {
+          setToken(true);
+        }
+      })
+      .catch((err) => {
+        toast.info(err.response.data.message);
+        console.log(err.message);
+      });
+  }, []);
+
   const dispatch = useDispatch();
   const { currentDoctor } = useSelector((state) => state.doctor);
   const doctorId = currentDoctor.doctorData._id;
@@ -75,7 +93,10 @@ function ProfileDoctor() {
   const handleSubmit2 = async (event) => {
     try {
       event.preventDefault(); // Prevent default form submission
-      const response = await axios.post("http://localhost:3000/doctor/slotCreation",{doctorId,formData})
+      const response = await axios.post(
+        "http://localhost:3000/doctor/slotCreation",
+        { doctorId, formData }
+      );
       if (response?.data?.success === true) {
         const Toast = Swal.mixin({
           toast: true,
@@ -109,93 +130,97 @@ function ProfileDoctor() {
 
   return (
     <div>
-      <Toaster richColors position="top-center" />
+      <Toaster position="top-center" expand={false} richColors closeButton />
       <Header />
 
       <div className="bg-blue-50 p-10 flex flex-col justify-center items-center">
-        <h1 className="text-xl font-semibold mb-5">Doctor Profile</h1>
-        <div className="bg-white w-[370px] sm:w-[400px] h-[500px] rounded-xl shadow-2xl shadow-slate-400 relative">
-          <div className="mt-10 flex flex-col justify-center items-center gap-3">
-            {/* <img onClick={()=>fileRef.current.click()}
+        {token && (
+          <>
+            <h1 className="text-xl font-semibold mb-5">Doctor Profile</h1>
+            <div className="bg-white w-[370px] sm:w-[400px] h-[500px] rounded-xl shadow-2xl shadow-slate-400 relative">
+              <div className="mt-10 flex flex-col justify-center items-center gap-3">
+                {/* <img onClick={()=>fileRef.current.click()}
               src={currentDoctor.doctorData.photo}
               alt="profile"
               className="w-36 h-36 rounded-2xl cursor-pointer"
             /> */}
-            {loading ? (
-              <ScaleLoader color="#36d7b7" height={20} width={5} />
-            ) : (
-              <img
-                onClick={() => fileRef.current.click()}
-                src={currentDoctor.doctorData.photo}
-                alt="image"
-                class="w-36 h-36 rounded-2xl cursor-pointer object-cover"
-              />
-            )}
-            <input
-              onChange={handlePhotoChange}
-              accept="image/*"
-              hidden
-              type="file"
-              ref={fileRef}
-            />
-            <p className="font-medium text-lg">
-              Name : Dr. {currentDoctor.doctorData.name}
-            </p>
-            <p className="font-medium">
-              Speciality : {currentDoctor.doctorData.speciality}
-            </p>
-            <p className="font-medium">
-              Experience :{" "}
-              {currentDoctor.doctorData.experience ? (
-                <span>{currentDoctor.doctorData.experience}</span>
-              ) : (
-                <span className="text-red-600">Not added</span>
-              )}
-            </p>
-            <p className="font-medium">
-              Email : {currentDoctor.doctorData.email}
-            </p>
-            <p className="font-medium">
-              Mobile : {currentDoctor.doctorData.mobile}
-            </p>
-            {}
-            <p className="font-normal">
-              Bio :{" "}
-              {currentDoctor.doctorData.bio ? (
-                <span>{currentDoctor.doctorData.bio}</span>
-              ) : (
-                <span className="text-red-600">Not added</span>
-              )}
-            </p>
-          </div>
-          <div className="flex gap-2 absolute bottom-3 left-2 sm:left-6">
-            {/* <button className="p-2 bg-blue-500 text-sm rounded-md font-semibold text-white flex justify-center items-center active:scale-90">
+                {loading ? (
+                  <ScaleLoader color="#36d7b7" height={20} width={5} />
+                ) : (
+                  <img
+                    onClick={() => fileRef.current.click()}
+                    src={currentDoctor.doctorData.photo}
+                    alt="image"
+                    class="w-36 h-36 rounded-2xl cursor-pointer object-cover"
+                  />
+                )}
+                <input
+                  onChange={handlePhotoChange}
+                  accept="image/*"
+                  hidden
+                  type="file"
+                  ref={fileRef}
+                />
+                <p className="font-medium text-lg">
+                  Name : Dr. {currentDoctor.doctorData.name}
+                </p>
+                <p className="font-medium">
+                  Speciality : {currentDoctor.doctorData.speciality}
+                </p>
+                <p className="font-medium">
+                  Experience :{" "}
+                  {currentDoctor.doctorData.experience ? (
+                    <span>{currentDoctor.doctorData.experience}</span>
+                  ) : (
+                    <span className="text-red-600">Not added</span>
+                  )}
+                </p>
+                <p className="font-medium">
+                  Email : {currentDoctor.doctorData.email}
+                </p>
+                <p className="font-medium">
+                  Mobile : {currentDoctor.doctorData.mobile}
+                </p>
+                {}
+                <p className="font-normal">
+                  Bio :{" "}
+                  {currentDoctor.doctorData.bio ? (
+                    <span>{currentDoctor.doctorData.bio}</span>
+                  ) : (
+                    <span className="text-red-600">Not added</span>
+                  )}
+                </p>
+              </div>
+              <div className="flex gap-2 absolute bottom-3 left-2 sm:left-6">
+                {/* <button className="p-2 bg-blue-500 text-sm rounded-md font-semibold text-white flex justify-center items-center active:scale-90">
               EDIT{" "}
               <span className="ml-2">
                 <FaEdit />
               </span>
             </button> */}
-            <EditProfile />
-            <Link to={"/doctor/appointments"}>
-              <button className="p-2 bg-green-400 text-sm rounded-md font-semibold text-white flex justify-center items-center active:scale-90">
-                APPOINTMENTS{" "}
-                <span className="ml-2">
-                  <FaCalendarCheck />
-                </span>
-              </button>
-            </Link>
+                <EditProfile />
+                <Link to={"/doctor/appointments"}>
+                  <button className="p-2 bg-green-400 text-sm rounded-md font-semibold text-white flex justify-center items-center active:scale-90">
+                    APPOINTMENTS{" "}
+                    <span className="ml-2">
+                      <FaCalendarCheck />
+                    </span>
+                  </button>
+                </Link>
 
-            <button
-              onClick={() => setOpenModal(true)}
-              className="p-2 bg-yellow-300 text-sm rounded-md font-semibold text-white flex justify-center items-center active:scale-90"
-            >
-              CREATE SLOTS{" "}
-              <span className="ml-2">
-                <FaRegCalendarPlus />
-              </span>
-            </button>
-          </div>
-        </div>
+                <button
+                  onClick={() => setOpenModal(true)}
+                  className="p-2 bg-yellow-300 text-sm rounded-md font-semibold text-white flex justify-center items-center active:scale-90"
+                >
+                  CREATE SLOTS{" "}
+                  <span className="ml-2">
+                    <FaRegCalendarPlus />
+                  </span>
+                </button>
+              </div>
+            </div>
+          </>
+        )}
       </div>
 
       <Modal
