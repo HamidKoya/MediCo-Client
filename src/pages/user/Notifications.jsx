@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import Loading from "@/components/user/Loading";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { Toaster,toast } from "sonner";
 
 function Notifications() {
   const { currentUser } = useSelector((state) => state.user);
@@ -21,7 +22,7 @@ function Notifications() {
     setLoading(true);
     axios
       .get(
-        `http://localhost:3000/getNotifications?id=${id}&page=${currentPage}`
+        `http://localhost:3000/getNotifications?id=${id}&page=${currentPage}`,{withCredentials: true}
       )
       .then((res) => {
         setNotifications(res?.data?.notifications);
@@ -29,8 +30,9 @@ function Notifications() {
         setLoading(false);
       })
       .catch((error) => {
-        console.log(error.message);
         setLoading(false);
+        toast.info(error.response.data.message)
+        console.log(error.message);
       });
   };
 
@@ -39,6 +41,7 @@ function Notifications() {
   };
   return (
     <div>
+      <Toaster position="top-center" expand={false} richColors/>
       <Header2 />
       <div className="bg-gray-100 min-h-screen p-4">
         <div className="text-center m-10">

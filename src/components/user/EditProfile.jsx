@@ -104,7 +104,7 @@ function EditProfile() {
 
   return (
     <div>
-      <Toaster position="top-right" richColors />
+      <Toaster position="top-center" richColors />
       <div className="flex justify-center">
         <Dialog open={open} onOpenChange={(e) => setOpen(e)}>
           <DialogTrigger asChild>

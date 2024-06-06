@@ -5,6 +5,8 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Loading from "@/components/user/Loading";
 import axios from "axios";
+import api from "@/utils/api";
+import { Toaster,toast } from "sonner";
 
 function DoctorsList() {
   const [doctors, setDoctors] = useState([]);
@@ -19,9 +21,9 @@ function DoctorsList() {
 
   useEffect(() => {
     setLoading(true);
-    axios
+    api
       .get(
-        `http://localhost:3000/doctorList?select=${select}&search=${searchQuery}&page=${currentPage}&count=${noOfDoctors}&sort=${sort}`
+        `/doctorList?select=${select}&search=${searchQuery}&page=${currentPage}&count=${noOfDoctors}&sort=${sort}`
       )
       .then((response) => {
         setLoading(false);
@@ -30,6 +32,7 @@ function DoctorsList() {
       })
       .catch((error) => {
         setLoading(false);
+        toast.info(error.response.data.message)
         console.log(error);
       });
   }, [select, searchQuery, currentPage, sort]);
@@ -62,6 +65,7 @@ function DoctorsList() {
 
   return (
     <div>
+      <Toaster position="top-center" expand={false} richColors/>
       <Header2 />
       <div className="bg-[#EBF5FF] h-full">
         <div className="flex justify-center gap-2 overflow-auto">

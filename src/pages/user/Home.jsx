@@ -39,7 +39,7 @@ function Home() {
           </div>
           <div className="flex justify-center mt-4">
             <button class=" hover:before:bg-[#59c8da] relative h-[50px] w-40 overflow-hidden border border-[#59c8da] bg-white px-3 text-black shadow-2xl transition-all before:absolute before:bottom-0 before:left-0 before:top-0 before:z-0 before:h-full before:w-0 before:transition-all before:duration-500 hover:text-white hover:shadow-[#59c8da] hover:before:left-0 hover:before:w-full">
-              <span class="relative z-10">Book Now</span>
+             <Link to={'/doctors'}><span class="relative z-10">Book Now</span></Link> 
             </button>
           </div>
         </div>

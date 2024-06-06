@@ -10,6 +10,9 @@ import { faComment } from "@fortawesome/free-solid-svg-icons";
 import { Button, Modal } from "flowbite-react";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { Toaster,toast } from "sonner";
+import api from "@/utils/api";
+
 
 function AppointmentsUser() {
   const navigate = useNavigate();
@@ -32,8 +35,8 @@ function AppointmentsUser() {
   const limit = 5;
   useEffect(() => {
     setLoading(true);
-    axios
-      .get(`http://localhost:3000/appointmentList?id=${userId}`, {
+    api
+      .get(`/appointmentList?id=${userId}`, {
         params: {
           currentPage,
           limit,
@@ -46,6 +49,7 @@ function AppointmentsUser() {
       })
       .catch((err) => {
         setLoading(false);
+        toast.info(err.response.data.message)
         console.log(err.message);
       });
   }, [userId, currentPage, limit, render]);
@@ -254,6 +258,7 @@ function AppointmentsUser() {
 
   return (
     <div>
+      <Toaster position="top-center" expand={false} richColors/>
       <Header />
       <div>
         <div className="bg-blue-50 min-h-[600px]">

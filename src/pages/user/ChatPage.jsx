@@ -5,6 +5,9 @@ import ChatList from "@/components/chatComponents/user/ChatList";
 import ChatBox from "@/components/chatComponents/user/ChatBox";
 import { io } from "socket.io-client";
 import axios from "axios";
+import api from "@/utils/api";
+import { Toaster,toast } from "sonner";
+
 
 const END_POINT = "http://localhost:3000/";
 
@@ -19,12 +22,13 @@ function ChatPage() {
   const userId = currentUser.userData._id;
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:3000/chat/chat/${userId}`)
+    api
+      .get(`/chat/chat/${userId}`)
       .then((res) => {
         setConversations(res.data);
       })
       .catch((err) => {
+        toast.info(err.response.data.message)
         console.log(err.message);
       });
   }, []);
@@ -76,6 +80,7 @@ function ChatPage() {
 
   return (
     <div>
+      <Toaster position="top-center" expand={false} richColors/>
       <Header2 />
       <div className="bg-blue-50 w-full fixed">
         <div className="min-h-screen bg-blue-50 flex justify-center">
