@@ -9,7 +9,7 @@ import api from "@/utils/api";
 import { Toaster,toast } from "sonner";
 
 
-const END_POINT = "http://localhost:3000/";
+const END_POINT = "https://medico-server-b7s5.onrender.com/";
 
 let socket;
 

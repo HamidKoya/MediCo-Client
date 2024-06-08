@@ -13,7 +13,7 @@ function VerifyDetails() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/admin/unVerifiedDetails?id=${id}`)
+      .get(`https://medico-server-b7s5.onrender.com/admin/unVerifiedDetails?id=${id}`)
       .then((res) => {
         setDoctorData(res?.data?.details);
       })
@@ -24,9 +24,9 @@ function VerifyDetails() {
 
   const handleClick = async (id) => {
     try {
-      await axios.patch(`http://localhost:3000/admin/adminVerify?id=${id}`);
+      await axios.patch(`https://medico-server-b7s5.onrender.com/admin/adminVerify?id=${id}`);
       const res = await axios.get(
-        `http://localhost:3000/admin/unVerifiedDetails?id=${id}`
+        `https://medico-server-b7s5.onrender.com/admin/unVerifiedDetails?id=${id}`
       );
       setDoctorData(res?.data?.details);
       navigate("/admin/doctors");

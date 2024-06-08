@@ -30,7 +30,7 @@ function Dashboard() {
   useEffect(() => {
     const getCount = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/admin/counts");
+        const res = await axios.get("https://medico-server-b7s5.onrender.com/admin/counts");
         setData(res?.data);
       } catch (error) {
         console.log(error.message);
@@ -41,7 +41,7 @@ function Dashboard() {
       try {
         setLoading(true);
         const report = await axios.get(
-          "http://localhost:3000/admin/adminReport"
+          "https://medico-server-b7s5.onrender.com/admin/adminReport"
         );
         setReportData(report?.data);
         setLoading(false);

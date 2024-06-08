@@ -101,7 +101,7 @@ function AppointmentsUser() {
         });
         return;
       }
-      const res = await axios.post("http://localhost:3000/addReview", {
+      const res = await axios.post("https://medico-server-b7s5.onrender.com/addReview", {
         userId: userId,
         drId,
         review,
@@ -177,7 +177,7 @@ function AppointmentsUser() {
 
   const handleAccept = async () => {
     try {
-      const response = await axios.post("http://localhost:3000/createChat", {
+      const response = await axios.post("https://medico-server-b7s5.onrender.com/createChat", {
         userid: userId,
         doctorid: drId,
       });
@@ -209,7 +209,7 @@ function AppointmentsUser() {
         confirmButtonText: "Yes, cancel it!",
       }).then(async (result) => {
         if (result.isConfirmed) {
-          await axios.post("http://localhost:3000/cancelAppointment", {
+          await axios.post("https://medico-server-b7s5.onrender.com/cancelAppointment", {
             id,
             userId,
             paymentId: data.paymentId,

@@ -21,7 +21,7 @@ function DashboardDoctor() {
 
   useEffect(() => {
     api
-      .get("http://localhost:3000/doctor/checkToken")
+      .get("https://medico-server-b7s5.onrender.com/doctor/checkToken")
       .then((res) => {
         if (res) {
           setToken(true);
@@ -36,7 +36,7 @@ function DashboardDoctor() {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`http://localhost:3000/doctor/chartDetails?drId=${_id}`)
+      .get(`https://medico-server-b7s5.onrender.com/doctor/chartDetails?drId=${_id}`)
       .then((res) => {
         setLoading(false);
         setPieData(res?.data?.obj);
@@ -51,7 +51,7 @@ function DashboardDoctor() {
     const getCount = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3000/doctor/counts?doctorId=${_id}`
+          `https://medico-server-b7s5.onrender.com/doctor/counts?doctorId=${_id}`
         );
         setData(res?.data);
       } catch (error) {
@@ -62,7 +62,7 @@ function DashboardDoctor() {
     const getReport = async () => {
       try {
         const report = await axios.get(
-          `http://localhost:3000/doctor/doctorReport`
+          `https://medico-server-b7s5.onrender.com/doctor/doctorReport`
         );
         setReportData(report?.data?.appointmentData);
       } catch (error) {

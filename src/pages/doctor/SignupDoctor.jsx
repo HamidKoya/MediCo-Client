@@ -15,7 +15,7 @@ function SignupDoctor() {
   const onSubmit = async () => {
     try {
       setLoading(true);
-      const response = await axios.post("http://localhost:3000/doctor/signup", {
+      const response = await axios.post("https://medico-server-b7s5.onrender.com/doctor/signup", {
         ...values,
         photo,
         certificates,
@@ -77,7 +77,7 @@ function SignupDoctor() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/doctor/specialtyName")
+      .get("https://medico-server-b7s5.onrender.com/doctor/specialtyName")
       .then((response) => {
         setSpeciality(response.data);
       })

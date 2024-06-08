@@ -9,7 +9,7 @@ function Wallet() {
     const [wallet,setWallet] = useState()
     const userId = currentUser.userData._id
     useEffect(()=>{
-        axios.post("http://localhost:3000/wallet",{userId}).then((res)=>{
+        axios.post("https://medico-server-b7s5.onrender.com/wallet",{userId}).then((res)=>{
             setWallet(res.data)
         }).catch((error)=>{
             console.log(error.message);

@@ -39,7 +39,7 @@ function DoctorsList() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/doctor/specialtyName")
+      .get("https://medico-server-b7s5.onrender.com/doctor/specialtyName")
       .then((response) => {
         setSpeciality(response.data);
       })

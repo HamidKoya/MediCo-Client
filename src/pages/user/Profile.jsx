@@ -51,7 +51,7 @@ function Profile() {
   const sendImageToServer = async (imageData) => {
     try {
       setLoading(true);
-      const response = await axios.post("http://localhost:3000/changePhoto", {
+      const response = await axios.post("https://medico-server-b7s5.onrender.com/changePhoto", {
         imageData,
         userId,
       });

@@ -15,7 +15,7 @@ function Signup() {
   async function onSubmit() {
     try {
       setLoading(true);
-      const res = await axios.post("http://localhost:3000/userSignup", {
+      const res = await axios.post("https://medico-server-b7s5.onrender.com/userSignup", {
         ...values,photo
       });
       setLoading(false);

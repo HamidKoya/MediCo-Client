@@ -18,7 +18,7 @@ function ResetPassword() {
   const onSubmit = async () => {
     try {
       setLoading(true);
-      const res = await axios.patch(`http://localhost:3000/resetPassword?id=${id}&token=${token}&password=${values.password}`);
+      const res = await axios.patch(`https://medico-server-b7s5.onrender.com/resetPassword?id=${id}&token=${token}&password=${values.password}`);
       setLoading(false);
       if (res.status === 200) {
         Swal.fire({

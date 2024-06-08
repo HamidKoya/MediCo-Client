@@ -37,7 +37,7 @@ function UsersList() {
   const handleClick = async (id) => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/admin/userDetails",
+        "https://medico-server-b7s5.onrender.com/admin/userDetails",
         { id }
       );
       const data = response?.data?.details;
@@ -49,8 +49,8 @@ function UsersList() {
 
   const blockUnblock = async (id) => {
     try {
-      await axios.post("http://localhost:3000/admin/blockUnblock", { id });
-      const res = await axios.post("http://localhost:3000/admin/userDetails", {
+      await axios.post("https://medico-server-b7s5.onrender.com/admin/blockUnblock", { id });
+      const res = await axios.post("https://medico-server-b7s5.onrender.com/admin/userDetails", {
         id,
       });
       setUserData(res?.data?.details);

@@ -59,7 +59,7 @@ function PrescriptionUser() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/medicineDetails?id=${data._id}`)
+      .get(`https://medico-server-b7s5.onrender.com/medicineDetails?id=${data._id}`)
       .then((res) => {
         setMedicine(res?.data?.result);
       })

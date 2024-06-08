@@ -22,7 +22,7 @@ function Notifications() {
     setLoading(true);
     axios
       .get(
-        `http://localhost:3000/getNotifications?id=${id}&page=${currentPage}`,{withCredentials: true}
+        `https://medico-server-b7s5.onrender.com/getNotifications?id=${id}&page=${currentPage}`,{withCredentials: true}
       )
       .then((res) => {
         setNotifications(res?.data?.notifications);

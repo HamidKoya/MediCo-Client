@@ -17,7 +17,7 @@ function MedicalReport() {
 
   const onSubmit = async () => {
     try {
-      const response = await axios.post("http://localhost:3000/doctor/addMedicalReport",{
+      const response = await axios.post("https://medico-server-b7s5.onrender.com/doctor/addMedicalReport",{
         values,
         drName: name,
         userName,

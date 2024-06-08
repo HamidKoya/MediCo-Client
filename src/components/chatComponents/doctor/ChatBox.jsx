@@ -33,7 +33,7 @@ function ChatBox({ chat, currentDoctor, setMessages, messages, socket }) {
     };
     try {
       const { data } = await axios.post(
-        "http://localhost:3000/message/addMsg",
+        "https://medico-server-b7s5.onrender.com/message/addMsg",
         message
       );
       newOne = data;
@@ -52,7 +52,7 @@ function ChatBox({ chat, currentDoctor, setMessages, messages, socket }) {
     const getUserData = async () => {
       try {
         const { data } = await axios.get(
-          `http://localhost:3000/chat/userData/${userId}`
+          `https://medico-server-b7s5.onrender.com/chat/userData/${userId}`
         );
 
         setUserDataa(data);
@@ -67,7 +67,7 @@ function ChatBox({ chat, currentDoctor, setMessages, messages, socket }) {
     const fetchMessages = async () => {
       try {
         const data = await axios.get(
-          `http://localhost:3000/message/getMsg/${chat._id}`
+          `https://medico-server-b7s5.onrender.com/message/getMsg/${chat._id}`
         );
         setMessages(data?.data);
       } catch (error) {

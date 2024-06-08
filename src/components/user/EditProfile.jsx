@@ -32,7 +32,7 @@ function EditProfile() {
     if (validateForm()) {
       setOpen(false);
       try {
-        const res = await axios.post('http://localhost:3000/editProfile', editData);
+        const res = await axios.post('https://medico-server-b7s5.onrender.com/editProfile', editData);
         if (res.status === 200) {
           toast.success('Successfully updated profile');
           dispatch(signInSuccess(res.data));

@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const END_POINT = "http://localhost:3000/";
+const END_POINT = "https://medico-server-b7s5.onrender.com/";
 
 let socket;
 
@@ -22,7 +22,7 @@ function ChatPageDoctor() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/chat/chat/${_id}`)
+      .get(`https://medico-server-b7s5.onrender.com/chat/chat/${_id}`)
       .then((res) => {
         setConversations(res.data);
       })

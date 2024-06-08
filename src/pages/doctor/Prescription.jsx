@@ -103,7 +103,7 @@ function Prescription() {
         return;
       }
 
-      const response = await axios.post("http://localhost:3000/doctor/prescription",{
+      const response = await axios.post("https://medico-server-b7s5.onrender.com/doctor/prescription",{
         medicines,
         note,
         drId: _id,
@@ -136,7 +136,7 @@ function Prescription() {
     } catch (error) {
       e.preventDefault();
 
-      const response = await axios.post("http://localhost:3000/doctor/prescription",{
+      const response = await axios.post("https://medico-server-b7s5.onrender.com/doctor/prescription",{
         medicines,
         note,
         drId: _id,

@@ -30,7 +30,7 @@ function EditProfile() {
     setLoading(true);
     try {
       const response = await axios.post(
-        "http://localhost:3000/doctor/editProfile",
+        "https://medico-server-b7s5.onrender.com/doctor/editProfile",
         { ...values, doctorId }
       );
       dispatch(signInSuccess(response.data));

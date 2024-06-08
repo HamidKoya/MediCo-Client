@@ -12,7 +12,7 @@ function DoctorDetails() {
 
   useEffect(() => {
     axios
-      .post("http://localhost:3000/admin/doctorDetails", { id })
+      .post("https://medico-server-b7s5.onrender.com/admin/doctorDetails", { id })
       .then((res) => {
         setDoctorData(res?.data?.details);
       })
@@ -24,11 +24,11 @@ function DoctorDetails() {
   const handleClick = async (userId) => {
     
     try {
-      await axios.patch("http://localhost:3000/admin/doctorblockUnblock", {
+      await axios.patch("https://medico-server-b7s5.onrender.com/admin/doctorblockUnblock", {
         userId
       });
       const res = await axios.post(
-        "http://localhost:3000/admin/doctorDetails",
+        "https://medico-server-b7s5.onrender.com/admin/doctorDetails",
         { id }
       );
       setDoctorData(res?.data?.details);

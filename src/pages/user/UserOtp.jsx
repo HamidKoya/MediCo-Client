@@ -43,7 +43,7 @@ export default function UserOtp() {
   const onSubmit = async (data) => {
     const enteredValues = data.pin;
     try {
-      const response = await axios.post("http://localhost:3000/otpVerify", {
+      const response = await axios.post("https://medico-server-b7s5.onrender.com/otpVerify", {
         enteredValues,
         userId,
         otpId,
@@ -78,7 +78,7 @@ export default function UserOtp() {
   };
   const resendOtp = async ()=>{
     try {
-      const response = await axios.post('http://localhost:3000/resendOtp',{userId})
+      const response = await axios.post('https://medico-server-b7s5.onrender.com/resendOtp',{userId})
       if(response?.status===200){
         const Toast = Swal.mixin({
           toast:true,

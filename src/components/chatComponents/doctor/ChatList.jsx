@@ -10,7 +10,7 @@ function ChatList({ data, currentDoctorId }) {
     const getUserData = async () => {
       try {
         const { data } = await axios.get(
-          `http://localhost:3000/chat/userData/${userId}`
+          `https://medico-server-b7s5.onrender.com/chat/userData/${userId}`
         );
         setUserDetails(data);
       } catch (error) {

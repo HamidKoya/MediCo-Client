@@ -20,7 +20,7 @@ function ForgotPassword() {
 
     try {
       setLoading(true);
-      const res = await axios.get(`http://localhost:3000/forgotPassword?email=${values.email}`);
+      const res = await axios.get(`https://medico-server-b7s5.onrender.com/forgotPassword?email=${values.email}`);
       setLoading(false);
       if (res.status === 200) {
         Swal.fire({

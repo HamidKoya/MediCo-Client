@@ -41,7 +41,7 @@ function DoctorDetailsPage() {
   const currentTime = getCurrentTime24();
   useEffect(() => {
     axios
-      .post("http://localhost:3000/admin/doctorDetails", { id })
+      .post("https://medico-server-b7s5.onrender.com/admin/doctorDetails", { id })
       .then((response) => {
         setDoctor(response.data.details);
         // setDoctor(response?.data?.details)
@@ -53,7 +53,7 @@ function DoctorDetailsPage() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/getReview?id=${id}`)
+      .get(`https://medico-server-b7s5.onrender.com/getReview?id=${id}`)
       .then((res) => {
         setReview(res?.data?.reviews);
       })
@@ -80,7 +80,7 @@ function DoctorDetailsPage() {
       setDate(date);
 
       const response = await axios.get(
-        `http://localhost:3000/slotList?id=${id}&date=${date}`
+        `https://medico-server-b7s5.onrender.com/slotList?id=${id}&date=${date}`
       );
 
       const availableSlots = response?.data?.availableSlots;
@@ -118,7 +118,7 @@ function DoctorDetailsPage() {
   const handlePayment = async () => {
     try {
       if (select) {
-        const response = await axios.post("http://localhost:3000/makePayment", {
+        const response = await axios.post("https://medico-server-b7s5.onrender.com/makePayment", {
           price,
           id,
           select,
@@ -156,7 +156,7 @@ function DoctorDetailsPage() {
       });
 
       if (result.isConfirmed) {
-        const res = await axios.post("http://localhost:3000/walletPayment", {
+        const res = await axios.post("https://medico-server-b7s5.onrender.com/walletPayment", {
           userId,
           id,
           select,

@@ -64,7 +64,7 @@ function ProfileDoctor() {
     try {
       setLoading(true);
       const response = await axios.post(
-        "http://localhost:3000/doctor/changePhoto",
+        "https://medico-server-b7s5.onrender.com/doctor/changePhoto",
         {
           imageData,
           doctorId,
@@ -94,7 +94,7 @@ function ProfileDoctor() {
     try {
       event.preventDefault(); // Prevent default form submission
       const response = await axios.post(
-        "http://localhost:3000/doctor/slotCreation",
+        "https://medico-server-b7s5.onrender.com/doctor/slotCreation",
         { doctorId, formData }
       );
       if (response?.data?.success === true) {

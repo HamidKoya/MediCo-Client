@@ -16,7 +16,7 @@ function PaymentSuccess() {
   const appointment = async () => {
     try {
       if (success === "true") {
-        await axios.post("http://localhost:3000/makeAppointment",{userId,doctorId,select,date})
+        await axios.post("https://medico-server-b7s5.onrender.com/makeAppointment",{userId,doctorId,select,date})
        
 
         const Toast = Swal.mixin({

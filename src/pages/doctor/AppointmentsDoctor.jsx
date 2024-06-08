@@ -138,7 +138,7 @@ function AppointmentsDoctor() {
       });
       if (result.isConfirmed) {
         const res = await axios.patch(
-          `http://localhost:3000/doctor/markAsDone?id=${appoId}&userId=${userId}`
+          `https://medico-server-b7s5.onrender.com/doctor/markAsDone?id=${appoId}&userId=${userId}`
         );
         if (res.status === 200) {
           if (render === true) {
@@ -185,7 +185,7 @@ function AppointmentsDoctor() {
       }).then(async (result) => {
         if (result.isConfirmed) {
           setOpenModal(false);
-          await axios.patch("http://localhost:3000/doctor/cancelAppointment", {
+          await axios.patch("https://medico-server-b7s5.onrender.com/doctor/cancelAppointment", {
             appoId,
             paymentId,
             userId,
@@ -210,7 +210,7 @@ function AppointmentsDoctor() {
   const handleAccept = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/doctor/createChat",
+        "https://medico-server-b7s5.onrender.com/doctor/createChat",
         { userid: userId, doctorid: doctorId }
       );
       setBtn(true);
@@ -225,7 +225,7 @@ function AppointmentsDoctor() {
     try {
       const { date, startTime, endTime } = values;
       console.log(values);
-      const res = await axios.patch("http://localhost:3000/doctor/reSchedule", {
+      const res = await axios.patch("https://medico-server-b7s5.onrender.com/doctor/reSchedule", {
         date,
         startTime,
         endTime,

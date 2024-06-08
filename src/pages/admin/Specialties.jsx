@@ -42,7 +42,7 @@ function Specialties() {
       console.log("hello world");
       setLoading(true);
       const response = await axios.post(
-        "http://localhost:3000/admin/addSpeciality",
+        "https://medico-server-b7s5.onrender.com/admin/addSpeciality",
         { speciality, photo }
       );
       console.log(response);
@@ -108,7 +108,7 @@ function Specialties() {
   const handleEdit = async (id) => {
     try {
       const response = await axios.patch(
-        "http://localhost:3000/admin/editSpeciality",
+        "https://medico-server-b7s5.onrender.com/admin/editSpeciality",
         { id, edit, photo }
       );
       if (response) {
@@ -143,7 +143,7 @@ function Specialties() {
   const handleList = async (id) => {
     try {
       const response = await axios.patch(
-        `http://localhost:3000/admin/listUnlist?id=${id}`
+        `https://medico-server-b7s5.onrender.com/admin/listUnlist?id=${id}`
       );
       const Toast = Swal.mixin({
         toast: true,
@@ -165,7 +165,7 @@ function Specialties() {
     setLoading(true);
     axios
       .get(
-        `http://localhost:3000/admin/specialityList?currentPage=${currentPage}&limit=${limit}&search=${search}`
+        `https://medico-server-b7s5.onrender.com/admin/specialityList?currentPage=${currentPage}&limit=${limit}&search=${search}`
       )
       .then((response) => {
         setSlist(response?.data?.data);
