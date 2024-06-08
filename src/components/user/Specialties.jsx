@@ -4,7 +4,7 @@ import axios from "axios";
 function Specialties() {
   const [data,setData] = useState([])
   useEffect(()=>{
-    axios.get("http://localhost:3000/specialities").then((response)=>{
+    axios.get("https://medico-server-b7s5.onrender.com/specialities").then((response)=>{
       setData(response.data)
     }).catch((error)=>{
       console.log(error.message);
