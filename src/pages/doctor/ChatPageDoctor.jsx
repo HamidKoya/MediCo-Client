@@ -6,6 +6,9 @@ import { io } from "socket.io-client";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Toaster, toast } from "sonner";
+import api from "@/utils/api";
+
 
 const END_POINT = "https://medico-server-b7s5.onrender.com/";
 
@@ -21,12 +24,13 @@ function ChatPageDoctor() {
   const _id = currentDoctor.doctorData._id;
 
   useEffect(() => {
-    axios
-      .get(`https://medico-server-b7s5.onrender.com/chat/chat/${_id}`)
+    api
+      .get(`/chat/chatdoctor/${_id}`)
       .then((res) => {
         setConversations(res.data);
       })
       .catch((err) => {
+        toast.info(err.response.data.message)
         console.log(err.message);
       });
   }, []);
@@ -79,6 +83,7 @@ function ChatPageDoctor() {
   return (
     <div>
       <Header />
+      <Toaster position="top-center" expand={false} richColors closeButton />
       <div className="bg-blue-50 fixed w-full">
         <div className="min-h-screen bg-blue-50 flex justify-center">
           <div className="min-h-screen bg-blue-50">

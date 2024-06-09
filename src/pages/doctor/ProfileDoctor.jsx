@@ -133,7 +133,7 @@ function ProfileDoctor() {
       <Toaster position="top-center" expand={false} richColors closeButton />
       <Header />
 
-      <div className="bg-blue-50 p-10 flex flex-col justify-center items-center">
+      <div className="bg-blue-50 p-10 flex flex-col justify-center items-center min-h-[600px]">
         {token && (
           <>
             <h1 className="text-xl font-semibold mb-5">Doctor Profile</h1>

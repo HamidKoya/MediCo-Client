@@ -23,13 +23,13 @@ function ChatPage() {
 
   useEffect(() => {
     api
-      .get(`/chat/chat/${userId}`)
+      .get(`/chat/chatuser/${userId}`)
       .then((res) => {
         setConversations(res.data);
       })
       .catch((err) => {
+        console.log(err);
         toast.info(err.response.data.message)
-        console.log(err.message);
       });
   }, []);
 

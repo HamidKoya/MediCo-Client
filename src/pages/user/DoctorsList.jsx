@@ -67,7 +67,7 @@ function DoctorsList() {
     <div>
       <Toaster position="top-center" expand={false} richColors/>
       <Header2 />
-      <div className="bg-[#EBF5FF] h-full">
+      <div className="bg-[#EBF5FF] h-full min-h-[600px]">
         <div className="flex justify-center gap-2 overflow-auto">
           <div>
             {speciality && (

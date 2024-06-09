@@ -77,7 +77,7 @@ function DashboardDoctor() {
     <div>
       <Header />
       <Toaster position="top-center" expand={false} richColors closeButton/>
-      <div className="min-h-screen bg-blue-50">
+      <div className="min-h-[600px] bg-blue-50">
         {token &&
           (loading ? (
             <div className="fixed inset-0 flex items-center justify-center min-h-screen">
