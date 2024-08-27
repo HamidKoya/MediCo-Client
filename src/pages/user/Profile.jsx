@@ -77,7 +77,7 @@ function Profile() {
           {token && (
             <>
               {" "}
-              <div class="flex justify-center items-center flex-col mt-10">
+              <div className="flex justify-center items-center flex-col mt-10">
                 {loading ? (
                   <ScaleLoader color="#36d7b7" height={20} width={5} />
                 ) : (
@@ -85,7 +85,7 @@ function Profile() {
                     onClick={() => fileRef.current.click()}
                     src={currentUser.userData.photo}
                     alt="image"
-                    class="w-20 h-20 rounded-full cursor-pointer ring object-cover"
+                    className="w-20 h-20 rounded-full cursor-pointer ring object-cover"
                   />
                 )}
 

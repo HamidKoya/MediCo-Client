@@ -194,9 +194,9 @@ function DoctorDetailsPage() {
   return (
     <div>
       <Header2 />
-      <div class="flex justify-center items-center bg-blue-50 h-full">
-        <div class="grid sm:grid-cols-2 grid-cols-1 gap-4 my-12">
-          <div class="w-[350px] sm:w-[400px] h-[500px] bg-white shadow-2xl shadow-slate-500 rounded-2xl">
+      <div className="flex justify-center items-center bg-blue-50 h-full">
+        <div className="grid sm:grid-cols-2 grid-cols-1 gap-4 my-12">
+          <div className="w-[350px] sm:w-[400px] h-[500px] bg-white shadow-2xl shadow-slate-500 rounded-2xl">
             <div className="flex flex-col justify-center items-center mt-10 gap-3 mb-3">
               {doctor && (
                 <img
@@ -342,7 +342,7 @@ function DoctorDetailsPage() {
           {slots.length > 0 && select && (
             <div className="">
               <button
-                class="bg-white p-2 rounded-md font-semibold text-purple-700 border border-purple-700 hover:bg-purple-700 hover:text-white active:scale-90"
+                className="bg-white p-2 rounded-md font-semibold text-purple-700 border border-purple-700 hover:bg-purple-700 hover:text-white active:scale-90"
                 onClick={handlePayment}
               >
                 ONLINE PAYMENT

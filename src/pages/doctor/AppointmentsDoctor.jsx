@@ -302,32 +302,32 @@ function AppointmentsDoctor() {
                 Appointment List
               </p>
               <div className="flex justify-center pt-8">
-                <div class="relative  bg-gray-50 h-[400px] overflow-x-auto shadow-md sm:rounded-lg">
-                  <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                    <thead class="text-xs text-gray-700 uppercase bg-green-400 dark:bg-gray-700 dark:text-gray-400">
+                <div className="relative  bg-gray-50 h-[400px] overflow-x-auto shadow-md sm:rounded-lg">
+                  <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                    <thead className="text-xs text-gray-700 uppercase bg-green-400 dark:bg-gray-700 dark:text-gray-400">
                       <tr>
-                        <th scope="col" class="px-6 py-3 text-center">
+                        <th scope="col" className="px-6 py-3 text-center">
                           No
                         </th>
-                        <th scope="col" class="px-6 py-3 text-center">
+                        <th scope="col" className="px-6 py-3 text-center">
                           User
                         </th>
-                        <th scope="col" class="px-6 py-3 text-center">
+                        <th scope="col" className="px-6 py-3 text-center">
                           Appo.Date
                         </th>
-                        <th scope="col" class="px-6 py-3 text-center">
+                        <th scope="col" className="px-6 py-3 text-center">
                           Booked Date
                         </th>
-                        <th scope="col" class="px-6 py-3 text-center">
+                        <th scope="col" className="px-6 py-3 text-center">
                           Starting Time
                         </th>
-                        <th scope="col" class="px-6 py-3 text-center">
+                        <th scope="col" className="px-6 py-3 text-center">
                           Ending Time
                         </th>
-                        <th scope="col" class="px-6 py-3 text-center">
+                        <th scope="col" className="px-6 py-3 text-center">
                           Status
                         </th>
-                        <th scope="col" class="px-6 py-3 text-center">
+                        <th scope="col" className="px-6 py-3 text-center">
                           More
                         </th>
                       </tr>
@@ -336,31 +336,31 @@ function AppointmentsDoctor() {
                       {appo.map((appointment, index) => (
                         <tr
                           key={appointment._id}
-                          class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
+                          className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
                         >
                           <th
                             scope="row"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
+                            className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
                           >
                             {index + 1}
                           </th>
-                          <td class="px-6 py-4 text-center">
+                          <td className="px-6 py-4 text-center">
                             {appointment.userDetails.name}
                           </td>
-                          <td class="px-6 py-4 text-center">
+                          <td className="px-6 py-4 text-center">
                             {appointment.consultationDate}
                           </td>
-                          <td class="px-6 py-4 text-center">
+                          <td className="px-6 py-4 text-center">
                             {appointment.createdAt}
                           </td>
-                          <td class="px-6 py-4 text-center">
+                          <td className="px-6 py-4 text-center">
                             {appointment.start}
                           </td>
-                          <td class="px-6 py-4 text-center">
+                          <td className="px-6 py-4 text-center">
                             {appointment.end}
                           </td>
                           <td
-                            class={`px-6 py-4 text-center ${
+                            className={`px-6 py-4 text-center ${
                               appointment.status === "Done"
                                 ? "text-green-500"
                                 : appointment.status === "Cancelled"
@@ -375,7 +375,7 @@ function AppointmentsDoctor() {
                             {appointment.status}
                           </td>
                           <td
-                            class="px-6 py-4 text-blue-500 font-semibold cursor-pointer"
+                            className="px-6 py-4 text-blue-500 font-semibold cursor-pointer"
                             onClick={() => {
                               setOpenModal(true);
                               handleId(appointment.userDetails._id);
